@@ -32,7 +32,7 @@ export const projects: Project[] = [
     summary:
       "A Python pipeline and Power BI report that turn a raw Apple Health XML export into validated daily activity, cardio, mobility and environment metrics.",
     question:
-      "How do you turn a single, messy, multi-device XML export into daily metrics you can trust in a dashboard?",
+      "How do you get accurate daily numbers out of an Apple Health export that mixes records from a watch and a phone?",
     role: "Independent project · design, pipeline, model, report",
     period: "Built March 2025 · rebuilt for this portfolio October 2026",
     stack: ["Python", "pandas", "ElementTree", "Power BI", "DAX", "pytest"],
@@ -42,7 +42,7 @@ export const projects: Project[] = [
       "Multi-device de-duplication",
       "Data-quality checks",
       "Star-schema model",
-      "Privacy by design",
+      "Personal data kept private",
     ],
     dataNote: "Public charts use a synthetic export. The original personal data stays private.",
     repoPath: "projects/apple-health-analytics",

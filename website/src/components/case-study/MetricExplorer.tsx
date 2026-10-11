@@ -200,7 +200,7 @@ export function MetricExplorer({ metrics, kpis, rows }: Props) {
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-xs text-ink-3">
-            Source: generated weekly.json from the synthetic export. Companion web view, not the native Power BI report.
+            Source: generated weekly.json from the synthetic export. Web version, not the Power BI report itself.
           </p>
           <button
             type="button"

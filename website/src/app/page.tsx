@@ -18,8 +18,8 @@ export default function HomePage() {
         id="projects"
         index="01"
         eyebrow="Selected projects"
-        title="Independent work, documented end to end."
-        intro="Each case study shows the question, the data, the pipeline, the model and the checks behind every number, with the code in the repository."
+        title="Projects I've built on my own."
+        intro="Each write-up covers the question, the data, the code and the checks I ran, with everything in the GitHub repository."
       >
         <div className="space-y-6">
           {projects.map((p, i) => (
@@ -34,8 +34,8 @@ export default function HomePage() {
         id="workflow"
         index="02"
         eyebrow="How I work"
-        title="Four steps between a raw table and a decision."
-        intro="The same sequence runs through my professional reporting and these projects. The tools change; the order of operations doesn't."
+        title="How I approach a reporting project."
+        intro="These are roughly the steps I follow at work and in the projects here."
         className="border-y border-line bg-surface-1/30"
       >
         <Workflow />
@@ -45,7 +45,7 @@ export default function HomePage() {
         id="experience"
         index="03"
         eyebrow="Experience"
-        title="Enterprise BI in a multi-unit manufacturing organization."
+        title="BI and analytics work at Arconic."
       >
         <Experience />
       </Section>
@@ -54,13 +54,13 @@ export default function HomePage() {
         id="skills"
         index="04"
         eyebrow="Toolkit"
-        title="The stack I use every week."
+        title="Tools I work with."
         className="border-y border-line bg-surface-1/30"
       >
         <Skills />
       </Section>
 
-      <Section id="about" index="05" eyebrow="About" title="Analytics engineering, with the business in the room.">
+      <Section id="about" index="05" eyebrow="About" title="A bit about me.">
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
           <Reveal>
             <div className="space-y-5 text-lg leading-relaxed text-ink-2 text-pretty">
@@ -89,8 +89,8 @@ export default function HomePage() {
         id="contact"
         index="06"
         eyebrow="Contact"
-        title="Hiring for BI, analytics engineering or Power BI work?"
-        intro="Email is the quickest way to reach me. I'm also on LinkedIn and GitHub."
+        title="Get in touch."
+        intro="Email is the best way to reach me. I'm also on LinkedIn and GitHub."
         className="border-t border-line"
       >
         <Reveal>

@@ -31,18 +31,18 @@ export const profile = {
     repository: "https://github.com/Billal-Zughbi/data-analytics-portfolio",
   },
   /**
-   * Résumé download. Set to a path under /public (for example "/Billal-Zughbi-Resume.pdf")
-   * after adding a copy without a phone number. While null, the résumé button is hidden.
+   * Résumé download: a path under /public. The PDF must not contain a phone number.
+   * Set to null to hide the button.
    */
-  resumeUrl: null as string | null,
+  resumeUrl: "/Billal-Zughbi-Resume.pdf" as string | null,
 
-  headline: "From raw records to reporting people trust.",
+  headline: "Power BI, SQL and the data models behind them.",
   intro:
-    "I build data models, pipelines and Power BI reporting that replace manual processes and give teams one dependable view of their numbers. SQL, Python, DAX and careful validation are how I get there.",
+    "I'm an analytics engineer at Arconic. I build SQL data models, ETL pipelines and Power BI dashboards, mostly to replace spreadsheet reporting and manual work. Below are my work history and some independent projects, with the code for each.",
   about: [
     "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
     // Written for the site from the résumé themes; edit freely.
-    "Most of the work sits between raw data and a decision: working out the grain, defining each measure precisely, and checking that the number on the dashboard is the number the business means.",
+    "A lot of the job is making sure a number on a dashboard means what people think it means. Usually that comes down to getting the data model right and checking totals against the source before a report goes out.",
   ],
   education: {
     school: "The College of New Jersey",
@@ -98,17 +98,17 @@ export const highlights = [
 export const skills: { group: string; note: string; items: string[] }[] = [
   {
     group: "Business intelligence",
-    note: "Reporting layers people use every day",
+    note: "Dashboards, measures and security",
     items: ["Power BI", "DAX", "Power Query (M)", "Row-Level Security", "Excel"],
   },
   {
     group: "Data & engineering",
-    note: "Models, pipelines and the warehouse underneath",
+    note: "Databases, pipelines and modeling",
     items: ["SQL", "Snowflake", "Microsoft Fabric", "SQL Server", "Python", "ETL/ELT", "Data modeling", "Star schema"],
   },
   {
     group: "Automation & development",
-    note: "Replacing manual steps and shipping changes safely",
+    note: "Automation and version control",
     items: ["Power Automate", "Power Apps", "Git", "Azure DevOps"],
   },
 ];

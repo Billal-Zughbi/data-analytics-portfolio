@@ -55,8 +55,8 @@ had empty sources: a reminder never to ship placeholder actions.
   as the 3D hero and is echoed by the workflow connector, not repeated as decoration everywhere.
 * **Scroll-triggered, once-only reveals** in the style of Noah's prompts, implemented with CSS and an
   IntersectionObserver so content is visible in the HTML and with JavaScript off.
-* **Recruiter path within a minute:** hero → flagship project card with its question → case study "In one
-  minute" block. Depth (pipeline, model, checks, code) sits further down for technical interviewers.
+* **Recruiter path within a minute:** hero → flagship project card with its question → case study "Summary"
+  block. Depth (pipeline, model, checks, code) sits further down for technical interviewers.
 
 ## Original design language
 

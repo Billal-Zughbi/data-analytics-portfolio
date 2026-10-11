@@ -38,7 +38,9 @@ git status && python3 scripts/check_sensitive_files.py
   and labelled as such.
 * **Honesty:** never type metric values into components; read generated outputs. Never claim a Power BI file,
   test, build or deployment exists or passed unless it was produced or run. Mark synthetic data as synthetic.
-* **Personal content:** only from the résumé; no phone number on the site.
+* **Personal content:** only from the résumé; no phone number on the site or in the published résumé PDF.
+* **Voice:** plain first-person sentences. No slogans, aphorisms or buzzwords; Billal does not want copy that
+  sounds machine-written.
 * **Design:** use the tokens in `website/src/app/globals.css` and the existing components; keep the validated
   chart palette (`--series-1..3`); content must never depend on animation or hover.
 * After each milestone run the relevant tests and `git status`; review staged files before pushing.

@@ -118,13 +118,13 @@ export default function AppleHealthCaseStudy() {
         </nav>
 
         <div className="min-w-0">
-          <Block id="overview" index="01" title="In one minute">
+          <Block id="overview" index="01" title="Summary">
             <ul className="grid gap-4 sm:grid-cols-2">
               {[
-                ["The problem", "Apple Health exports everything as one large XML file: dozens of record types, several devices, overlapping and duplicate records."],
-                ["What I built", "A Python pipeline that streams the XML into tidy records, applies an explicit daily rule per metric, and feeds a star-schema Power BI model with DAX measures written to match those rules."],
-                ["What the rebuild makes explicit", "Rates are averaged and never summed, watch and phone steps are de-duplicated, and sound levels use an energy average. The original report left these to Power BI defaults."],
-                ["How it stays private", "The real export, extracted CSVs, the .pbix and its screenshots are never published. This page runs on a generated synthetic export."],
+                ["The problem", "Apple Health exports everything as one large XML file, with dozens of record types from several devices and plenty of overlapping and duplicate records."],
+                ["What I built", "A Python pipeline that reads the XML, cleans it, and rolls each metric up to one value per day using a rule chosen for that metric. It feeds a star-schema Power BI model with DAX measures that follow the same rules."],
+                ["What changed in the rebuild", "Rates like heart rate are averaged instead of added up, steps logged by both the watch and the phone are counted once, and sound levels use a proper decibel average. The original report relied on Power BI's default aggregations for these."],
+                ["Privacy", "The real export, the CSVs, the .pbix file and its screenshots aren't published. Everything on this page comes from a synthetic export I generated."],
               ].map(([h, b]) => (
                 <li key={h} className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-5">
                   <p className="font-semibold text-ink-1">{h}</p>
@@ -146,8 +146,8 @@ export default function AppleHealthCaseStudy() {
               <strong>how should each metric be rolled up</strong> when steps add up but heart rate does not.
             </p>
             <p>
-              I first built the project in March 2025 as a Python extraction script and a Power BI report. For this portfolio I
-              audited that work and rebuilt the pipeline so those decisions are explicit, tested and documented.
+              I first built this in March 2025 as a Python extraction script and a Power BI report. For this portfolio I went back
+              through it and rebuilt the pipeline so each of those decisions is written down and tested.
             </p>
           </Block>
 
@@ -176,12 +176,12 @@ export default function AppleHealthCaseStudy() {
               The public demonstration uses a <strong>synthetic export</strong> written by the project&apos;s own generator: a fictional,
               moderately active adult over {summary.period.days} days in {summary.period.start.slice(0, 4)}, with{" "}
               {n(summary.generator.records)} records. Its parameters are round, hand-picked values, not fitted to anyone&apos;s data.
-              It deliberately includes the messy parts a real export has: overlapping watch and phone records, a stretch of
+              I also built in the kinds of problems a real export has: overlapping watch and phone records, a stretch of
               walking speed logged in km/h, a duplicated day from a merged backup, and a few sensor glitches.
             </p>
             <p className="text-sm text-ink-3">
-              De-identification is not anonymity. Even daily aggregates of a real person&apos;s data can be identifying, which is
-              why none are published here.
+              Removing names isn&apos;t enough to make health data anonymous. Even daily totals from a real person can identify them,
+              so none are published here.
             </p>
           </Block>
 
@@ -247,11 +247,11 @@ export default function AppleHealthCaseStudy() {
             </div>
           </Block>
 
-          <Block id="dashboard" index="06" title="The dashboard, as a web companion">
+          <Block id="dashboard" index="06" title="Dashboard (web version)">
             <p>
               The original Power BI report has four pages: Energy and Activity, Cardiovascular, Mobility and Movement, and Physical and
-              Environmental. Below is a web recreation of the same structure, driven by the pipeline&apos;s generated output. It is a
-              companion view, <strong>not the native Power BI report</strong>, and every value is synthetic.
+              Environmental. Below is a web version of the same layout, built from the pipeline&apos;s output. It
+              isn&apos;t <strong>the Power BI report itself</strong>, and every value is synthetic.
             </p>
             <MetricExplorer metrics={summary.metrics} kpis={summary.kpis} rows={weekly} />
           </Block>
@@ -265,9 +265,9 @@ export default function AppleHealthCaseStudy() {
               rather than daily totals unless the rows were already one per day.
             </p>
             <p>
-              The extracted CSVs do hold several readings per day for these metrics, some from two devices. The rebuild
-              review read the report&apos;s layout but not its compressed data model, so whether Power Query reduced readings to
-              one per day before those visuals is not yet confirmed. The rebuild removes the question by fixing each metric&apos;s daily rule
+              The extracted CSVs do hold several readings per day for these metrics, some from two devices. My review covered
+              the report&apos;s layout but not its compressed data model, so I haven&apos;t confirmed yet whether Power Query reduced
+              readings to one per day before those visuals. The rebuild avoids the issue by setting each metric&apos;s daily rule
               in the pipeline. The synthetic data reproduces the risky conditions, so the size of each effect can be shown
               without real data:
             </p>
@@ -302,7 +302,7 @@ export default function AppleHealthCaseStudy() {
 
           <Block id="quality" index="08" title="Validation and data quality">
             <p>
-              The quality step reports what it found instead of silently fixing it. Results for the synthetic export (
+              The quality step counts every problem it finds, so nothing gets fixed without a record of it. Results for the synthetic export (
               {n(q.records_total)} records):
             </p>
             <ul className="grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line sm:grid-cols-2">
@@ -311,8 +311,8 @@ export default function AppleHealthCaseStudy() {
                 [checks.overlap_records_removed, "overlapping device records set aside", "Same metric-hour from watch and phone"],
                 [checks.unit_converted, "records converted to a canonical unit", "Walking speed logged in km/h"],
                 [checks.out_of_range, "out-of-range readings excluded", "Heart-rate glitches above 230 bpm"],
-                [checks.unit_rejected, "records with an unknown unit", "Rejected, never guessed"],
-                [checks.days_without_watch_data ?? 0, "days without watch data", "Kept as blanks, not zeros"],
+                [checks.unit_rejected, "records with an unknown unit", "Rejected rather than guessed"],
+                [checks.days_without_watch_data ?? 0, "days without watch data", "Left blank instead of zero"],
               ].map(([value, label, note]) => (
                 <li key={label as string} className="flex gap-3 bg-surface-1 p-4">
                   <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-good" />
@@ -326,7 +326,7 @@ export default function AppleHealthCaseStudy() {
               ))}
             </ul>
             <p>
-              An automated <strong>pytest</strong> suite checks the rules themselves against a hand-written fixture: watch-over-phone
+              A <strong>pytest</strong> suite tests these rules against a small hand-written export: watch-over-phone
               de-duplication, means instead of sums for rates, the decibel energy average, unit conversion and rejection, local-day
               assignment across time zones, determinism of the generator, that public outputs carry no device names or record-level
               timestamps, and that the Power BI tables join without fan-out and reconcile with the daily table.
@@ -399,7 +399,7 @@ export default function AppleHealthCaseStudy() {
             <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[13px] leading-relaxed text-ink-2">
 {`cd ${base}
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python -m pytest                       # rule and contract tests
 PYTHONPATH=src python -m apple_health demo   # synthetic export → site data + Power BI tables`}
             </pre>

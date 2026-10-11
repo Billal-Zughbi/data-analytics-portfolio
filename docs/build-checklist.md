@@ -22,7 +22,7 @@ Status as of 11 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Lint, typecheck, build, site tests | ✓ | All pass locally; CI workflow runs the same |
 | Responsive checks (390 / 768 / 1440 px) | ✓ | No horizontal overflow; screenshots reviewed |
 | Deployment | ○ | Not deployed. See README "Deploy" |
-| Résumé download | ○ | Hidden until a copy without the phone number is added (`profile.resumeUrl`) |
+| Résumé download | ✓ | Copy without a phone number at `website/public/Billal-Zughbi-Resume.pdf` |
 
 ## Stage 2: two new analytics projects
 
