@@ -46,7 +46,7 @@ export function Hero() {
         className="pointer-events-none absolute -right-40 top-10 h-[520px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(79_216_255/0.10),transparent)] blur-2xl"
       />
 
-      <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-14 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-0 lg:pb-28 lg:pt-16">
+      <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-14 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:gap-0 lg:pb-28 lg:pt-16">
         <div className="relative z-10 max-w-xl">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
             {profile.title} · {profile.location}
@@ -59,7 +59,7 @@ export function Hero() {
           </p>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-2 text-pretty sm:text-lg">{profile.intro}</p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-9 flex flex-wrap items-center gap-2.5">
             <Link
               href="/#projects"
               className="glow-accent group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-bg transition-transform duration-300 hover:-translate-y-0.5"
@@ -83,7 +83,7 @@ export function Hero() {
             </a>
             <a
               href={profile.links.github}
-              className="inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium text-ink-1 transition-colors hover:border-accent"
             >
               GitHub <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
             </a>
