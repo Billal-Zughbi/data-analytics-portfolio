@@ -1,0 +1,248 @@
+# =============================================================================
+# data-analytics-portfolio .gitignore
+# Covers: Next.js website, Python analytics, Power BI, local datasets,
+# build artifacts, credentials and environment files.
+#
+# PRIVACY RULE: raw Apple Health exports and any identifiable health records
+# must never be committed. Only sanitized aggregates belong in git.
+# Run `python3 scripts/check_sensitive_files.py` before every push.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Secrets, credentials and environment files
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.env
+.envrc
+.secrets
+secrets/
+credentials/
+*credentials*.json
+*service-account*.json
+client_secret*.json
+token.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+.netrc
+.npmrc
+.pypirc
+.aws/
+.azure/
+.gcloud/
+*.kdbx
+# Database / warehouse connection profiles
+profiles.yml
+.dbt/
+snowflake*.config
+*.dsn
+*.udl
+*.odc
+
+# -----------------------------------------------------------------------------
+# Apple Health: raw exports and personal health information (NEVER commit)
+# -----------------------------------------------------------------------------
+export.zip
+apple_health_export/
+**/apple_health_export/
+export.xml
+export_cda.xml
+**/export.xml
+**/export_cda.xml
+**/workout-routes/
+*.gpx
+**/electrocardiograms/
+**/ecg_*.csv
+**/clinical-records/
+**/clinical_records/
+*.fhir.json
+# Project-local raw / intermediate data stays on your machine
+projects/**/data/raw/
+projects/**/data/interim/
+projects/**/data/private/
+projects/**/data/personal/
+
+# -----------------------------------------------------------------------------
+# Local datasets (opt-in: only sanitized/ and sample/ folders are tracked)
+# -----------------------------------------------------------------------------
+data/
+datasets/
+*.parquet
+*.feather
+*.arrow
+*.avro
+*.orc
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.npy
+*.npz
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+*.duckdb.wal
+*.mdb
+*.accdb
+*.sav
+*.dta
+*.xlsx
+*.xlsm
+*.xlsb
+*.xls
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.bz2
+*.rar
+# Re-include the folders that hold public-safe outputs
+!projects/**/data/
+projects/**/data/*
+!projects/**/data/sanitized/
+!projects/**/data/sample/
+!projects/**/data/README.md
+# Website content data (resume text and the aggregate-only health summary)
+!website/src/data/
+
+# -----------------------------------------------------------------------------
+# Power BI
+# .pbix/.pbit files embed imported data, so they are ignored by default.
+# Use the Power BI Project format (.pbip) for version control instead.
+# -----------------------------------------------------------------------------
+*.pbix
+*.pbit
+*.abf
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+*.SemanticModel/.pbi/localSettings.json
+*.SemanticModel/.pbi/cache.abf
+*.Report/.pbi/localSettings.json
+*.Dataset/.pbi/localSettings.json
+*.Dataset/.pbi/cache.abf
+# Tabular Editor / DAX Studio / ALM Toolkit local files
+*.tmuo
+*.vpax
+*.vpa
+*.dax.backup
+
+# -----------------------------------------------------------------------------
+# Next.js / Node
+# -----------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.next/
+out/
+build/
+dist/
+.vercel/
+.netlify/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+.stylelintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+coverage/
+.nyc_output/
+storybook-static/
+playwright-report/
+test-results/
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.python-version
+pip-wheel-metadata/
+*.egg-info/
+*.egg
+.eggs/
+.installed.cfg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+.ipynb_checkpoints/
+*.ipynb_meta
+.dmypy.json
+dmypy.json
+.cache/
+mlruns/
+wandb/
+
+# -----------------------------------------------------------------------------
+# Logs, temp files and large media
+# -----------------------------------------------------------------------------
+logs/
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+tmp/
+temp/
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# -----------------------------------------------------------------------------
+# OS and editor files
+# -----------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+.history/

@@ -1,0 +1,85 @@
+// Apple Health Analytics: DAX measures
+// Model: fact_daily_metric (date, metric, value, record_count)
+//        dim_metric (metric -> label, category, unit, daily_aggregation)
+//        dim_date   (date -> year, quarter, month, week, day_of_week, is_weekend)
+// Relationships: fact_daily_metric[date] -> dim_date[date] (many-to-one, single)
+//                fact_daily_metric[metric] -> dim_metric[metric] (many-to-one, single)
+// Mark dim_date as the date table.
+
+// ---- Base -------------------------------------------------------------------
+Metric Value =
+    // Daily-grain value for whichever metric is in filter context.
+    // Sum-type metrics (steps, kcal) average their daily totals across a period;
+    // mean-type metrics (heart rate) average their daily means.
+    AVERAGE ( fact_daily_metric[value] )
+
+Days With Data =
+    DISTINCTCOUNT ( fact_daily_metric[date] )
+
+Records Captured =
+    SUM ( fact_daily_metric[record_count] )
+
+// ---- Metric helpers ---------------------------------------------------------
+Avg Daily Steps =
+    CALCULATE ( [Metric Value], dim_metric[metric] = "steps" )
+
+Avg Resting HR =
+    CALCULATE ( [Metric Value], dim_metric[metric] = "resting_heart_rate" )
+
+Avg HRV (ms) =
+    CALCULATE ( [Metric Value], dim_metric[metric] = "hrv_sdnn" )
+
+Avg Exercise Minutes =
+    CALCULATE ( [Metric Value], dim_metric[metric] = "exercise_minutes" )
+
+Avg Daylight Minutes =
+    CALCULATE ( [Metric Value], dim_metric[metric] = "daylight_minutes" )
+
+// ---- Goals and consistency --------------------------------------------------
+Step Goal = 10000
+
+Days Meeting Step Goal =
+    VAR StepDays =
+        FILTER (
+            CALCULATETABLE ( fact_daily_metric, dim_metric[metric] = "steps" ),
+            fact_daily_metric[value] >= [Step Goal]
+        )
+    RETURN COUNTROWS ( StepDays )
+
+% Days Meeting Step Goal =
+    DIVIDE (
+        [Days Meeting Step Goal],
+        CALCULATE ( [Days With Data], dim_metric[metric] = "steps" )
+    )
+
+// ---- Trends -----------------------------------------------------------------
+Resting HR 30D Rolling =
+    VAR LastDay = MAX ( dim_date[date] )
+    RETURN
+        CALCULATE (
+            [Avg Resting HR],
+            DATESINPERIOD ( dim_date[date], LastDay, -30, DAY )
+        )
+
+Steps 7D Rolling =
+    VAR LastDay = MAX ( dim_date[date] )
+    RETURN
+        CALCULATE (
+            [Avg Daily Steps],
+            DATESINPERIOD ( dim_date[date], LastDay, -7, DAY )
+        )
+
+Resting HR vs Prior Year =
+    VAR Curr = [Avg Resting HR]
+    VAR Prior = CALCULATE ( [Avg Resting HR], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+    RETURN IF ( NOT ISBLANK ( Prior ), Curr - Prior )
+
+Steps YoY % =
+    VAR Curr = [Avg Daily Steps]
+    VAR Prior = CALCULATE ( [Avg Daily Steps], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+    RETURN DIVIDE ( Curr - Prior, Prior )
+
+Weekend vs Weekday Steps =
+    VAR Weekend = CALCULATE ( [Avg Daily Steps], dim_date[is_weekend] = TRUE () )
+    VAR Weekday = CALCULATE ( [Avg Daily Steps], dim_date[is_weekend] = FALSE () )
+    RETURN DIVIDE ( Weekend - Weekday, Weekday )

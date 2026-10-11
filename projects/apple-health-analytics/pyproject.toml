@@ -1,0 +1,10 @@
+[project]
+name = "apple-health-analytics"
+version = "0.1.0"
+description = "Apple Health export to sanitized, Power BI-ready daily metrics"
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.2"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
