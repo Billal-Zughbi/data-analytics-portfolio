@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { Portrait } from "@/components/home/Portrait";
 import { Workflow } from "@/components/home/Workflow";
 import { Experience } from "@/components/home/Experience";
 import { Skills } from "@/components/home/Skills";
@@ -61,26 +62,29 @@ export default function HomePage() {
       </Section>
 
       <Section id="about" index="05" eyebrow="About" title="A bit about me.">
-        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
           <Reveal>
+            <Portrait />
+          </Reveal>
+          <Reveal delay={0.1}>
             <div className="space-y-5 text-lg leading-relaxed text-ink-2 text-pretty">
               {profile.about.map((p) => (
                 <p key={p.slice(0, 24)}>{p}</p>
               ))}
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-6">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Education</p>
-              <p className="mt-3 font-semibold">{profile.education.degree}</p>
-              <p className="text-ink-2">{profile.education.school}</p>
-              <p className="mt-1 text-sm text-ink-3">
-                {profile.education.location} · {profile.education.date}
-              </p>
-              <div className="node-rule my-6" aria-hidden />
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Based in</p>
-              <p className="mt-3 text-ink-2">{profile.location}</p>
-            </div>
+            <div className="node-rule my-8" aria-hidden />
+            <dl>
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Education</dt>
+                <dd className="mt-3">
+                  <p className="font-semibold text-ink-1">{profile.education.degree}</p>
+                  <p className="text-ink-2">{profile.education.school}</p>
+                  <p className="mt-1 text-sm text-ink-3">
+                    {profile.education.location} · {profile.education.date}
+                  </p>
+                </dd>
+              </div>
+            </dl>
           </Reveal>
         </div>
       </Section>
