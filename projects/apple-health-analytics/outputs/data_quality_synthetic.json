@@ -1,0 +1,278 @@
+{
+ "records_total": 72288,
+ "metrics_present": 16,
+ "date_range": {
+  "start": "2025-01-01",
+  "end": "2025-12-31",
+  "days": 365
+ },
+ "checks": {
+  "exact_duplicates": 363,
+  "unit_rejected": 0,
+  "unit_converted": 126,
+  "out_of_range": 3,
+  "negative_duration": 0,
+  "overlap_records_removed": 7725,
+  "days_without_watch_data": 7
+ },
+ "by_metric": [
+  {
+   "metric": "active_energy_kcal",
+   "label": "Active energy",
+   "records": 5760,
+   "units": {
+    "kcal": 5760
+   },
+   "devices": {
+    "watch": 5760
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "sum"
+  },
+  {
+   "metric": "exercise_min",
+   "label": "Exercise time",
+   "records": 500,
+   "units": {
+    "min": 500
+   },
+   "devices": {
+    "watch": 500
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "sum"
+  },
+  {
+   "metric": "stand_hours",
+   "label": "Stand hours",
+   "records": 6352,
+   "units": {
+    "(none)": 6352
+   },
+   "devices": {
+    "watch": 6352
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "stood_hours"
+  },
+  {
+   "metric": "flights_climbed",
+   "label": "Flights climbed",
+   "records": 2320,
+   "units": {
+    "count": 2320
+   },
+   "devices": {
+    "watch": 1439,
+    "phone": 881
+   },
+   "out_of_range": 0,
+   "day_coverage": 1.0,
+   "aggregation": "sum"
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "label": "Heart rate",
+   "records": 18316,
+   "units": {
+    "count/min": 18316
+   },
+   "devices": {
+    "watch": 18316
+   },
+   "out_of_range": 3,
+   "day_coverage": 0.9808,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "label": "Resting heart rate",
+   "records": 409,
+   "units": {
+    "count/min": 409
+   },
+   "devices": {
+    "watch": 409
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "walking_hr_bpm",
+   "label": "Walking heart rate average",
+   "records": 360,
+   "units": {
+    "count/min": 360
+   },
+   "devices": {
+    "watch": 360
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "hrv_sdnn_ms",
+   "label": "Heart rate variability (SDNN)",
+   "records": 1253,
+   "units": {
+    "ms": 1253
+   },
+   "devices": {
+    "watch": 1253
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "vo2max",
+   "label": "VO2 max estimate",
+   "records": 90,
+   "units": {
+    "mL/min·kg": 90
+   },
+   "devices": {
+    "watch": 90
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.2438,
+   "aggregation": "last"
+  },
+  {
+   "metric": "steps",
+   "label": "Steps",
+   "records": 9331,
+   "units": {
+    "count": 9331
+   },
+   "devices": {
+    "watch": 5760,
+    "phone": 3571
+   },
+   "out_of_range": 0,
+   "day_coverage": 1.0,
+   "aggregation": "sum"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "label": "Walking + running distance",
+   "records": 9331,
+   "units": {
+    "mi": 9331
+   },
+   "devices": {
+    "watch": 5760,
+    "phone": 3571
+   },
+   "out_of_range": 0,
+   "day_coverage": 1.0,
+   "aggregation": "sum"
+  },
+  {
+   "metric": "walking_speed_mph",
+   "label": "Walking speed",
+   "records": 2197,
+   "units": {
+    "mi/hr": 2071,
+    "km/hr": 126
+   },
+   "devices": {
+    "phone": 2197
+   },
+   "out_of_range": 0,
+   "day_coverage": 1.0,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "step_length_in",
+   "label": "Walking step length",
+   "records": 2197,
+   "units": {
+    "in": 2197
+   },
+   "devices": {
+    "phone": 2197
+   },
+   "out_of_range": 0,
+   "day_coverage": 1.0,
+   "aggregation": "mean"
+  },
+  {
+   "metric": "env_audio_dba",
+   "label": "Environmental sound level",
+   "records": 4169,
+   "units": {
+    "dBASPL": 4169
+   },
+   "devices": {
+    "watch": 4169
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "energy_mean"
+  },
+  {
+   "metric": "headphone_audio_dba",
+   "label": "Headphone audio level",
+   "records": 718,
+   "units": {
+    "dBASPL": 718
+   },
+   "devices": {
+    "phone": 718
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.8027,
+   "aggregation": "energy_mean"
+  },
+  {
+   "metric": "physical_effort",
+   "label": "Physical effort",
+   "records": 8985,
+   "units": {
+    "kcal/hr·kg": 8985
+   },
+   "devices": {
+    "watch": 8985
+   },
+   "out_of_range": 0,
+   "day_coverage": 0.9808,
+   "aggregation": "mean"
+  }
+ ],
+ "transform": {
+  "unit_rejected": 0,
+  "exact_duplicates_removed": 363,
+  "out_of_range_excluded": 3,
+  "overlap_records_removed": 7725,
+  "overlap_by_metric": {
+   "flights_climbed": 841,
+   "steps": 3442,
+   "distance_walk_run_mi": 3442
+  },
+  "days": 365,
+  "samples_per_metric": {
+   "active_energy_kcal": 5728,
+   "exercise_min": 498,
+   "stand_hours": 6316,
+   "flights_climbed": 1470,
+   "heart_rate_bpm": 18229,
+   "resting_hr_bpm": 407,
+   "walking_hr_bpm": 358,
+   "hrv_sdnn_ms": 1243,
+   "vo2max": 89,
+   "steps": 5840,
+   "distance_walk_run_mi": 5840,
+   "walking_speed_mph": 2184,
+   "step_length_in": 2184,
+   "env_audio_dba": 4150,
+   "headphone_audio_dba": 714,
+   "physical_effort": 8947
+  }
+ }
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-written test fixture. Fictional values, generic device names. -->
+<HealthData locale="en_US">
+  <ExportDate value="2025-01-03 00:00:00 -0500"/>
+  <!-- Day 1: watch and phone both count the same 08:00 walk -->
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Test Watch" unit="count" creationDate="2025-01-01 08:30:00 -0500" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 08:30:00 -0500" value="1000"/>
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Test iPhone" unit="count" creationDate="2025-01-01 08:30:00 -0500" startDate="2025-01-01 08:05:00 -0500" endDate="2025-01-01 08:30:00 -0500" value="900"/>
+  <!-- Phone-only hour: kept, because no watch record competes for it -->
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Test iPhone" unit="count" creationDate="2025-01-01 12:30:00 -0500" startDate="2025-01-01 12:00:00 -0500" endDate="2025-01-01 12:30:00 -0500" value="500"/>
+  <!-- Exact duplicate of the 08:00 watch record (merged backup) -->
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Test Watch" unit="count" creationDate="2025-01-01 08:30:00 -0500" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 08:30:00 -0500" value="1000"/>
+  <!-- Two resting HR estimates on one day: daily value is their mean (60), never their sum (120) -->
+  <Record type="HKQuantityTypeIdentifierRestingHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-01 07:00:00 -0500" startDate="2025-01-01 06:00:00 -0500" endDate="2025-01-01 07:00:00 -0500" value="58"/>
+  <Record type="HKQuantityTypeIdentifierRestingHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-01 17:00:00 -0500" startDate="2025-01-01 16:00:00 -0500" endDate="2025-01-01 17:00:00 -0500" value="62"/>
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-01 09:00:00 -0500" startDate="2025-01-01 09:00:00 -0500" endDate="2025-01-01 09:00:00 -0500" value="80"/>
+  <!-- Sensor glitch: outside the plausible range, excluded and counted -->
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-01 03:00:00 -0500" startDate="2025-01-01 03:00:00 -0500" endDate="2025-01-01 03:00:00 -0500" value="251"/>
+  <!-- Sound: 60 dB and 80 dB for equal durations. Energy mean is 77.03 dB, arithmetic mean is 70 dB -->
+  <Record type="HKQuantityTypeIdentifierEnvironmentalAudioExposure" sourceName="Test Watch" unit="dBASPL" creationDate="2025-01-01 10:30:00 -0500" startDate="2025-01-01 10:00:00 -0500" endDate="2025-01-01 10:30:00 -0500" value="60"/>
+  <Record type="HKQuantityTypeIdentifierEnvironmentalAudioExposure" sourceName="Test Watch" unit="dBASPL" creationDate="2025-01-01 11:30:00 -0500" startDate="2025-01-01 11:00:00 -0500" endDate="2025-01-01 11:30:00 -0500" value="80"/>
+  <!-- Stand hours: two stood hours (one recorded twice), one idle -->
+  <Record type="HKCategoryTypeIdentifierAppleStandHour" sourceName="Test Watch" creationDate="2025-01-01 09:00:00 -0500" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 09:00:00 -0500" value="HKCategoryValueAppleStandHourStood"/>
+  <Record type="HKCategoryTypeIdentifierAppleStandHour" sourceName="Test Watch" creationDate="2025-01-01 09:01:00 -0500" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 09:00:00 -0500" value="HKCategoryValueAppleStandHourStood"/>
+  <Record type="HKCategoryTypeIdentifierAppleStandHour" sourceName="Test Watch" creationDate="2025-01-01 10:00:00 -0500" startDate="2025-01-01 09:00:00 -0500" endDate="2025-01-01 10:00:00 -0500" value="HKCategoryValueAppleStandHourIdle"/>
+  <Record type="HKCategoryTypeIdentifierAppleStandHour" sourceName="Test Watch" creationDate="2025-01-01 13:00:00 -0500" startDate="2025-01-01 12:00:00 -0500" endDate="2025-01-01 13:00:00 -0500" value="HKCategoryValueAppleStandHourStood"/>
+  <!-- Walking speed in km/hr: converted to mph -->
+  <Record type="HKQuantityTypeIdentifierWalkingSpeed" sourceName="Test iPhone" unit="km/hr" creationDate="2025-01-01 08:30:00 -0500" startDate="2025-01-01 08:10:00 -0500" endDate="2025-01-01 08:20:00 -0500" value="5"/>
+  <!-- Unknown unit: rejected and reported, never guessed -->
+  <Record type="HKQuantityTypeIdentifierWalkingSpeed" sourceName="Test iPhone" unit="furlong/fortnight" creationDate="2025-01-01 09:30:00 -0500" startDate="2025-01-01 09:10:00 -0500" endDate="2025-01-01 09:20:00 -0500" value="5"/>
+  <!-- VO2 max: last reading of the day wins -->
+  <Record type="HKQuantityTypeIdentifierVO2Max" sourceName="Test Watch" unit="mL/min·kg" creationDate="2025-01-01 18:00:00 -0500" startDate="2025-01-01 18:00:00 -0500" endDate="2025-01-01 18:00:00 -0500" value="40.0"/>
+  <Record type="HKQuantityTypeIdentifierVO2Max" sourceName="Test Watch" unit="mL/min·kg" creationDate="2025-01-01 19:00:00 -0500" startDate="2025-01-01 19:00:00 -0500" endDate="2025-01-01 19:00:00 -0500" value="41.0"/>
+  <!-- Day 2, late evening in a different offset: stays on its local day -->
+  <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Test Watch" unit="count" creationDate="2025-01-02 23:50:00 -0800" startDate="2025-01-02 23:30:00 -0800" endDate="2025-01-02 23:50:00 -0800" value="300"/>
+  <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-02 23:40:00 -0800" startDate="2025-01-02 23:40:00 -0800" endDate="2025-01-02 23:40:00 -0800" value="70"/>
+  <!-- A type the daily model does not use: ignored by the default extractor -->
+  <Record type="HKQuantityTypeIdentifierBodyMass" sourceName="Test iPhone" unit="lb" creationDate="2025-01-02 07:00:00 -0500" startDate="2025-01-02 07:00:00 -0500" endDate="2025-01-02 07:00:00 -0500" value="170"/>
+</HealthData>

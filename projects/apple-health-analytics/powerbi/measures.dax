@@ -1,85 +1,149 @@
-// Apple Health Analytics: DAX measures
-// Model: fact_daily_metric (date, metric, value, record_count)
-//        dim_metric (metric -> label, category, unit, daily_aggregation)
-//        dim_date   (date -> year, quarter, month, week, day_of_week, is_weekend)
-// Relationships: fact_daily_metric[date] -> dim_date[date] (many-to-one, single)
-//                fact_daily_metric[metric] -> dim_metric[metric] (many-to-one, single)
-// Mark dim_date as the date table.
+// Apple Health Analytics: DAX measures for the rebuilt model
+// ------------------------------------------------------------------
+// Model (load with powerquery.m, tables in ../data/sample/):
+//   fact_daily_metric  date, metric, value       grain: date × metric
+//   dim_metric         metric, label, group, unit, daily_aggregation, hk_type
+//   dim_date           date, year, quarter, month, month_name, iso_week,
+//                      week_start, day_of_week, day_name, is_weekend
+// Relationships (both many-to-one, single direction):
+//   fact_daily_metric[date]   -> dim_date[date]
+//   fact_daily_metric[metric] -> dim_metric[metric]
+// Mark dim_date as the date table. Set dim_date[month_name] to sort by month.
+//
+// Rule: every fact value is already the correct DAILY value for its metric
+// (total, mean, energy average, last reading or distinct stood hours; see
+// dim_metric[daily_aggregation]). Measures below therefore only ever average
+// daily values across days, or take the latest one. No measure sums a rate.
+//
+// Status: written against the CSV schema. test_pipeline.py checks that the CSV
+// tables join without fan-out and reconcile with the Python daily table. The
+// DAX itself has not been run in Power BI Desktop yet; README.md lists the
+// values each measure should return on the synthetic sample.
 
-// ---- Base -------------------------------------------------------------------
-Metric Value =
-    // Daily-grain value for whichever metric is in filter context.
-    // Sum-type metrics (steps, kcal) average their daily totals across a period;
-    // mean-type metrics (heart rate) average their daily means.
-    AVERAGE ( fact_daily_metric[value] )
+// ---- Base -----------------------------------------------------------------
 
 Days With Data =
     DISTINCTCOUNT ( fact_daily_metric[date] )
 
-Records Captured =
-    SUM ( fact_daily_metric[record_count] )
-
-// ---- Metric helpers ---------------------------------------------------------
-Avg Daily Steps =
-    CALCULATE ( [Metric Value], dim_metric[metric] = "steps" )
-
-Avg Resting HR =
-    CALCULATE ( [Metric Value], dim_metric[metric] = "resting_heart_rate" )
-
-Avg HRV (ms) =
-    CALCULATE ( [Metric Value], dim_metric[metric] = "hrv_sdnn" )
-
-Avg Exercise Minutes =
-    CALCULATE ( [Metric Value], dim_metric[metric] = "exercise_minutes" )
-
-Avg Daylight Minutes =
-    CALCULATE ( [Metric Value], dim_metric[metric] = "daylight_minutes" )
-
-// ---- Goals and consistency --------------------------------------------------
-Step Goal = 10000
-
-Days Meeting Step Goal =
-    VAR StepDays =
-        FILTER (
-            CALCULATETABLE ( fact_daily_metric, dim_metric[metric] = "steps" ),
-            fact_daily_metric[value] >= [Step Goal]
-        )
-    RETURN COUNTROWS ( StepDays )
-
-% Days Meeting Step Goal =
-    DIVIDE (
-        [Days Meeting Step Goal],
-        CALCULATE ( [Days With Data], dim_metric[metric] = "steps" )
+// Average of daily values for the metric in filter context. Only meaningful
+// when exactly one metric is selected, so it returns blank otherwise.
+Daily Value =
+    IF (
+        HASONEVALUE ( dim_metric[metric] ),
+        AVERAGE ( fact_daily_metric[value] )
     )
 
-// ---- Trends -----------------------------------------------------------------
+// ---- Energy and activity ----------------------------------------------------
+
+Avg Daily Active Energy (kcal) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "active_energy_kcal" )
+
+Avg Daily Exercise (min) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "exercise_min" )
+
+Total Exercise (min) =
+    CALCULATE ( SUM ( fact_daily_metric[value] ), dim_metric[metric] = "exercise_min" )
+
+Avg Stand Hours =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "stand_hours" )
+
+Avg Daily Flights Climbed =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "flights_climbed" )
+
+// ---- Cardiovascular ---------------------------------------------------------
+
+Avg Resting HR (bpm) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "resting_hr_bpm" )
+
+Avg Heart Rate (bpm) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "heart_rate_bpm" )
+
+Avg HRV SDNN (ms) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "hrv_sdnn_ms" )
+
+// VO2 max is a sparse estimate: show the latest one in context, not an average.
+Latest VO2 Max =
+    VAR LastDay =
+        CALCULATE ( MAX ( fact_daily_metric[date] ), dim_metric[metric] = "vo2max" )
+    RETURN
+        CALCULATE (
+            AVERAGE ( fact_daily_metric[value] ),
+            dim_metric[metric] = "vo2max",
+            dim_date[date] = LastDay
+        )
+
+Min VO2 Max =
+    CALCULATE ( MIN ( fact_daily_metric[value] ), dim_metric[metric] = "vo2max" )
+
+Max VO2 Max =
+    CALCULATE ( MAX ( fact_daily_metric[value] ), dim_metric[metric] = "vo2max" )
+
 Resting HR 30D Rolling =
     VAR LastDay = MAX ( dim_date[date] )
     RETURN
-        CALCULATE (
-            [Avg Resting HR],
-            DATESINPERIOD ( dim_date[date], LastDay, -30, DAY )
-        )
+        CALCULATE ( [Avg Resting HR (bpm)], DATESINPERIOD ( dim_date[date], LastDay, -30, DAY ) )
+
+// ---- Mobility ---------------------------------------------------------------
+
+Avg Daily Steps =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "steps" )
 
 Steps 7D Rolling =
     VAR LastDay = MAX ( dim_date[date] )
     RETURN
-        CALCULATE (
-            [Avg Daily Steps],
-            DATESINPERIOD ( dim_date[date], LastDay, -7, DAY )
+        CALCULATE ( [Avg Daily Steps], DATESINPERIOD ( dim_date[date], LastDay, -7, DAY ) )
+
+Step Goal = 10000
+
+% Days Meeting Step Goal =
+    VAR StepDays =
+        CALCULATETABLE ( VALUES ( fact_daily_metric[date] ), dim_metric[metric] = "steps" )
+    VAR GoalDays =
+        FILTER (
+            StepDays,
+            CALCULATE ( SUM ( fact_daily_metric[value] ), dim_metric[metric] = "steps" ) >= [Step Goal]
         )
+    RETURN
+        DIVIDE ( COUNTROWS ( GoalDays ), COUNTROWS ( StepDays ) )
 
-Resting HR vs Prior Year =
-    VAR Curr = [Avg Resting HR]
-    VAR Prior = CALCULATE ( [Avg Resting HR], SAMEPERIODLASTYEAR ( dim_date[date] ) )
-    RETURN IF ( NOT ISBLANK ( Prior ), Curr - Prior )
-
-Steps YoY % =
-    VAR Curr = [Avg Daily Steps]
-    VAR Prior = CALCULATE ( [Avg Daily Steps], SAMEPERIODLASTYEAR ( dim_date[date] ) )
-    RETURN DIVIDE ( Curr - Prior, Prior )
-
-Weekend vs Weekday Steps =
+Weekend vs Weekday Steps % =
     VAR Weekend = CALCULATE ( [Avg Daily Steps], dim_date[is_weekend] = TRUE () )
     VAR Weekday = CALCULATE ( [Avg Daily Steps], dim_date[is_weekend] = FALSE () )
-    RETURN DIVIDE ( Weekend - Weekday, Weekday )
+    RETURN
+        DIVIDE ( Weekend - Weekday, Weekday )
+
+Avg Walking Speed (mph) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "walking_speed_mph" )
+
+Avg Step Length (in) =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "step_length_in" )
+
+// ---- Physical and environmental ----------------------------------------------
+
+// Decibels are logarithmic. Average the daily levels as sound energy:
+// 10 * log10( mean( 10 ^ (L / 10) ) ). An arithmetic AVERAGE understates
+// exposure whenever levels vary.
+Typical Environmental Sound (dBA) =
+    VAR Days =
+        CALCULATETABLE (
+            fact_daily_metric,
+            dim_metric[metric] = "env_audio_dba"
+        )
+    VAR MeanEnergy =
+        AVERAGEX ( Days, POWER ( 10, fact_daily_metric[value] / 10 ) )
+    RETURN
+        IF ( NOT ISBLANK ( MeanEnergy ), 10 * LOG10 ( MeanEnergy ) )
+
+Typical Headphone Level (dBA) =
+    VAR Days =
+        CALCULATETABLE (
+            fact_daily_metric,
+            dim_metric[metric] = "headphone_audio_dba"
+        )
+    VAR MeanEnergy =
+        AVERAGEX ( Days, POWER ( 10, fact_daily_metric[value] / 10 ) )
+    RETURN
+        IF ( NOT ISBLANK ( MeanEnergy ), 10 * LOG10 ( MeanEnergy ) )
+
+Avg Physical Effort =
+    CALCULATE ( AVERAGE ( fact_daily_metric[value] ), dim_metric[metric] = "physical_effort" )

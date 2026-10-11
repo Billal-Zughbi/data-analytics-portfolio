@@ -34,6 +34,7 @@ PROHIBITED_GLOBS = [
     ".env", ".env.*", "*.env", "*.pem", "*.key", "*.p12", "*.pfx", "id_rsa*", "id_ed25519*",
     "*credentials*.json", "*service-account*.json", "client_secret*.json", ".npmrc", ".pypirc", ".netrc",
     "*.sqlite", "*.sqlite3", "*.db", "*.duckdb", "*.xlsx", "*.xls", "*.parquet", "*.pkl",
+    "HK*.csv", "*/HK*.csv", "*/data/synthetic/*",
 ]
 ALLOWED = {".env.example", "website/.env.example"}
 
@@ -50,6 +51,10 @@ SECRET_PATTERNS = {
 
 # Record-level Apple Health content is only allowed in the synthetic generator and tests.
 HEALTH_RECORD = re.compile(r"<Record\s+type=|\bsourceName=|HKCharacteristicTypeIdentifierDateOfBirth|<ClinicalRecord")
+HEALTH_RECORD_ALLOWED = ("projects/apple-health-analytics/tests/fixtures/",)
+# Device names in real exports look like "<First name>’s Apple Watch" and identify people.
+PERSONAL_DEVICE = re.compile(r"\b[A-Z][a-z]+[’']s (?:Apple Watch|iPhone|iPad)\b")
+PERSONAL_DEVICE_ALLOWED = ("scripts/check_sensitive_files.py", "projects/apple-health-analytics/tests/")
 HEALTH_DATA_SUFFIXES = {".xml", ".csv", ".json", ".txt", ".tsv"}
 
 TEXT_SUFFIXES = {
@@ -86,8 +91,14 @@ def check(paths: list[str]) -> list[str]:
             for label, pattern in SECRET_PATTERNS.items():
                 if pattern.search(text):
                     problems.append(f"{rel}: possible {label}")
-        if path.suffix.lower() in HEALTH_DATA_SUFFIXES and HEALTH_RECORD.search(text):
+        if (
+            path.suffix.lower() in HEALTH_DATA_SUFFIXES
+            and not rel.startswith(HEALTH_RECORD_ALLOWED)
+            and HEALTH_RECORD.search(text)
+        ):
             problems.append(f"{rel}: contains record-level Apple Health content")
+        if not rel.startswith(PERSONAL_DEVICE_ALLOWED) and PERSONAL_DEVICE.search(text):
+            problems.append(f"{rel}: contains a personal device name")
     return problems
 
 

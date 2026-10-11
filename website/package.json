@@ -6,19 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve out",
+    "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "node --test \"tests/*.test.mjs\""
   },
   "dependencies": {
+    "@react-three/fiber": "^9.8.1",
+    "geist": "^1.7.2",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "three": "^0.186.1"
   },
   "devDependencies": {
-    "@types/node": "^22",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
-    "typescript": "^5.9"
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   },
   "engines": {
     "node": ">=22"

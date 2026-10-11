@@ -65,6 +65,13 @@ export_cda.xml
 **/clinical-records/
 **/clinical_records/
 *.fhir.json
+# Per-type extracts written by the original script or `legacy-csv` (record level)
+HK*.csv
+**/HK*.csv
+# Original project inputs kept locally for reference
+private-inputs/
+Health-Report-main*/
+apple-health-dashboard.zip
 # Project-local raw / intermediate data stays on your machine
 projects/**/data/raw/
 projects/**/data/interim/
@@ -115,6 +122,8 @@ projects/**/data/*
 !projects/**/data/sanitized/
 !projects/**/data/sample/
 !projects/**/data/README.md
+# Synthetic export: reproducible and large, regenerate with `python -m apple_health demo`
+projects/**/data/synthetic/
 # Website content data (resume text and the aggregate-only health summary)
 !website/src/data/
 

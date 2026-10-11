@@ -1,135 +1,225 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Every colour, type step, radius and timing used by the site
+   is defined here and exposed to Tailwind through @theme.
+   --------------------------------------------------------------------------- */
 :root {
-  --bg: #fcfcfb;
-  --surface: #ffffff;
-  --text: #0b0b0b;
-  --text-2: #52514e;
-  --muted: #7a7973;
-  --border: #e4e3de;
-  --accent: #2a78d6;
-  --accent-soft: #e8f1fc;
-  --grid: #ecebe6;
-  --max: 1040px;
-  color-scheme: light;
+  color-scheme: dark;
+
+  /* Surfaces: deep navy-black, layered upward */
+  --bg: #05070d;
+  --surface-1: #0a0f1c;
+  --surface-2: #0f1628;
+  --surface-3: #16203a;
+  --line: rgb(148 163 255 / 0.12);
+  --line-strong: rgb(148 163 255 / 0.24);
+
+  /* Ink */
+  --ink-1: #e9edff;
+  --ink-2: #aab3d3;
+  --ink-3: #7a84a6;
+
+  /* Interface accents (not used as chart series colours) */
+  --accent: #4fd8ff;
+  --accent-soft: rgb(79 216 255 / 0.14);
+  --accent-2: #9d8cff;
+  --accent-2-soft: rgb(157 140 255 / 0.14);
+
+  /* Chart series: validated for the dark surface (lightness band, chroma,
+     CVD separation, contrast). See docs/design-research.md. */
+  --series-1: #2b9fd0;
+  --series-2: #e0703a;
+  --series-3: #9085e9;
+  --grid: rgb(148 163 255 / 0.09);
+
+  /* Status (always paired with a label, never colour alone) */
+  --good: #3fcf8e;
+  --warn: #f2b84b;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 700ms;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141413;
-    --surface: #1a1a19;
-    --text: #f0efec;
-    --text-2: #c3c2b7;
-    --muted: #94938a;
-    --border: #2e2e2b;
-    --accent: #3987e5;
-    --accent-soft: #1b2a3d;
-    --grid: #2a2a27;
-    color-scheme: dark;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  --ease-out: var(--ease-out);
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(79 216 255 / 0.3);
+  color: var(--ink-1);
+}
+
+/* Visible, consistent focus for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Faint measurement grid behind content sections */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+}
+
+/* Hairline with a node at its start: the site's recurring motif */
+.node-rule {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(to right, var(--line-strong), transparent);
+}
+.node-rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Shimmer-free glow used sparingly on primary actions */
+.glow-accent {
+  box-shadow:
+    0 0 0 1px rgb(79 216 255 / 0.45),
+    0 8px 32px -8px rgb(79 216 255 / 0.45);
+}
+
+/* Recharts: keep chart text on the ink tokens */
+.recharts-text {
+  fill: var(--ink-3);
+}
+.recharts-cartesian-axis-tick-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+/* Scroll reveal (see components/Reveal.tsx). Only hides content once JS runs. */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-3) var(--ease-out) var(--reveal-delay, 0s),
+    transform var(--dur-3) var(--ease-out) var(--reveal-delay, 0s);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.container { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
-
-.nav {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
+/* Project card sparkline draws on hover (static and complete otherwise) */
+.spark-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
-.nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
-.nav .brand { font-weight: 650; color: var(--text); }
-.nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
-.nav ul a { color: var(--text-2); }
-@media (max-width: 560px) { .nav ul { gap: 12px; font-size: 0.85rem; } .nav .hide-sm { display: none; } }
-
-.hero { padding: 72px 0 40px; }
-.eyebrow { color: var(--accent); font-weight: 600; letter-spacing: 0.02em; margin: 0 0 8px; }
-.hero h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; margin: 0 0 16px; letter-spacing: -0.02em; }
-.lead { font-size: 1.125rem; color: var(--text-2); max-width: 720px; margin: 0; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.btn {
-  display: inline-block; padding: 10px 18px; border-radius: 8px; font-weight: 600;
-  border: 1px solid var(--accent); color: var(--accent);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .group:hover .spark-line {
+    animation: spark-draw 1.4s var(--ease-out);
+  }
 }
-.btn.primary { background: var(--accent); color: #fff; }
-.btn:hover { text-decoration: none; filter: brightness(1.05); }
-
-section { padding: 48px 0; border-top: 1px solid var(--border); }
-section h2 { font-size: 1.6rem; margin: 0 0 24px; letter-spacing: -0.01em; }
-
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-.tile {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
-}
-.tile .value { font-size: 2rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.tile .label { color: var(--text-2); font-size: 0.95rem; margin-top: 6px; }
-
-.job { margin-bottom: 36px; }
-.job-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
-.job h3 { margin: 0; font-size: 1.15rem; }
-.job .meta { color: var(--muted); font-size: 0.95rem; }
-.job ul { margin: 12px 0 0; padding-left: 20px; color: var(--text-2); }
-.job li { margin-bottom: 6px; }
-
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.card h3 { margin: 0; font-size: 1.2rem; }
-.card p { margin: 0; color: var(--text-2); }
-.card .links { margin-top: auto; display: flex; gap: 16px; font-weight: 600; }
-
-.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
-.tags li {
-  background: var(--accent-soft); color: var(--text); border-radius: 999px;
-  padding: 3px 12px; font-size: 0.85rem;
+@keyframes spark-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.skill-group { margin-bottom: 20px; }
-.skill-group h3 { font-size: 1rem; margin: 0 0 10px; color: var(--text-2); font-weight: 600; }
-
-.footer { padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); }
-
-/* Case study */
-.case h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.15; margin: 0 0 12px; }
-.case p, .case li { color: var(--text-2); }
-.case h2 { margin-top: 0; }
-.notice {
-  border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--surface);
-  border-radius: 8px; padding: 12px 16px; color: var(--text-2); margin: 24px 0 0;
+/* Workflow connector draws when revealed */
+.flow-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
-.chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.chart-card h3 { margin: 0; font-size: 1.05rem; }
-.chart-card .sub { margin: 2px 0 12px; color: var(--muted); font-size: 0.9rem; }
-.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
-.chart .axis-label { fill: var(--muted); font-size: 11px; }
-.chart .gridline { stroke: var(--grid); stroke-width: 1; }
-.chart .series { stroke: var(--accent); stroke-width: 2; fill: none; }
-.chart .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
-.chart .hit { fill: transparent; cursor: crosshair; }
-.chart .hit:hover + .dot, .chart .dot.active { r: 6; }
-.chart-tip { font-size: 0.9rem; color: var(--text-2); min-height: 1.5em; margin-top: 8px; font-variant-numeric: tabular-nums; }
-details.table-view { margin-top: 8px; font-size: 0.9rem; }
-details.table-view summary { cursor: pointer; color: var(--accent); }
-details.table-view table { border-collapse: collapse; margin-top: 8px; font-variant-numeric: tabular-nums; }
-details.table-view td, details.table-view th { padding: 4px 16px 4px 0; text-align: left; border-bottom: 1px solid var(--border); }
-pre.flow {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 16px; overflow-x: auto; font-size: 0.85rem; color: var(--text);
+html.js .reveal .flow-line {
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.6s var(--ease-out) 0.2s;
+}
+html.js .reveal.is-visible .flow-line {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal .flow-line {
+    stroke-dashoffset: 0;
+  }
 }

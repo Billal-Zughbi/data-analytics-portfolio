@@ -1,1 +1,1 @@
-"""Apple Health export -> sanitized, Power BI-ready daily metrics."""
+"""Apple Health analytics pipeline: extract, transform, validate, export."""

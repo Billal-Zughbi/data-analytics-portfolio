@@ -1,41 +1,17 @@
-metric,label,category,unit,daily_aggregation
-heart_rate,Heart rate,cardiovascular,count/min,mean
-resting_heart_rate,Resting heart rate,cardiovascular,count/min,mean
-walking_heart_rate,Walking heart rate average,cardiovascular,count/min,mean
-hrv_sdnn,Heart rate variability (SDNN),cardiovascular,ms,mean
-vo2_max,VO2 max,cardiovascular,mL/min·kg,mean
-hr_recovery_1min,Heart rate recovery (1 min),cardiovascular,count/min,mean
-respiratory_rate,Respiratory rate,cardiovascular,count/min,mean
-oxygen_saturation,Blood oxygen,cardiovascular,%,mean
-steps,Steps,activity,count,sum
-distance_walk_run_km,Walking + running distance,activity,km,sum
-distance_cycling_km,Cycling distance,activity,km,sum
-flights_climbed,Flights climbed,activity,count,sum
-active_energy_kcal,Active energy,activity,kcal,sum
-basal_energy_kcal,Resting energy,activity,kcal,sum
-exercise_minutes,Exercise minutes,activity,min,sum
-stand_minutes,Stand minutes,activity,min,sum
-physical_effort,Physical effort,activity,kcal/hr·kg,mean
-running_speed,Running speed,activity,km/hr,mean
-running_power,Running power,activity,W,mean
-walking_speed,Walking speed,mobility,km/hr,mean
-walking_step_length,Walking step length,mobility,cm,mean
-walking_asymmetry,Walking asymmetry,mobility,%,mean
-double_support,Double support time,mobility,%,mean
-stair_ascent_speed,Stair speed: up,mobility,m/s,mean
-stair_descent_speed,Stair speed: down,mobility,m/s,mean
-six_min_walk_m,Six-minute walk,mobility,m,mean
-walking_steadiness,Walking steadiness,mobility,%,mean
-env_audio_db,Environmental sound levels,environment,dBASPL,mean
-headphone_audio_db,Headphone audio levels,environment,dBASPL,mean
-daylight_minutes,Time in daylight,environment,min,sum
-uv_exposure,UV exposure,environment,count,mean
-sound_reduction_db,Sound reduction,environment,dBASPL,mean
-body_mass_kg,Weight,body,kg,mean
-bmi,Body mass index,body,count,mean
-body_fat_pct,Body fat percentage,body,%,mean
-lean_body_mass_kg,Lean body mass,body,kg,mean
-height_cm,Height,body,cm,mean
-wrist_temp_c,Sleeping wrist temperature,body,degC,mean
-water_ml,Water,body,mL,sum
-breathing_disturbances,Breathing disturbances,sleep,count,mean
+metric,label,group,unit,daily_aggregation,hk_type
+active_energy_kcal,Active energy,activity,kcal,sum,HKQuantityTypeIdentifierActiveEnergyBurned
+exercise_min,Exercise time,activity,min,sum,HKQuantityTypeIdentifierAppleExerciseTime
+stand_hours,Stand hours,activity,hours,stood_hours,HKCategoryTypeIdentifierAppleStandHour
+flights_climbed,Flights climbed,activity,count,sum,HKQuantityTypeIdentifierFlightsClimbed
+heart_rate_bpm,Heart rate,cardio,count/min,mean,HKQuantityTypeIdentifierHeartRate
+resting_hr_bpm,Resting heart rate,cardio,count/min,mean,HKQuantityTypeIdentifierRestingHeartRate
+walking_hr_bpm,Walking heart rate average,cardio,count/min,mean,HKQuantityTypeIdentifierWalkingHeartRateAverage
+hrv_sdnn_ms,Heart rate variability (SDNN),cardio,ms,mean,HKQuantityTypeIdentifierHeartRateVariabilitySDNN
+vo2max,VO2 max estimate,cardio,mL/min·kg,last,HKQuantityTypeIdentifierVO2Max
+steps,Steps,mobility,count,sum,HKQuantityTypeIdentifierStepCount
+distance_walk_run_mi,Walking + running distance,mobility,mi,sum,HKQuantityTypeIdentifierDistanceWalkingRunning
+walking_speed_mph,Walking speed,mobility,mi/hr,mean,HKQuantityTypeIdentifierWalkingSpeed
+step_length_in,Walking step length,mobility,in,mean,HKQuantityTypeIdentifierWalkingStepLength
+env_audio_dba,Environmental sound level,environment,dBASPL,energy_mean,HKQuantityTypeIdentifierEnvironmentalAudioExposure
+headphone_audio_dba,Headphone audio level,environment,dBASPL,energy_mean,HKQuantityTypeIdentifierHeadphoneAudioExposure
+physical_effort,Physical effort,environment,kcal/hr·kg,mean,HKQuantityTypeIdentifierPhysicalEffort

@@ -30,6 +30,10 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements-dev.txt
       - run: python -m pytest -q
+      - name: Regenerate published outputs and fail if they drift
+        run: |
+          PYTHONPATH=src python -m apple_health demo
+          git diff --exit-code -- data/sample outputs ../../website/src/data/generated
 
   website:
     runs-on: ubuntu-latest
@@ -44,6 +48,7 @@ jobs:
           cache: npm
           cache-dependency-path: website/package-lock.json
       - run: npm ci
-      - run: npm test
-      - run: npm run typecheck
+      - run: npm run lint
       - run: npm run build
+      - run: npm run typecheck
+      - run: npm test
