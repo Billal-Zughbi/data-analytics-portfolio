@@ -63,7 +63,7 @@ export default function HomePage() {
         <Skills />
       </Section>
 
-      <Section id="about" index="05" eyebrow="About" title="A bit about me.">
+      <Section id="about" index="05" eyebrow="About" title={profile.aboutTitle}>
         <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
           <Reveal className="lg:sticky lg:top-28">
             <Portrait />

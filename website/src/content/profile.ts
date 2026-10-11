@@ -37,14 +37,17 @@ export const profile = {
    */
   resumeUrl: "/Billal-Zughbi-Resume.pdf" as string | null,
 
-  headline: "Power BI, SQL and the data models behind them.",
+  headline: "The Paths to a Decision: Power BI, SQL, Python, and the Data Models Behind Them.",
   intro:
-    "I'm an analytics engineer at Arconic. I build SQL data models, ETL pipelines and Power BI dashboards, mostly to replace spreadsheet reporting and manual work. Below are my work history and some independent projects, with the code for each.",
+    "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Sometimes that's a leadership team that needs an answer before the end of the day, and sometimes it's a workflow that's been done by hand for years and finally doesn't have to be. Below you'll find my work history and a few independent projects, each with the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
+  aboutTitle:
+    "From dreams of becoming an MD to the reality of debugging SQL code and fan-out joins: how I found my career in Analytics Engineering.",
+  // Personal story written with Annie for the site. Keep resume facts out of this section.
   about: [
-    "I didn't plan on a career in data. I started college on the pre-med track, wanting to be a doctor, until an intro course in Java and problem solving won me over and I switched my major to computer science. From there I aimed for software engineering like most of my classmates, since TCNJ had no data analytics path.",
-    "That changed with a data analytics internship at Arconic. I was pulling raw data out of legacy databases and turning it into reporting the business could use, and I fell in love with the challenge. It taught me a lot about data analysis and cleaning.",
-    "After graduating I came back full time as an analytics engineer, building enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My team is largely non-technical, so over four years I've taught myself SQL, Power BI, Snowflake and more.",
-    "Long term, I want to lead a technical team of analysts and engineers, and to get there I keep building on my SQL and Python and learning more about cloud platforms and AI.",
+    "For most of my life the plan was medicine, and I showed up at TCNJ on the pre-med track with a pretty clear picture of where the next decade was going. Then I signed up for an intro course in Java and problem solving, and a few weeks in I noticed I was staying up later on the programming homework than on anything for my science classes, simply because I wanted to see the thing finally run.",
+    "Switching to computer science felt like a leap at the time, and like most of my classmates I assumed it would lead straight to software engineering. TCNJ didn't really have a path into data analytics, so I had no idea how much I'd enjoy it until an internship put me in front of databases that had been around since before I could walk and asked me to make sense of them. Figuring out why two reports disagreed, or why a total came out exactly double what it should have been, turned into my favorite kind of puzzle, and by the end of that summer I'd stopped thinking about software engineering altogether.",
+    "Most of what I know now I taught myself, usually with a documentation page on one tab and a SQL query in the other, since there wasn't always someone down the hall to ask. I've come to like learning that way, and it's a big reason I still spend weekends building projects like the ones on this site.",
+    "Someday I'd like to lead a team of analysts and engineers and be the person down the hall I sometimes wished I had. Until then I'll keep picking up whatever the work calls for next, lately a lot of Python and AI tooling. If any of this sounds like someone you'd want on your team, I'd love to hear from you.",
   ],
   education: {
     school: "The College of New Jersey",
