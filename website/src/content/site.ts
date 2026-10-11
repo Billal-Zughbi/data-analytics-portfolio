@@ -12,4 +12,4 @@ export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const siteTitle = `${profile.name} · ${profile.title}`;
 
 export const siteDescription =
-  "Portfolio of Billal Zughbi, a Business Intelligence and Analytics Engineer working in Power BI, SQL, Python, Snowflake and Microsoft Fabric.";
+  "Portfolio of Billal Zughbi, an Analytics Engineer working in Power BI, SQL, Python, Snowflake and Microsoft Fabric.";

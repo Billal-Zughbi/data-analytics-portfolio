@@ -23,7 +23,7 @@ export type Role = {
 
 export const profile = {
   name: "Billal Zughbi",
-  title: "Business Intelligence & Analytics Engineer",
+  title: "Analytics Engineer",
   location: "Baltimore, MD",
   email: "bzughbi1@gmail.com",
   links: {
