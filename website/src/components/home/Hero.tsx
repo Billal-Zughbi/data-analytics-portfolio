@@ -72,7 +72,7 @@ export function Hero() {
                 href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${profile.resumeUrl}`}
                 className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium text-ink-1 transition-colors hover:border-accent"
               >
-                Résumé (PDF)
+                Resume (PDF)
               </a>
             )}
             <a

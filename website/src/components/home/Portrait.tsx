@@ -24,15 +24,9 @@ export function Portrait() {
         decoding="async"
         className="block aspect-[4/5] w-full rounded-[var(--radius-md)] object-cover"
       />
-      <figcaption className="flex items-end justify-between gap-3 px-2 pb-1 pt-4 font-mono text-[11px] uppercase tracking-[0.14em]">
-        <span>
-          <span className="block text-ink-1">{profile.name}</span>
-          <span className="mt-1 block text-ink-3">{profile.location}</span>
-        </span>
-        <span className="flex items-center gap-2 text-ink-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" aria-hidden />
-          BI · Analytics
-        </span>
+      <figcaption className="px-2 pb-1 pt-4 font-mono text-[11px] uppercase tracking-[0.14em]">
+        <span className="block text-ink-1">{profile.name}</span>
+        <span className="mt-1 block text-ink-3">{profile.location}</span>
       </figcaption>
     </figure>
   );

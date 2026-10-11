@@ -442,7 +442,7 @@ def build_findings(m: dict[str, float], marts: dict[str, pd.DataFrame], peak_per
             "title": "Four months produced over half of all late orders",
             "summary": (f"Purchases from November-December 2017 and February-March 2018 were {pct(spike_delivered_share, 0)} of "
                         f"delivered orders but {pct(spike_late_share, 0)} of late ones; the late rate reached "
-                        f"{pct(nov['late_rate'])} in November 2017 and {pct(peak['late_rate'])} in {month_label(peak['month'])}. "
+                        f"{pct(nov['late_rate'])} in November 2017 and {pct(peak['late_rate'])} in {pd.Period(peak['month'], freq='M').strftime('%B %Y')}. "
                         f"In February and March 2018 carrier transit averaged "
                         f"{febmar['avg_carrier_transit_days']:.1f} days against {after['avg_carrier_transit_days']:.1f} in April and May, "
                         "while seller handling time barely changed."),

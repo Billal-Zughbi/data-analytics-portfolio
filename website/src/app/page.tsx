@@ -64,8 +64,8 @@ export default function HomePage() {
       </Section>
 
       <Section id="about" index="05" eyebrow="About" title="A bit about me.">
-        <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
-          <Reveal>
+        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
+          <Reveal className="lg:sticky lg:top-28">
             <Portrait />
           </Reveal>
           <Reveal delay={0.1}>

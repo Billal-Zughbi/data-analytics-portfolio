@@ -21,7 +21,7 @@ const EARLY = "var(--series-1)";
 const LATE = "var(--series-2)";
 const monthLabel = (m: string) => {
   const [y, mm] = m.split("-");
-  return `${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(mm) - 1]} ${y.slice(2)}`;
+  return `${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(mm) - 1]} ’${y.slice(2)}`;
 };
 const isLate = (r: DelayRow) => r.delay_bucket.startsWith("late");
 
@@ -203,7 +203,7 @@ export function RoutesChart({ top, highest, overall, minOrders }: { top: RouteRo
           value={view}
           onChange={setView}
           options={[
-            { value: "volume", label: "Share of orders vs share of late" },
+            { value: "volume", label: "Share of orders vs share of late orders" },
             { value: "rate", label: "Late rate" },
           ]}
         />
@@ -218,7 +218,7 @@ export function RoutesChart({ top, highest, overall, minOrders }: { top: RouteRo
       }
       table={{
         caption: "Late deliveries by route",
-        columns: ["Route", "Delivered", "Late", "Late rate (95% interval)", "Share of delivered", "Share of late"],
+        columns: ["Route", "Delivered", "Late", "Late rate (95% interval)", "Share of delivered", "Share of late orders"],
         align: ["left", "right", "right", "right", "right", "right"],
         rows: data.map((r) => [
           r.route,

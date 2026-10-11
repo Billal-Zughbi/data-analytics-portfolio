@@ -123,17 +123,17 @@ function ResultIcon({ result }: { result: string }) {
   return <span aria-hidden className="mt-2 ml-1 mr-1 h-1.5 w-1.5 shrink-0 rounded-full bg-ink-3" />;
 }
 
-const humanize = (name: string) => name.replaceAll("_", " ").replace(/^./, (c) => c.toUpperCase());
-
 export function QualityTable({ checks }: { checks: QualityCheck[] }) {
   return (
-    <ul className="grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line sm:grid-cols-2">
+    <ul
+      className={`grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line ${checks.length > 1 ? "sm:grid-cols-2" : ""}`}
+    >
       {checks.map((c) => (
         <li key={c.name} className="flex gap-3 bg-surface-1 p-4">
           <ResultIcon result={c.result} />
           <div>
-            <p className="text-ink-1">
-              {humanize(c.name)} <span className="font-mono text-xs text-ink-3">· {c.result}</span>
+            <p className="font-mono text-[13px] text-ink-1 [overflow-wrap:anywhere]">
+              {c.name} <span className="text-xs text-ink-3">· {c.result}</span>
             </p>
             <p className="mt-0.5 text-xs leading-relaxed text-ink-3">{c.detail}</p>
           </div>
@@ -150,6 +150,7 @@ const fmt = (v: number | string | null) =>
 export function QualitySummary({ checks }: { checks: QualityCheck[] }) {
   const passed = checks.filter((c) => c.result === "pass").length;
   const failed = checks.filter((c) => c.result === "fail").length;
+  const rest = checks.length - passed;
   const notable = checks.filter((c) => c.result === "warn" || c.result === "fail" || c.result === "info");
   return (
     <div className="space-y-4">
@@ -157,8 +158,10 @@ export function QualitySummary({ checks }: { checks: QualityCheck[] }) {
         <strong>
           {passed} of {checks.length} checks passed
         </strong>
-        {failed ? `, ${failed} failed` : ", none failed"}. The rest record known issues in the source and how each is
-        handled:
+        {failed ? ` and ${failed} failed` : " and none failed"}.{" "}
+        {rest === 1
+          ? "The other one records a known issue in the source and how it is handled:"
+          : `The other ${rest} record known issues in the source and how each is handled:`}
       </p>
       <QualityTable checks={notable} />
       <details className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-4 text-sm">
@@ -207,6 +210,14 @@ export function ReconciliationTable({ rows }: { rows: Reconciliation[] }) {
   );
 }
 
+const ACRONYMS: Record<string, string> = { kev: "KEV", cve: "CVE", cwe: "CWE", id: "ID", ids: "IDs" };
+const rowLabel = (key: string) =>
+  key
+    .split("_")
+    .map((w) => ACRONYMS[w] ?? w)
+    .join(" ")
+    .replace("post launch", "post-launch");
+
 export function SourceList({ sources }: { sources: Source[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
@@ -236,7 +247,7 @@ export function SourceList({ sources }: { sources: Source[] }) {
                 <dt className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">Rows</dt>
                 <dd className="font-mono text-xs leading-relaxed">
                   {Object.entries(s.rows)
-                    .map(([k, v]) => `${k.replaceAll("_", " ")} ${v.toLocaleString("en-US")}`)
+                    .map(([k, v]) => `${rowLabel(k)} ${v.toLocaleString("en-US")}`)
                     .join(" · ")}
                 </dd>
               </div>

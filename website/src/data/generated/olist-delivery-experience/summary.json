@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-11T20:31:19Z",
+ "generated_at": "2026-10-11T21:26:45Z",
  "source": {
   "name": "Brazilian E-Commerce Public Dataset by Olist",
   "publisher": "Olist",
@@ -123,7 +123,7 @@
   {
    "id": "two-spikes",
    "title": "Four months produced over half of all late orders",
-   "summary": "Purchases from November-December 2017 and February-March 2018 were 27% of delivered orders but 55% of late ones; the late rate reached 12.4% in November 2017 and 19.0% in Mar 2018. In February and March 2018 carrier transit averaged 13.2 days against 8.6 in April and May, while seller handling time barely changed.",
+   "summary": "Purchases from November-December 2017 and February-March 2018 were 27% of delivered orders but 55% of late ones; the late rate reached 12.4% in November 2017 and 19.0% in March 2018. In February and March 2018 carrier transit averaged 13.2 days against 8.6 in April and May, while seller handling time barely changed.",
    "metric": "Late rate by purchase month; average days from purchase to carrier hand-off and from hand-off to delivery.",
    "caveat": "November 2017 includes Black Friday volume. Nothing in the data names a cause for February and March 2018, and the last months are cut off by the end of the data, so they may look better than they were."
   },

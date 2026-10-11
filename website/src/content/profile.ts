@@ -41,9 +41,10 @@ export const profile = {
   intro:
     "I'm an analytics engineer at Arconic. I build SQL data models, ETL pipelines and Power BI dashboards, mostly to replace spreadsheet reporting and manual work. Below are my work history and some independent projects, with the code for each.",
   about: [
-    "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
-    // Written for the site; edit freely.
-    "What I enjoy most about analytics is the detective work: taking a messy dataset, figuring out what is actually going on, and turning it into something people use to make decisions. Going forward, I want to keep growing on the analytics engineering side, building the data models and pipelines that bigger teams rely on, and doing more of the analysis behind the decisions themselves.",
+    "I didn't plan on a career in data. I started college on the pre-med track, wanting to be a doctor, until an intro course in Java and problem solving won me over and I switched my major to computer science. From there I aimed for software engineering like most of my classmates, since TCNJ had no data analytics path.",
+    "That changed with a data analytics internship at Arconic. I was pulling raw data out of legacy databases and turning it into reporting the business could use, and I fell in love with the challenge. It taught me a lot about data analysis and cleaning.",
+    "After graduating I came back full time as an analytics engineer, building enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My team is largely non-technical, so over four years I've taught myself SQL, Power BI, Snowflake and more.",
+    "Long term, I want to lead a technical team of analysts and engineers, and to get there I keep building on my SQL and Python and learning more about cloud platforms and AI.",
   ],
   education: {
     school: "The College of New Jersey",
@@ -109,7 +110,7 @@ export const skills: { group: string; note: string; items: string[] }[] = [
   {
     group: "Automation & development",
     note: "Automation and version control",
-    items: ["Power Automate", "Power Apps", "Git", "Azure DevOps"],
+    items: ["Power Automate", "Power Apps", "Git", "GitHub", "Azure DevOps"],
   },
 ];
 

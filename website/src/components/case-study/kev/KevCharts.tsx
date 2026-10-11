@@ -14,7 +14,7 @@ const pctTick = (v: number) => `${Math.round(v * 100)}%`;
 const days = (d: number | null) => (d === null ? "–" : `${num(d, d % 1 ? 1 : 0)} days`);
 const monthLabel = (m: string) => {
   const [y, mm] = m.split("-");
-  return `${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(mm) - 1]} ${y.slice(2)}`;
+  return `${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(mm) - 1]} ’${y.slice(2)}`;
 };
 
 /* 1. Age of the CVE when CISA listed it, by year added */

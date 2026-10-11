@@ -88,7 +88,7 @@ export default function OlistCaseStudy() {
           </p>
           <p>
             I wrote this for a hypothetical marketplace operations lead. The recommendations are proposals for that
-            person. None of them has been tried.
+            person. None of them have been tried.
           </p>
         </Block>
 

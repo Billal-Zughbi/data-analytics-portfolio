@@ -29,7 +29,7 @@ export function Experience() {
             </div>
           ))}
         </dl>
-        <p className="mt-3 font-mono text-[11px] text-ink-3">Professional results at Arconic, from my résumé.</p>
+        <p className="mt-3 font-mono text-[11px] text-ink-3">Professional results at Arconic, from my resume.</p>
       </Reveal>
 
       <ol className="relative space-y-10 border-l border-line pl-8">
