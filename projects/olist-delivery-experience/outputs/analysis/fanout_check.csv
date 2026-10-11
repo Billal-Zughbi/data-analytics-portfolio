@@ -1,0 +1,4 @@
+method,row_count,item_revenue
+stg.order_items (source),112650,15843553.24
+naive join orders x payments x items,117601,16566543.85
+core.fct_orders (payments pre-aggregated),112650,15843553.24

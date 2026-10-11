@@ -68,6 +68,11 @@ export_cda.xml
 # Per-type extracts written by the original script or `legacy-csv` (record level)
 HK*.csv
 **/HK*.csv
+
+# Third-party raw source files (download them; see each project's data/README.md)
+olist_*_dataset.csv
+product_category_name_translation.csv
+projects/**/data/cache/
 # Original project inputs kept locally for reference
 private-inputs/
 Health-Report-main*/

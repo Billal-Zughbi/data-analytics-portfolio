@@ -27,6 +27,16 @@ pip install -r requirements-dev.txt
 python -m pytest
 PYTHONPATH=src python -m apple_health demo     # regenerates synthetic outputs + website JSON
 
+# Olist delivery and reviews (raw CSVs downloaded into data/raw/, never committed)
+cd projects/olist-delivery-experience
+pip install -r requirements-dev.txt && python -m pytest
+PYTHONPATH=src python -m olist_delivery all     # rewrites outputs, Power BI tables and website JSON
+
+# Known exploited vulnerabilities (snapshot committed in data/sample/, runs offline)
+cd projects/known-exploited-vulnerabilities
+pip install -r requirements-dev.txt && python -m pytest
+PYTHONPATH=src python -m kev_analytics all      # CI fails if this changes a committed output
+
 # Before every push (from the repo root)
 git status && python3 scripts/check_sensitive_files.py
 ```
@@ -38,6 +48,8 @@ git status && python3 scripts/check_sensitive_files.py
   and labelled as such.
 * **Honesty:** never type metric values into components; read generated outputs. Never claim a Power BI file,
   test, build or deployment exists or passed unless it was produced or run. Mark synthetic data as synthetic.
+* **Third-party data:** never commit the Olist CSVs or review text (CC BY-NC-SA 4.0; publish aggregates
+  only, with attribution). The KEV snapshot is CC0 and committed; keep its licence files with it.
 * **Personal content:** only from the résumé; no phone number on the site or in the published résumé PDF.
 * **Voice:** plain first-person sentences. No slogans, aphorisms or buzzwords; Billal does not want copy that
   sounds machine-written.

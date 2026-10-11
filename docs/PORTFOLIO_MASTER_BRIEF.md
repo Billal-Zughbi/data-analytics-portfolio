@@ -34,7 +34,8 @@ docs/                          Brief, design research, audits, checklist
 ```
 
 **Adding a project:** add an entry to `projects.ts`; create `src/app/projects/<slug>/page.tsx` using the
-case-study components; have the project's pipeline write JSON to `src/data/generated/<slug>/`; update the
+case-study components (`CaseStudyShell.tsx`, `ChartFrame.tsx`, and a `summary.json` following
+`src/data/case-study.ts`); add a card preview in `components/home/previews.tsx`; have the project's pipeline write JSON to `src/data/generated/<slug>/`; update the
 root README and this brief.
 
 ## Design principles
@@ -74,6 +75,14 @@ content, validated chart palette, ink tokens for all chart text, a table view fo
 
 ## Current state (October 2026)
 
-* Stage 1 built and tested: site, hero, Apple Health case study, pipeline, docs. Awaiting owner review before publishing.
-* Stage 2 (next): two new analytics projects, per the second prompt in this project's history: e-commerce
-  customer, revenue and fulfilment analytics; regional housing affordability and labour-market intelligence.
+* Stage 1 (site, hero, Apple Health case study, pipeline, docs) is published on `main`.
+* Stage 2 added two projects on real public data, each with SQL (DuckDB), Python, an executed notebook,
+  pytest, SQL vs pandas reconciliation, docs, a Power BI model kit and a case-study page:
+  * `projects/olist-delivery-experience`: late deliveries and review scores (Olist, CC BY-NC-SA 4.0; raw
+    files are downloaded, never committed).
+  * `projects/known-exploited-vulnerabilities`: time from CVE publication to CISA KEV listing, and KEV
+    against CVSS severity (KEV CC0, CVE Terms of Use; the snapshot is committed).
+* The planned housing-affordability project was replaced because census and BLS hosts were unreachable from
+  the build environment; the owner chose the change of topic. See `docs/second-wave-dataset-selection.md`.
+* No `.pbix`/`.pbip` exists for either new project. Building them needs Power BI Desktop on Windows.
+* The site is not deployed yet.

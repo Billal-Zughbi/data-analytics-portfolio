@@ -31,6 +31,8 @@
   --series-1: #2b9fd0;
   --series-2: #e0703a;
   --series-3: #9085e9;
+  /* Neutral middle step for ordered fast → slow splits (blue → grey → orange). */
+  --neutral-mid: #5c6582;
   --grid: rgb(148 163 255 / 0.09);
 
   /* Status (always paired with a label, never colour alone) */

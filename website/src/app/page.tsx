@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { previewFor } from "@/components/home/previews";
 import { Portrait } from "@/components/home/Portrait";
 import { Workflow } from "@/components/home/Workflow";
 import { Experience } from "@/components/home/Experience";
@@ -25,7 +26,7 @@ export default function HomePage() {
         <div className="space-y-6">
           {projects.map((p, i) => (
             <Reveal key={p.slug}>
-              <ProjectCard project={p} index={i} />
+              <ProjectCard project={p} index={i} preview={previewFor(p.slug)} />
             </Reveal>
           ))}
         </div>

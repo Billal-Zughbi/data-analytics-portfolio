@@ -48,6 +48,49 @@ export const projects: Project[] = [
     repoPath: "projects/apple-health-analytics",
     status: "published",
   },
+  {
+    slug: "olist-delivery-experience",
+    title: "Late Deliveries and Customer Reviews",
+    summary:
+      "SQL and Python analysis of about 100,000 real orders from Olist, a Brazilian online marketplace, measuring how late deliveries line up with review scores and where the late orders come from.",
+    question:
+      "How much does late delivery cost in review scores, and which routes, months and categories produce the late orders?",
+    role: "Independent project · question, SQL, Python, model, write-up",
+    period: "October 2026",
+    stack: ["SQL (DuckDB)", "Python", "pandas", "pytest", "Power BI model", "DAX"],
+    demonstrates: [
+      "Multi-table SQL modeling",
+      "Join fan-out checks",
+      "SQL vs pandas reconciliation",
+      "Delivery KPI definitions",
+      "Route and cohort analysis",
+      "Honest statistics",
+    ],
+    dataNote: "Real public data: Olist, CC BY-NC-SA 4.0. Only aggregates are published.",
+    repoPath: "projects/olist-delivery-experience",
+    status: "published",
+  },  {
+    slug: "known-exploited-vulnerabilities",
+    title: "How Fast Vulnerabilities Get Exploited",
+    summary:
+      "SQL and Python analysis of CISA's Known Exploited Vulnerabilities catalog joined to the official CVE records, measuring how long it takes for a published vulnerability to be confirmed as exploited and how that compares with sorting patches by severity.",
+    question:
+      "Once a vulnerability is made public, how quickly is it confirmed as exploited, how has that changed, and does a severity score alone point patching at the right things?",
+    role: "Independent project · question, SQL, Python, model, write-up",
+    period: "October 2026",
+    stack: ["SQL (DuckDB)", "Python", "pandas", "pytest", "Power BI model", "DAX"],
+    demonstrates: [
+      "Joining two public sources",
+      "Bridge tables",
+      "Random-sample baseline",
+      "Sensitivity checks",
+      "SQL vs pandas reconciliation",
+      "Security domain metrics",
+    ],
+    dataNote: "Real public data: CISA KEV (CC0) and CVE records (CVE Program Terms of Use).",
+    repoPath: "projects/known-exploited-vulnerabilities",
+    status: "published",
+  },
 ];
 
 export const repoUrl = (path = "") =>

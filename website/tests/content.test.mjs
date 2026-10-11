@@ -50,10 +50,45 @@ test("site source does not publish a phone number", () => {
   }
 });
 
+for (const slug of ["olist-delivery-experience", "known-exploited-vulnerabilities"]) {
+  test(`${slug} summary follows the shared case-study contract`, () => {
+    const s = JSON.parse(readFileSync(join(root, "src/data/generated", slug, "summary.json"), "utf8"));
+    for (const key of ["source", "question", "kpis", "findings", "quality", "reconciliation", "next_steps"]) {
+      assert.ok(key in s, `missing ${key}`);
+    }
+    assert.ok(s.source.license && s.source.url, "source needs a licence and URL");
+    for (const k of s.kpis) assert.ok(k.definition.length > 20, `${k.key} needs a definition`);
+    for (const f of s.findings) assert.ok(f.caveat.length > 0, `${f.id} needs a caveat`);
+    assert.ok(s.reconciliation.length > 0 && s.reconciliation.every((r) => r.match), "SQL and pandas must agree");
+    assert.ok(s.quality.checks.every((c) => c.result !== "fail"), "no failed quality checks");
+  });
+}
+
+test("public-data outputs carry no review text or customer identifiers", () => {
+  for (const file of walk(join(root, "src/data/generated/olist-delivery-experience"))) {
+    const text = readFileSync(file, "utf8");
+    // Olist order, customer, seller and review IDs are 32-character hex strings.
+    assert.doesNotMatch(text, /\b[0-9a-f]{32}\b/, `${file} contains a record identifier`);
+    assert.ok(!text.includes("review_comment_message\":"), `${file} contains review text`);
+  }
+});
+
+test("site copy avoids the phrases the brief rules out", () => {
+  for (const file of walk(join(root, "src"))) {
+    assert.doesNotMatch(readFileSync(file, "utf8"), /actionable insights/i, file);
+  }
+});
+
 const built = existsSync(join(out, "index.html"));
 
 test("static export contains every route", { skip: !built && "run npm run build first" }, () => {
-  for (const route of ["index.html", "projects/apple-health-analytics/index.html", "404.html"]) {
+  for (const route of [
+    "index.html",
+    "projects/apple-health-analytics/index.html",
+    "projects/olist-delivery-experience/index.html",
+    "projects/known-exploited-vulnerabilities/index.html",
+    "404.html",
+  ]) {
     assert.ok(existsSync(join(out, route)), `missing ${route}`);
   }
 });

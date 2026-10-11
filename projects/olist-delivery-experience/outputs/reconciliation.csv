@@ -1,0 +1,53 @@
+metric,sql,python,abs_diff,tolerance,match,detail
+avg_score_late,2.255280073,2.255280073,0,1e-09,True,
+avg_score_on_time,4.279487636,4.279487636,0,1e-09,True,
+customers_with_delivered_order,93358,93358,0,1e-09,True,
+delivered_missing_date_orders,8,8,0,1e-09,True,
+items_revenue_all_orders,15843553.24,15843553.24,0,0.01,True,
+items_revenue_delivered,15419773.75,15419773.75,0,0.01,True,
+late_orders,6534,6534,0,1e-09,True,
+late_rate,0.0677309008,0.0677309008,0,1e-09,True,
+late_rate_timestamp_rule,0.08112366539,0.08112366539,0,1e-09,True,
+late_share_of_1star_reviews,0.3648829776,0.3648829776,0,1e-09,True,
+mean_days_vs_estimate,-11.87588888,-11.87588888,0,1e-09,True,
+median_actual_days,10,10,0,1e-09,True,
+median_days_vs_estimate,-12,-12,0,1e-09,True,
+median_promised_days,24,24,0,1e-09,True,
+min_month_late_rate,0.01164698163,0.01164698163,0,1e-09,True,
+not_delivered_orders,2963,2963,0,1e-09,True,
+orders_multi_seller,1278,1278,0,1e-09,True,
+orders_total,99441,99441,0,1e-09,True,
+payments_minus_items,165318.88,165318.88,8.15e-10,0.01,True,
+payments_total_all_orders,16008872.12,16008872.12,1.863e-09,0.01,True,
+pct_1star_late,0.5416284053,0.5416284053,0,1e-09,True,
+pct_1star_on_time,0.06849315068,0.06849315068,0,1e-09,True,
+pct_7plus_days_early,0.7892609101,0.7892609101,0,1e-09,True,
+pct_late_answered_before_delivery,0.7044689317,0.7044689317,0,1e-09,True,
+pct_late_low_scores_answered_before_delivery,0.9062804284,0.9062804284,0,1e-09,True,
+peak_month_late_rate,0.1896330144,0.1896330144,0,1e-09,True,
+repeat_customer_rate,0.02158358148,0.02158358148,0,1e-09,True,
+reviewed_delivered_orders,96470,96470,0,1e-09,True,
+route_sp_rj_late_rate,0.1412457087,0.1412457087,0,1e-09,True,
+route_sp_rj_share_of_delivered,0.08454441795,0.08454441795,0,1e-09,True,
+route_sp_rj_share_of_late,0.1763085399,0.1763085399,0,1e-09,True,
+score_gap_late_minus_on_time,-2.024207562,-2.024207562,0,1e-09,True,
+score_gap_within_category,-2.018850992,-2.018850992,0,1e-09,True,
+score_gap_within_seller,-1.983085658,-1.983085658,0,1e-09,True,
+score_gap_within_state,-2.006262038,-2.006262038,0,1e-09,True,
+state_rj_late_rate,0.1210526316,0.1210526316,0,1e-09,True,
+timing_population_orders,96470,96470,0,1e-09,True,
+top10_categories_revenue_share,0.6238493661,0.6238493661,0,1e-09,True,
+top_category_revenue_share,0.09157654016,0.09157654016,0,1e-09,True,
+two_plus_orders_rate,0.03000278498,0.03000278498,0,1e-09,True,
+table:review_by_delay,8,8,0,,True,8 rows x 9 numeric columns compared
+table:monthly_delivery,25,25,0,,True,25 rows x 15 numeric columns compared
+table:monthly_by_destination,80,80,0,,True,80 rows x 3 numeric columns compared
+table:route_performance,410,410,0,,True,410 rows x 12 numeric columns compared
+table:category_performance,74,74,0,,True,74 rows x 12 numeric columns compared
+table:state_performance,27,27,0,,True,27 rows x 10 numeric columns compared
+table:score_gap_within_groups,3,3,0,,True,3 rows x 3 numeric columns compared
+table:category_revenue,74,74,1.16e-10,,True,74 rows x 9 numeric columns compared
+table:cohort_repeat,23,23,0,,True,23 rows x 7 numeric columns compared
+table:repeat_by_first_delivery,2,2,0,,True,2 rows x 3 numeric columns compared
+table:payment_reconciliation,6,6,1e-12,,True,6 rows x 5 numeric columns compared
+table:estimate_accuracy,71,71,0,,True,71 rows x 3 numeric columns compared

@@ -1,0 +1,454 @@
+{
+ "description": "Distribution of delivered date minus estimated date, in days (negative = early).",
+ "license": "Derived from the Brazilian E-Commerce Public Dataset by Olist (https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), licensed CC BY-NC-SA 4.0. Aggregates only; shared under the same licence for non-commercial use.",
+ "clamp": {
+  "min": -40,
+  "max": 30,
+  "note": "The first row counts every order 40 or more days early; the last row every order 30 or more days late."
+ },
+ "summary": {
+  "days_vs_estimate_p05": -26.0,
+  "days_vs_estimate_p25": -17.0,
+  "days_vs_estimate_median": -12.0,
+  "days_vs_estimate_p75": -7.0,
+  "days_vs_estimate_p95": 3.0,
+  "promised_days_p25": 19.0,
+  "promised_days_median": 24.0,
+  "promised_days_p75": 29.0,
+  "actual_days_p25": 7.0,
+  "actual_days_median": 10.0,
+  "actual_days_p75": 16.0,
+  "orders_below_clamp": 529,
+  "orders_above_clamp": 345,
+  "min_days_vs_estimate": -147,
+  "max_days_vs_estimate": 188
+ },
+ "rows": [
+  {
+   "days_vs_estimate": -40,
+   "orders": 593,
+   "share": 0.00615,
+   "cumulative_share": 0.00615
+  },
+  {
+   "days_vs_estimate": -39,
+   "orders": 58,
+   "share": 0.0006,
+   "cumulative_share": 0.00675
+  },
+  {
+   "days_vs_estimate": -38,
+   "orders": 96,
+   "share": 0.001,
+   "cumulative_share": 0.00774
+  },
+  {
+   "days_vs_estimate": -37,
+   "orders": 92,
+   "share": 0.00095,
+   "cumulative_share": 0.0087
+  },
+  {
+   "days_vs_estimate": -36,
+   "orders": 168,
+   "share": 0.00174,
+   "cumulative_share": 0.01044
+  },
+  {
+   "days_vs_estimate": -35,
+   "orders": 256,
+   "share": 0.00265,
+   "cumulative_share": 0.01309
+  },
+  {
+   "days_vs_estimate": -34,
+   "orders": 247,
+   "share": 0.00256,
+   "cumulative_share": 0.01565
+  },
+  {
+   "days_vs_estimate": -33,
+   "orders": 261,
+   "share": 0.00271,
+   "cumulative_share": 0.01836
+  },
+  {
+   "days_vs_estimate": -32,
+   "orders": 277,
+   "share": 0.00287,
+   "cumulative_share": 0.02123
+  },
+  {
+   "days_vs_estimate": -31,
+   "orders": 304,
+   "share": 0.00315,
+   "cumulative_share": 0.02438
+  },
+  {
+   "days_vs_estimate": -30,
+   "orders": 377,
+   "share": 0.00391,
+   "cumulative_share": 0.02829
+  },
+  {
+   "days_vs_estimate": -29,
+   "orders": 491,
+   "share": 0.00509,
+   "cumulative_share": 0.03338
+  },
+  {
+   "days_vs_estimate": -28,
+   "orders": 753,
+   "share": 0.00781,
+   "cumulative_share": 0.04118
+  },
+  {
+   "days_vs_estimate": -27,
+   "orders": 816,
+   "share": 0.00846,
+   "cumulative_share": 0.04964
+  },
+  {
+   "days_vs_estimate": -26,
+   "orders": 793,
+   "share": 0.00822,
+   "cumulative_share": 0.05786
+  },
+  {
+   "days_vs_estimate": -25,
+   "orders": 913,
+   "share": 0.00946,
+   "cumulative_share": 0.06733
+  },
+  {
+   "days_vs_estimate": -24,
+   "orders": 1067,
+   "share": 0.01106,
+   "cumulative_share": 0.07839
+  },
+  {
+   "days_vs_estimate": -23,
+   "orders": 1263,
+   "share": 0.01309,
+   "cumulative_share": 0.09148
+  },
+  {
+   "days_vs_estimate": -22,
+   "orders": 1845,
+   "share": 0.01913,
+   "cumulative_share": 0.1106
+  },
+  {
+   "days_vs_estimate": -21,
+   "orders": 2810,
+   "share": 0.02913,
+   "cumulative_share": 0.13973
+  },
+  {
+   "days_vs_estimate": -20,
+   "orders": 2960,
+   "share": 0.03068,
+   "cumulative_share": 0.17042
+  },
+  {
+   "days_vs_estimate": -19,
+   "orders": 2712,
+   "share": 0.02811,
+   "cumulative_share": 0.19853
+  },
+  {
+   "days_vs_estimate": -18,
+   "orders": 3128,
+   "share": 0.03242,
+   "cumulative_share": 0.23095
+  },
+  {
+   "days_vs_estimate": -17,
+   "orders": 3411,
+   "share": 0.03536,
+   "cumulative_share": 0.26631
+  },
+  {
+   "days_vs_estimate": -16,
+   "orders": 3903,
+   "share": 0.04046,
+   "cumulative_share": 0.30677
+  },
+  {
+   "days_vs_estimate": -15,
+   "orders": 5345,
+   "share": 0.05541,
+   "cumulative_share": 0.36217
+  },
+  {
+   "days_vs_estimate": -14,
+   "orders": 7126,
+   "share": 0.07387,
+   "cumulative_share": 0.43604
+  },
+  {
+   "days_vs_estimate": -13,
+   "orders": 5963,
+   "share": 0.06181,
+   "cumulative_share": 0.49785
+  },
+  {
+   "days_vs_estimate": -12,
+   "orders": 4556,
+   "share": 0.04723,
+   "cumulative_share": 0.54508
+  },
+  {
+   "days_vs_estimate": -11,
+   "orders": 4619,
+   "share": 0.04788,
+   "cumulative_share": 0.59296
+  },
+  {
+   "days_vs_estimate": -10,
+   "orders": 4646,
+   "share": 0.04816,
+   "cumulative_share": 0.64112
+  },
+  {
+   "days_vs_estimate": -9,
+   "orders": 4626,
+   "share": 0.04795,
+   "cumulative_share": 0.68907
+  },
+  {
+   "days_vs_estimate": -8,
+   "orders": 4828,
+   "share": 0.05005,
+   "cumulative_share": 0.73912
+  },
+  {
+   "days_vs_estimate": -7,
+   "orders": 4837,
+   "share": 0.05014,
+   "cumulative_share": 0.78926
+  },
+  {
+   "days_vs_estimate": -6,
+   "orders": 3625,
+   "share": 0.03758,
+   "cumulative_share": 0.82684
+  },
+  {
+   "days_vs_estimate": -5,
+   "orders": 2219,
+   "share": 0.023,
+   "cumulative_share": 0.84984
+  },
+  {
+   "days_vs_estimate": -4,
+   "orders": 1917,
+   "share": 0.01987,
+   "cumulative_share": 0.86971
+  },
+  {
+   "days_vs_estimate": -3,
+   "orders": 1731,
+   "share": 0.01794,
+   "cumulative_share": 0.88765
+  },
+  {
+   "days_vs_estimate": -2,
+   "orders": 1550,
+   "share": 0.01607,
+   "cumulative_share": 0.90372
+  },
+  {
+   "days_vs_estimate": -1,
+   "orders": 1462,
+   "share": 0.01515,
+   "cumulative_share": 0.91888
+  },
+  {
+   "days_vs_estimate": 0,
+   "orders": 1292,
+   "share": 0.01339,
+   "cumulative_share": 0.93227
+  },
+  {
+   "days_vs_estimate": 1,
+   "orders": 825,
+   "share": 0.00855,
+   "cumulative_share": 0.94082
+  },
+  {
+   "days_vs_estimate": 2,
+   "orders": 545,
+   "share": 0.00565,
+   "cumulative_share": 0.94647
+  },
+  {
+   "days_vs_estimate": 3,
+   "orders": 500,
+   "share": 0.00518,
+   "cumulative_share": 0.95165
+  },
+  {
+   "days_vs_estimate": 4,
+   "orders": 453,
+   "share": 0.0047,
+   "cumulative_share": 0.95635
+  },
+  {
+   "days_vs_estimate": 5,
+   "orders": 447,
+   "share": 0.00463,
+   "cumulative_share": 0.96098
+  },
+  {
+   "days_vs_estimate": 6,
+   "orders": 419,
+   "share": 0.00434,
+   "cumulative_share": 0.96533
+  },
+  {
+   "days_vs_estimate": 7,
+   "orders": 483,
+   "share": 0.00501,
+   "cumulative_share": 0.97033
+  },
+  {
+   "days_vs_estimate": 8,
+   "orders": 336,
+   "share": 0.00348,
+   "cumulative_share": 0.97382
+  },
+  {
+   "days_vs_estimate": 9,
+   "orders": 227,
+   "share": 0.00235,
+   "cumulative_share": 0.97617
+  },
+  {
+   "days_vs_estimate": 10,
+   "orders": 207,
+   "share": 0.00215,
+   "cumulative_share": 0.97831
+  },
+  {
+   "days_vs_estimate": 11,
+   "orders": 181,
+   "share": 0.00188,
+   "cumulative_share": 0.98019
+  },
+  {
+   "days_vs_estimate": 12,
+   "orders": 160,
+   "share": 0.00166,
+   "cumulative_share": 0.98185
+  },
+  {
+   "days_vs_estimate": 13,
+   "orders": 196,
+   "share": 0.00203,
+   "cumulative_share": 0.98388
+  },
+  {
+   "days_vs_estimate": 14,
+   "orders": 171,
+   "share": 0.00177,
+   "cumulative_share": 0.98565
+  },
+  {
+   "days_vs_estimate": 15,
+   "orders": 159,
+   "share": 0.00165,
+   "cumulative_share": 0.9873
+  },
+  {
+   "days_vs_estimate": 16,
+   "orders": 98,
+   "share": 0.00102,
+   "cumulative_share": 0.98832
+  },
+  {
+   "days_vs_estimate": 17,
+   "orders": 89,
+   "share": 0.00092,
+   "cumulative_share": 0.98924
+  },
+  {
+   "days_vs_estimate": 18,
+   "orders": 77,
+   "share": 0.0008,
+   "cumulative_share": 0.99004
+  },
+  {
+   "days_vs_estimate": 19,
+   "orders": 77,
+   "share": 0.0008,
+   "cumulative_share": 0.99084
+  },
+  {
+   "days_vs_estimate": 20,
+   "orders": 89,
+   "share": 0.00092,
+   "cumulative_share": 0.99176
+  },
+  {
+   "days_vs_estimate": 21,
+   "orders": 80,
+   "share": 0.00083,
+   "cumulative_share": 0.99259
+  },
+  {
+   "days_vs_estimate": 22,
+   "orders": 67,
+   "share": 0.00069,
+   "cumulative_share": 0.99328
+  },
+  {
+   "days_vs_estimate": 23,
+   "orders": 37,
+   "share": 0.00038,
+   "cumulative_share": 0.99367
+  },
+  {
+   "days_vs_estimate": 24,
+   "orders": 53,
+   "share": 0.00055,
+   "cumulative_share": 0.99422
+  },
+  {
+   "days_vs_estimate": 25,
+   "orders": 39,
+   "share": 0.0004,
+   "cumulative_share": 0.99462
+  },
+  {
+   "days_vs_estimate": 26,
+   "orders": 33,
+   "share": 0.00034,
+   "cumulative_share": 0.99496
+  },
+  {
+   "days_vs_estimate": 27,
+   "orders": 40,
+   "share": 0.00041,
+   "cumulative_share": 0.99538
+  },
+  {
+   "days_vs_estimate": 28,
+   "orders": 47,
+   "share": 0.00049,
+   "cumulative_share": 0.99586
+  },
+  {
+   "days_vs_estimate": 29,
+   "orders": 39,
+   "share": 0.0004,
+   "cumulative_share": 0.99627
+  },
+  {
+   "days_vs_estimate": 30,
+   "orders": 360,
+   "share": 0.00373,
+   "cumulative_share": 1.0
+  }
+ ]
+}

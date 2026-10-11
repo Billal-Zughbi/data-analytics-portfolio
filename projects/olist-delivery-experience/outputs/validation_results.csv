@@ -1,0 +1,69 @@
+check_group,check_name,severity,actual,expected,passed,detail
+delivery rule,delay_bucket_matches_days,error,0.0,= 0,True,every late order sits in a late bucket and vice versa
+delivery rule,is_late_set_only_in_timing_population,error,0.0,= 0,True,is_late is NULL exactly when the order is outside the timing population
+delivery rule,late_means_later_calendar_day,error,0.0,= 0,True,is_late agrees with a direct date comparison
+delivery rule,outcomes_cover_every_order,error,0.0,= 0,True,on_time + late + every excluded group = all orders
+delivery rule,promised_days_non_negative,error,0.0,= 0,True,estimate earlier than purchase
+domain,estimated_date_at_midnight,error,0.0,= 0,True,the day-resolution late rule assumes estimates carry no time of day
+domain,item_price_positive_freight_non_negative,error,0.0,= 0,True,items with price <= 0 or negative freight
+domain,order_status_known,error,0.0,= 0,True,statuses outside the documented set
+domain,payment_value_non_negative,error,0.0,= 0,True,negative payments
+domain,review_score_between_1_and_5,error,0.0,= 0,True,scores outside 1-5
+fan-out,fct_orders_item_count_equals_source,error,0.0,= 0,True,sum of n_items over orders equals item rows
+fan-out,fct_orders_item_revenue_equals_source,error,0.0,<= 0.005,True,item revenue is not inflated by the payment join
+fan-out,fct_orders_payment_total_equals_source,error,0.0,<= 0.005,True,payments are not inflated by the item join
+grain,fct_order_items_one_row_per_item,error,0.0,= 0,True,row count equals stg.order_items
+grain,fct_orders_one_row_per_order,error,0.0,= 0,True,row count equals stg.orders and order_id is unique
+grain,order_review_one_row_per_reviewed_order,error,0.0,= 0,True,one chosen review per order that has any review
+load,raw_vs_stg_rows_category_translation,error,0.0,= 0 rows lost between raw and stg,True,"raw 71, stg 71"
+load,raw_vs_stg_rows_customers,error,0.0,= 0 rows lost between raw and stg,True,"raw 99441, stg 99441"
+load,raw_vs_stg_rows_order_items,error,0.0,= 0 rows lost between raw and stg,True,"raw 112650, stg 112650"
+load,raw_vs_stg_rows_order_payments,error,0.0,= 0 rows lost between raw and stg,True,"raw 103886, stg 103886"
+load,raw_vs_stg_rows_order_reviews,error,0.0,= 0 rows lost between raw and stg,True,"raw 100000, stg 100000"
+load,raw_vs_stg_rows_orders,error,0.0,= 0 rows lost between raw and stg,True,"raw 99441, stg 99441"
+load,raw_vs_stg_rows_products,error,0.0,= 0 rows lost between raw and stg,True,"raw 32951, stg 32951"
+load,raw_vs_stg_rows_sellers,error,0.0,= 0 rows lost between raw and stg,True,"raw 3095, stg 3095"
+primary key,pk_category_translation.product_category_name,error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,pk_customers.customer_id,error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,"pk_order_items.(order_id, order_item_id)",error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,"pk_order_payments.(order_id, payment_sequential)",error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,"pk_order_reviews.(review_id, order_id)",error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,pk_orders.order_id,error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,pk_products.product_id,error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+primary key,pk_sellers.seller_id,error,0.0,= 0 duplicate or NULL keys,True,"0 duplicate, 0 NULL"
+reconciliation,category_revenue_equals_delivered_item_revenue,error,0.0,<= 0.005,True,item-level category revenue equals order-level revenue for delivered orders
+reconciliation,category_totals_equal_timing_population,error,0.0,= 0,True,categories partition the timing population (primary category rule)
+reconciliation,delay_buckets_equal_timing_population,error,0.0,= 0,True,every timed order falls in exactly one delay bucket
+reconciliation,monthly_totals_equal_timing_population,error,0.0,= 0,True,monthly series adds back to the order totals
+reconciliation,payment_classes_cover_every_order,error,0.0,= 0,True,each order in exactly one reconciliation class
+reconciliation,payment_gap_classes_sum_to_total_gap,error,0.0,<= 0.005,True,the whole payments minus items gap is assigned to a class
+reconciliation,route_totals_equal_timing_population,error,0.0,= 0,True,routes partition the timing population (primary seller rule)
+reconciliation,wilson_bounds_contain_rate,error,0.0,= 0,True,every route interval brackets its observed rate
+referential integrity,orphans_items_to_orders,error,0.0,= 0,True,child rows with no parent
+referential integrity,orphans_items_to_products,error,0.0,= 0,True,child rows with no parent
+referential integrity,orphans_items_to_sellers,error,0.0,= 0,True,child rows with no parent
+referential integrity,orphans_orders_to_customers,error,0.0,= 0,True,child rows with no parent
+referential integrity,orphans_payments_to_orders,error,0.0,= 0,True,child rows with no parent
+referential integrity,orphans_reviews_to_orders,error,0.0,= 0,True,child rows with no parent
+review rule,chosen_review_is_latest_answer,error,0.0,= 0,True,no review for the same order was answered after the chosen one
+timestamps,delivered_before_purchase,error,0.0,= 0,True,customer delivery earlier than purchase would make delivery days negative
+types,cast_failures_order_items_numbers,error,0.0,= 0,True,values present in raw but NULL after TRY_CAST
+types,cast_failures_order_payments_numbers,error,0.0,= 0,True,values present in raw but NULL after TRY_CAST
+types,cast_failures_order_reviews_fields,error,0.0,= 0,True,values present in raw but NULL after TRY_CAST
+types,cast_failures_orders_timestamps,error,0.0,= 0,True,values present in raw but NULL after TRY_CAST
+coverage,categories_without_translation,warn,2.0,= 0,False,"Portuguese names kept: pc_gamer, portateis_cozinha_e_preparadores_de_alimentos"
+coverage,customer_zip_not_in_geolocation,warn,278.0,= 0,False,customers whose zip prefix is missing from the geolocation file (state is still known)
+coverage,orders_without_items,warn,775.0,= 0,False,"statuses: unavailable 603, canceled 164, created 5, invoiced 2, shipped 1"
+coverage,orders_without_payments,warn,1.0,= 0,False,orders with no payment row
+coverage,orders_without_review,warn,0.0,= 0,True,orders with no review
+coverage,products_without_category,warn,610.0,= 0,False,products with blank category (shown as unknown)
+coverage,seller_zip_not_in_geolocation,warn,7.0,= 0,False,sellers whose zip prefix is missing from the geolocation file (state is still known)
+domain,zero_value_payments,warn,9.0,= 0,False,payment rows with value 0 (mostly voucher / not_defined)
+timestamps,carrier_handoff_before_purchase,warn,166.0,= 0,False,carrier date earlier than purchase; excluded from handling/transit legs only
+timestamps,customer_delivery_before_carrier_handoff,warn,23.0,= 0,False,customer delivery earlier than carrier hand-off; excluded from legs only
+timestamps,non_delivered_status_with_delivery_date,warn,6.0,= 0,False,orders not marked delivered that still carry a delivery date; outside the timing population
+delivery rule,delivered_status_missing_date,info,8.0,informational,True,"status delivered but no delivery date: counted, excluded from timing"
+duplicates,geolocation_exact_duplicate_rows,info,261831.0,informational,True,exact duplicate rows in the geolocation file (not used for metrics)
+duplicates,orders_with_multiple_reviews,info,555.0,informational,True,orders with more than one review; the latest answer is kept
+duplicates,review_id_repeated_across_orders,info,802.0,informational,True,review_ids linked to more than one order; each order keeps the score
+fan-out,naive_join_revenue_inflation,info,722990.61,informational,True,extra item revenue a naive orders x payments x items join would report

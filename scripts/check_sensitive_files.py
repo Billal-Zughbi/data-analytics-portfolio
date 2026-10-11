@@ -35,6 +35,8 @@ PROHIBITED_GLOBS = [
     "*credentials*.json", "*service-account*.json", "client_secret*.json", ".npmrc", ".pypirc", ".netrc",
     "*.sqlite", "*.sqlite3", "*.db", "*.duckdb", "*.xlsx", "*.xls", "*.parquet", "*.pkl",
     "HK*.csv", "*/HK*.csv", "*/data/synthetic/*",
+    # raw third-party sources that are downloaded, not committed
+    "olist_*_dataset.csv", "product_category_name_translation.csv",
 ]
 ALLOWED = {".env.example", "website/.env.example"}
 
