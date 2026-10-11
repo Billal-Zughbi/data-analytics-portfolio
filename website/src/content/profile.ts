@@ -41,7 +41,7 @@ export const profile = {
   intro:
     "I'm an analytics engineer at Arconic. I build SQL data models, ETL pipelines and Power BI dashboards, mostly to replace spreadsheet reporting and manual work. Below are my work history and some independent projects, with the code for each.",
   about: [
-    "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across a company with 8 business units. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
+    "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
     // Written for the site; edit freely.
     "What I enjoy most about analytics is the detective work: taking a messy dataset, figuring out what is actually going on, and turning it into something people use to make decisions. Going forward, I want to keep growing on the analytics engineering side, building the data models and pipelines that bigger teams rely on, and doing more of the analysis behind the decisions themselves.",
   ],
