@@ -224,37 +224,14 @@ html.js .reveal.is-visible .flow-line {
   }
 }
 
-/* About portrait (components/home/Portrait.tsx) */
-.portrait-grid {
-  background-image:
-    linear-gradient(to right, var(--grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse at 50% 35%, black 20%, transparent 75%);
+/* About portrait (components/home/Portrait.tsx). The photo itself is never filtered. */
+.portrait {
+  transition: transform var(--dur-3) var(--ease-out), border-color var(--dur-2) var(--ease-out);
 }
-.portrait-img {
-  filter: drop-shadow(0 0 1px rgb(79 216 255 / 0.55)) drop-shadow(0 0 22px rgb(79 216 255 / 0.16)) saturate(0.92)
-    contrast(1.04);
-  transition: transform var(--dur-3) var(--ease-out);
-}
-.portrait:hover .portrait-img {
-  transform: translateY(-4px) scale(1.01);
-}
-.portrait-scan {
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 14px var(--accent);
-  opacity: 0;
-}
-html.js .reveal.is-visible .portrait-scan {
-  animation: portrait-scan 2.4s var(--ease-out) 0.3s 1 both;
-}
-@keyframes portrait-scan {
-  0% { top: 0%; opacity: 0; }
-  10% { opacity: 0.9; }
-  85% { opacity: 0.6; }
-  100% { top: 100%; opacity: 0; }
+.portrait:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
 }
 @media (prefers-reduced-motion: reduce) {
-  html.js .reveal.is-visible .portrait-scan { animation: none; }
-  .portrait:hover .portrait-img { transform: none; }
+  .portrait:hover { transform: none; }
 }
