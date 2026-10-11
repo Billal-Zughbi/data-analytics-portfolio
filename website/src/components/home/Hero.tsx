@@ -16,7 +16,7 @@ const STAGES = [
 function StageAxis() {
   const at = (k: number) => `calc(50% + ${k} * var(--fig-h))`;
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[80%] font-mono text-[10px] uppercase tracking-[0.08em] sm:tracking-[0.16em]">
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[80%] font-mono text-[0.625rem] uppercase tracking-[0.08em] sm:tracking-[0.16em]">
       <div className="absolute h-px bg-gradient-to-r from-transparent via-line-strong to-accent/60" style={{ left: at(-0.42), right: `calc(50% - 0.47 * var(--fig-h))` }} />
       <svg
         viewBox="0 0 8 8"
@@ -43,7 +43,7 @@ export function Hero() {
       <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 top-10 h-[520px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(79_216_255/0.10),transparent)] blur-2xl"
+        className="pointer-events-none absolute -right-40 top-10 h-[32.5rem] w-[45rem] rounded-full bg-[radial-gradient(closest-side,rgb(79_216_255/0.10),transparent)] blur-2xl"
       />
 
       <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-14 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:gap-0 lg:pb-28 lg:pt-16">
@@ -98,7 +98,7 @@ export function Hero() {
         </div>
 
         {/* --fig-h drives both the canvas height and the label positions below, because the 3D scene scales with height. */}
-        <figure className="relative h-[var(--fig-h)] [--fig-h:300px] sm:[--fig-h:380px] lg:[--fig-h:500px]">
+        <figure className="relative h-[var(--fig-h)] [--fig-h:18.75rem] sm:[--fig-h:23.75rem] lg:[--fig-h:31.25rem]">
           <HeroVisual />
           <StageAxis />
           <span className="sr-only">
@@ -109,7 +109,7 @@ export function Hero() {
 
       <a
         href="#projects"
-        className="scroll-cue absolute bottom-16 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3 transition-colors hover:text-ink-1 lg:flex"
+        className="scroll-cue absolute bottom-16 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink-3 transition-colors hover:text-ink-1 lg:flex"
       >
         Projects
         <span aria-hidden className="relative h-8 w-px overflow-hidden bg-line-strong">

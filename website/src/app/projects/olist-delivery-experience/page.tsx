@@ -144,9 +144,9 @@ export default function OlistCaseStudy() {
             this in, so the files came from a public GitHub copy, with checksums recorded.
           </p>
           <div className="overflow-x-auto rounded-[var(--radius-md)] border border-line">
-            <table className="w-full min-w-[520px] text-left text-sm">
+            <table className="w-full min-w-[32.5rem] text-left text-sm">
               <caption className="sr-only">Grain of the main tables</caption>
-              <thead className="bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+              <thead className="bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
                 <tr>
                   <th scope="col" className="px-4 py-3">Table</th>
                   <th scope="col" className="px-4 py-3">One row is</th>
@@ -189,7 +189,7 @@ export default function OlistCaseStudy() {
               ["Export", "export.py", "Analysis CSVs, Power BI tables, figures and the small JSON files this page reads, with a privacy and size guard."],
             ].map(([title, file, body], i) => (
               <li key={title} className="relative">
-                <span aria-hidden className="absolute -left-[31px] top-1 flex h-4 w-4 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[9px] text-accent">
+                <span aria-hidden className="absolute -left-[1.9375rem] top-1 flex h-4 w-4 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[0.5625rem] text-accent">
                   {i + 1}
                 </span>
                 <p className="font-semibold text-ink-1">
@@ -253,7 +253,7 @@ export default function OlistCaseStudy() {
 
         <Block id="code" index="11" title="Code and reproduction">
           <RepoLinks base={base} extra={[["Data-quality report", `https://github.com/Billal-Zughbi/data-analytics-portfolio/blob/main/${base}/docs/data-quality-report.md`]]} />
-          <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[13px] leading-relaxed text-ink-2">
+          <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[0.8125rem] leading-relaxed text-ink-2">
 {`cd ${base}
 pip install -r requirements-dev.txt
 # download the dataset from Kaggle into data/raw/ (see data/README.md)

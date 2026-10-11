@@ -22,15 +22,15 @@ export function CaseHeader({ project, notice }: { project: Project; notice: Reac
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-2 text-pretty sm:text-xl">{project.summary}</p>
         <dl className="mt-10 grid gap-6 border-t border-line pt-6 text-sm sm:grid-cols-3">
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Role</dt>
+            <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Role</dt>
             <dd className="mt-2 text-ink-2">{project.role}</dd>
           </div>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Timeline</dt>
+            <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Timeline</dt>
             <dd className="mt-2 text-ink-2">{project.period}</dd>
           </div>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Tools</dt>
+            <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Tools</dt>
             <dd className="mt-2 text-ink-2">{project.stack.join(" · ")}</dd>
           </div>
         </dl>
@@ -51,7 +51,7 @@ export function CaseBody({ toc, children }: { toc: { id: string; label: string }
           {toc.map((t, i) => (
             <li key={t.id}>
               <a href={`#${t.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-ink-3 hover:border-accent hover:text-ink-1">
-                <span className="mr-2 font-mono text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mr-2 font-mono text-[0.6875rem]">{String(i + 1).padStart(2, "0")}</span>
                 {t.label}
               </a>
             </li>
@@ -98,16 +98,16 @@ export function FindingList({ findings }: { findings: Finding[] }) {
     <ol className="space-y-4">
       {findings.map((f, i) => (
         <li key={f.id} className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-5 sm:p-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">Finding {i + 1}</p>
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-accent">Finding {i + 1}</p>
           <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink-1">{f.title}</h3>
-          <p className="mt-2 text-[15px] leading-relaxed">{f.summary}</p>
+          <p className="mt-2 text-[0.9375rem] leading-relaxed">{f.summary}</p>
           <dl className="mt-4 grid gap-3 border-t border-line pt-4 text-sm sm:grid-cols-2">
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">How it is measured</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-ink-3">How it is measured</dt>
               <dd className="mt-1 text-ink-2">{f.metric}</dd>
             </div>
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">Caveat</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-ink-3">Caveat</dt>
               <dd className="mt-1 text-ink-2">{f.caveat}</dd>
             </div>
           </dl>
@@ -132,7 +132,7 @@ export function QualityTable({ checks }: { checks: QualityCheck[] }) {
         <li key={c.name} className="flex gap-3 bg-surface-1 p-4">
           <ResultIcon result={c.result} />
           <div>
-            <p className="font-mono text-[13px] text-ink-1 [overflow-wrap:anywhere]">
+            <p className="font-mono text-[0.8125rem] text-ink-1 [overflow-wrap:anywhere]">
               {c.name} <span className="text-xs text-ink-3">· {c.result}</span>
             </p>
             <p className="mt-0.5 text-xs leading-relaxed text-ink-3">{c.detail}</p>
@@ -177,9 +177,9 @@ export function QualitySummary({ checks }: { checks: QualityCheck[] }) {
 export function ReconciliationTable({ rows }: { rows: Reconciliation[] }) {
   return (
     <div className="overflow-x-auto rounded-[var(--radius-md)] border border-line">
-      <table className="w-full min-w-[520px] text-left text-sm">
+      <table className="w-full min-w-[32.5rem] text-left text-sm">
         <caption className="sr-only">Headline metrics computed independently in SQL and in Python</caption>
-        <thead className="bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+        <thead className="bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
           <tr>
             <th scope="col" className="px-4 py-3">Metric</th>
             <th scope="col" className="px-4 py-3 text-right">SQL (DuckDB)</th>
@@ -227,24 +227,24 @@ export function SourceList({ sources }: { sources: Source[] }) {
           <p className="text-ink-3">{s.publisher}</p>
           <dl className="mt-4 space-y-2 [overflow-wrap:anywhere]">
             <div className="flex gap-3">
-              <dt className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">License</dt>
+              <dt className="w-24 shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">License</dt>
               <dd>{s.license}</dd>
             </div>
             {s.coverage && (
               <div className="flex gap-3">
-                <dt className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">Coverage</dt>
+                <dt className="w-24 shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">Coverage</dt>
                 <dd>
                   {s.coverage.start} to {s.coverage.end}
                 </dd>
               </div>
             )}
             <div className="flex gap-3">
-              <dt className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">Retrieved</dt>
+              <dt className="w-24 shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">Retrieved</dt>
               <dd>{s.retrieved.slice(0, 10)}</dd>
             </div>
             {s.rows && (
               <div className="flex gap-3">
-                <dt className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">Rows</dt>
+                <dt className="w-24 shrink-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">Rows</dt>
                 <dd className="font-mono text-xs leading-relaxed">
                   {Object.entries(s.rows)
                     .map(([k, v]) => `${rowLabel(k)} ${v.toLocaleString("en-US")}`)
@@ -298,7 +298,7 @@ export function NextSteps({ steps }: { steps: string[] }) {
     <ol className="space-y-3">
       {steps.map((s, i) => (
         <li key={s} className="flex gap-4">
-          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong font-mono text-[11px] text-accent">
+          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong font-mono text-[0.6875rem] text-accent">
             {i + 1}
           </span>
           <span>{s}</span>

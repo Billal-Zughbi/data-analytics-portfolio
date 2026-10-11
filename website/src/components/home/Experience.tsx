@@ -29,7 +29,7 @@ export function Experience() {
             </div>
           ))}
         </dl>
-        <p className="mt-3 font-mono text-[11px] text-ink-3">Professional results at Arconic, from my resume.</p>
+        <p className="mt-3 font-mono text-[0.6875rem] text-ink-3">Professional results at Arconic, from my resume.</p>
       </Reveal>
 
       <ol className="relative space-y-10 border-l border-line pl-8">
@@ -37,7 +37,7 @@ export function Experience() {
           <Reveal as="li" key={`${role.title}-${role.start}`} className="relative">
             <span
               aria-hidden
-              className="absolute -left-[37px] top-1.5 h-[9px] w-[9px] rounded-full border border-accent bg-bg shadow-[0_0_12px_rgb(79_216_255/0.5)]"
+              className="absolute -left-[2.3125rem] top-1.5 h-[0.5625rem] w-[0.5625rem] rounded-full border border-accent bg-bg shadow-[0_0_12px_rgb(79_216_255/0.5)]"
             />
             <div className="flex items-start gap-4">
               {role.logo && <CompanyLogo src={role.logo} company={role.company} />}
@@ -61,7 +61,7 @@ export function Experience() {
             </ul>
             <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Tools used">
               {role.tools.map((t) => (
-                <li key={t} className="rounded-md border border-line px-2 py-1 font-mono text-[11px] text-ink-3">
+                <li key={t} className="rounded-md border border-line px-2 py-1 font-mono text-[0.6875rem] text-ink-3">
                   {t}
                 </li>
               ))}

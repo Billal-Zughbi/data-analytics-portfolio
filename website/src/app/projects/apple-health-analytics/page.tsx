@@ -79,15 +79,15 @@ export default function AppleHealthCaseStudy() {
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-2 text-pretty sm:text-xl">{project.summary}</p>
           <dl className="mt-10 grid gap-6 border-t border-line pt-6 text-sm sm:grid-cols-3">
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Role</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Role</dt>
               <dd className="mt-2 text-ink-2">{project.role}</dd>
             </div>
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Timeline</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Timeline</dt>
               <dd className="mt-2 text-ink-2">{project.period}</dd>
             </div>
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Tools</dt>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Tools</dt>
               <dd className="mt-2 text-ink-2">{project.stack.join(" · ")}</dd>
             </div>
           </dl>
@@ -109,7 +109,7 @@ export default function AppleHealthCaseStudy() {
             {TOC.map((t, i) => (
               <li key={t.id}>
                 <a href={`#${t.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-ink-3 hover:border-accent hover:text-ink-1">
-                  <span className="mr-2 font-mono text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="mr-2 font-mono text-[0.6875rem]">{String(i + 1).padStart(2, "0")}</span>
                   {t.label}
                 </a>
               </li>
@@ -154,8 +154,8 @@ export default function AppleHealthCaseStudy() {
           <Block id="data" index="03" title="Data source and privacy">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-5 text-sm">
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Fields used</p>
-                <ul className="mt-3 space-y-1.5 font-mono text-[13px] text-ink-2">
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Fields used</p>
+                <ul className="mt-3 space-y-1.5 font-mono text-[0.8125rem] text-ink-2">
                   <li>type <span className="text-ink-3">· 16 metrics in the daily model</span></li>
                   <li>sourceName <span className="text-ink-3">· reduced to watch / phone / other</span></li>
                   <li>startDate, endDate <span className="text-ink-3">· local wall-clock time</span></li>
@@ -163,7 +163,7 @@ export default function AppleHealthCaseStudy() {
                 </ul>
               </div>
               <div className="rounded-[var(--radius-md)] border border-line bg-surface-1 p-5 text-sm">
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Kept private</p>
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Kept private</p>
                 <ul className="mt-3 space-y-1.5 text-ink-2">
                   <li>The original export and its per-type CSV extracts</li>
                   <li>The .pbix, which embeds the imported personal data</li>
@@ -196,7 +196,7 @@ export default function AppleHealthCaseStudy() {
                 ["Validate & export", "quality.py · export_web.py", "Profiles every check, writes the Power BI star schema and small JSON files for this site, and refuses to export anything not marked synthetic."],
               ].map(([title, file, body], i) => (
                 <li key={title} className="relative">
-                  <span aria-hidden className="absolute -left-[31px] top-1 flex h-4 w-4 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[9px] text-accent">
+                  <span aria-hidden className="absolute -left-[1.9375rem] top-1 flex h-4 w-4 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[0.5625rem] text-accent">
                     {i + 1}
                   </span>
                   <p className="font-semibold text-ink-1">
@@ -223,9 +223,9 @@ export default function AppleHealthCaseStudy() {
             </p>
             <StarSchema />
             <div className="overflow-x-auto rounded-[var(--radius-md)] border border-line">
-              <table className="w-full min-w-[560px] text-left text-sm">
+              <table className="w-full min-w-[35rem] text-left text-sm">
                 <caption className="sr-only">Daily aggregation rule for each metric</caption>
-                <thead className="bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+                <thead className="bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
                   <tr>
                     <th scope="col" className="px-4 py-3">Metric</th>
                     <th scope="col" className="px-4 py-3">Unit</th>
@@ -332,9 +332,9 @@ export default function AppleHealthCaseStudy() {
               timestamps, and that the Power BI tables join without fan-out and reconcile with the daily table.
             </p>
             <div className="overflow-x-auto rounded-[var(--radius-md)] border border-line">
-              <table className="w-full min-w-[520px] text-left text-sm">
+              <table className="w-full min-w-[32.5rem] text-left text-sm">
                 <caption className="sr-only">Records and day coverage per metric, synthetic export</caption>
-                <thead className="bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+                <thead className="bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
                   <tr>
                     <th scope="col" className="px-4 py-3">Metric</th>
                     <th scope="col" className="px-4 py-3 text-right">Records</th>
@@ -396,7 +396,7 @@ export default function AppleHealthCaseStudy() {
                 </a>
               ))}
             </div>
-            <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[13px] leading-relaxed text-ink-2">
+            <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[0.8125rem] leading-relaxed text-ink-2">
 {`cd ${base}
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt

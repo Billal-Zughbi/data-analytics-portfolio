@@ -81,6 +81,8 @@
 }
 
 html {
+  /* Scale everything up gently on large monitors: 16px up to ~1600px wide, 20px from ~2560px. */
+  font-size: clamp(1rem, 0.5833rem + 0.4167vw, 1.25rem);
   background: var(--bg);
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
@@ -154,7 +156,7 @@ body {
 }
 .recharts-cartesian-axis-tick-value {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -43,7 +43,7 @@ export function ChartFrame({
           onClick={() => setShowTable((v) => !v)}
           aria-expanded={showTable}
           aria-controls={`${id}-table`}
-          className="rounded-full border border-line-strong px-3 py-1 font-mono text-[11px] text-ink-2 transition-colors hover:border-accent hover:text-ink-1"
+          className="rounded-full border border-line-strong px-3 py-1 font-mono text-[0.6875rem] text-ink-2 transition-colors hover:border-accent hover:text-ink-1"
         >
           {showTable ? "View as chart" : "View as table"}
         </button>
@@ -69,7 +69,7 @@ export function ChartFrame({
         <DataTable id={`${id}-table`} table={table} />
       ) : (
         <>
-          <div className="mt-4 hidden [.js_&]:block" style={{ height }}>
+          <div className="mt-4 hidden [.js_&]:block" style={{ height: `${height / 16}rem` }}>
             {children}
           </div>
           {/* Charts draw in the browser; without JavaScript the same numbers show as a table. */}
@@ -85,10 +85,10 @@ export function ChartFrame({
 
 function DataTable({ id, table }: { id?: string; table: TableSpec }) {
   return (
-    <div id={id} className="mt-4 max-h-[420px] overflow-auto rounded-[var(--radius-md)] border border-line">
-      <table className="w-full min-w-[420px] text-left text-sm">
+    <div id={id} className="mt-4 max-h-[26.25rem] overflow-auto rounded-[var(--radius-md)] border border-line">
+      <table className="w-full min-w-[26.25rem] text-left text-sm">
         <caption className="sr-only">{table.caption}</caption>
-        <thead className="sticky top-0 bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+        <thead className="sticky top-0 bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
           <tr>
             {table.columns.map((c, i) => (
               <th key={c} scope="col" className={`px-3 py-2.5 ${table.align?.[i] === "right" ? "text-right" : ""}`}>
@@ -117,7 +117,7 @@ function DataTable({ id, table }: { id?: string; table: TableSpec }) {
 export function TipBox({ title, lines }: { title: string; lines: (string | null)[] }) {
   return (
     <div className="rounded-md border border-line-strong bg-surface-3 px-3 py-2 text-sm shadow-xl">
-      <p className="font-mono text-[11px] text-ink-3">{title}</p>
+      <p className="font-mono text-[0.6875rem] text-ink-3">{title}</p>
       {lines.filter(Boolean).map((l) => (
         <p key={l} className="mt-0.5 text-ink-1">
           {l}

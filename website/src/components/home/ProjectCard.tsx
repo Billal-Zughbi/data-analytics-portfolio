@@ -13,7 +13,7 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
       />
       <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr]">
         <div className="relative p-6 sm:p-10">
-          <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
+          <div className="flex items-center gap-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
             <span className="text-accent">P{String(index + 1).padStart(2, "0")}</span>
             <span>{index === 0 ? "Flagship case study" : "Case study"}</span>
           </div>
@@ -27,12 +27,12 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
           </h3>
           <p className="mt-4 text-base leading-relaxed text-ink-2 text-pretty">{project.summary}</p>
           <p className="mt-5 border-l-2 border-accent/60 pl-4 text-sm leading-relaxed text-ink-2">
-            <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Question</span>
+            <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Question</span>
             {project.question}
           </p>
           <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tools">
             {project.stack.map((s) => (
-              <li key={s} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-ink-2">
+              <li key={s} className="rounded-full border border-line px-3 py-1 font-mono text-[0.6875rem] text-ink-2">
                 {s}
               </li>
             ))}
@@ -44,7 +44,7 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
         </div>
 
         <div className="relative border-t border-line bg-surface-2/50 p-6 sm:p-10 lg:border-l lg:border-t-0">
-          <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
+          <div className="flex items-center justify-between font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
             <span>{preview.label}</span>
             {preview.badge && (
               <span className="rounded-full border border-warn/40 px-2 py-0.5 text-warn normal-case tracking-normal">
@@ -61,7 +61,7 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
               </li>
             ))}
           </ul>
-          <p className="mt-6 font-mono text-[11px] leading-relaxed text-ink-3">{project.dataNote}</p>
+          <p className="mt-6 font-mono text-[0.6875rem] leading-relaxed text-ink-3">{project.dataNote}</p>
         </div>
       </div>
     </article>

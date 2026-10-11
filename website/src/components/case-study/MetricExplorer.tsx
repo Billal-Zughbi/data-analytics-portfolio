@@ -95,13 +95,13 @@ export function MetricExplorer({ metrics, kpis, rows }: Props) {
             </button>
           ))}
         </div>
-        <span className="rounded-full border border-warn/40 px-3 py-1 font-mono text-[11px] text-warn">
+        <span className="rounded-full border border-warn/40 px-3 py-1 font-mono text-[0.6875rem] text-warn">
           Synthetic demonstration data
         </span>
       </div>
 
       <div id={`${tabsId}-panel`} role="tabpanel" aria-labelledby={`${tabsId}-${group}`} className="p-4 sm:p-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">
+        <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
           Mirrors the original report page “{groupLabel.page}”
         </p>
 
@@ -144,7 +144,7 @@ export function MetricExplorer({ metrics, kpis, rows }: Props) {
           <p className="text-sm text-ink-3">Weekly · {RULE_LABEL[metric.aggregation]}</p>
         </div>
 
-        <div className="mt-4 h-[280px] sm:h-[320px]">
+        <div className="mt-4 h-[17.5rem] sm:h-[20rem]">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
               <defs>
@@ -176,7 +176,7 @@ export function MetricExplorer({ metrics, kpis, rows }: Props) {
                   const p = payload[0].payload as { week: string; value: number };
                   return (
                     <div className="rounded-md border border-line-strong bg-surface-3 px-3 py-2 text-sm shadow-xl">
-                      <p className="font-mono text-[11px] text-ink-3">Week of {p.week}</p>
+                      <p className="font-mono text-[0.6875rem] text-ink-3">Week of {p.week}</p>
                       <p className="mt-0.5 font-semibold text-ink-1">
                         {fmt(p.value, p.value >= 100 ? 0 : 2)} {unit}
                       </p>
@@ -217,7 +217,7 @@ export function MetricExplorer({ metrics, kpis, rows }: Props) {
               <caption className="sr-only">
                 Weekly {metric.label} ({unit}), synthetic data
               </caption>
-              <thead className="sticky top-0 bg-surface-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+              <thead className="sticky top-0 bg-surface-2 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink-3">
                 <tr>
                   <th scope="col" className="px-3 py-2">Week of</th>
                   <th scope="col" className="px-3 py-2 text-right">

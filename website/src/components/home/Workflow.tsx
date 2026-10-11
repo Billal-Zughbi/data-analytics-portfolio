@@ -38,7 +38,7 @@ export function Workflow() {
         {/* Connector: horizontal on desktop, vertical on mobile */}
         <svg
           aria-hidden
-          className="pointer-events-none absolute left-0 right-0 top-[22px] hidden h-2 w-full lg:block"
+          className="pointer-events-none absolute left-0 right-0 top-[1.375rem] hidden h-2 w-full lg:block"
           viewBox="0 0 1000 8"
           preserveAspectRatio="none"
         >
@@ -64,11 +64,11 @@ export function Workflow() {
             <li key={s.key} className="relative pl-12 lg:pl-0">
               <span
                 aria-hidden
-                className="absolute left-[13px] top-12 bottom-[-2.5rem] w-px bg-line-strong lg:hidden"
+                className="absolute left-[0.8125rem] top-12 bottom-[-2.5rem] w-px bg-line-strong lg:hidden"
                 style={{ display: i === STAGES.length - 1 ? "none" : undefined }}
               />
-              <div className="absolute left-0 top-0 flex h-[44px] w-[28px] items-center lg:static lg:w-auto">
-                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[11px] text-accent">
+              <div className="absolute left-0 top-0 flex h-[2.75rem] w-[1.75rem] items-center lg:static lg:w-auto">
+                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-[0.6875rem] text-accent">
                   {i + 1}
                   <span aria-hidden className="absolute inset-0 rounded-full shadow-[0_0_18px_rgb(79_216_255/0.35)]" />
                 </span>
@@ -80,7 +80,7 @@ export function Workflow() {
               <p className="mt-3 text-sm leading-relaxed text-ink-2">{s.body}</p>
               <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={`${s.title} tools`}>
                 {s.tools.map((t) => (
-                  <li key={t} className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[11px] text-ink-2">
+                  <li key={t} className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[0.6875rem] text-ink-2">
                     {t}
                   </li>
                 ))}

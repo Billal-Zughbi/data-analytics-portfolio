@@ -28,7 +28,7 @@ export function AggregationAudit({ audit }: { audit: Audit }) {
     <div className="rounded-[var(--radius-lg)] border border-line bg-surface-1 p-4 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h4 className="text-lg font-semibold tracking-tight">Resting heart rate, March: implicit Sum vs daily mean (bpm)</h4>
-        <span className="rounded-full border border-warn/40 px-3 py-1 font-mono text-[11px] text-warn">Synthetic data</span>
+        <span className="rounded-full border border-warn/40 px-3 py-1 font-mono text-[0.6875rem] text-warn">Synthetic data</span>
       </div>
 
       {/* Legend: always present for two series, plus direct labels on the lines */}
@@ -37,7 +37,7 @@ export function AggregationAudit({ audit }: { audit: Audit }) {
           <svg width="22" height="8" aria-hidden>
             <line x1="0" x2="22" y1="4" y2="4" stroke="var(--series-2)" strokeWidth="2" strokeDasharray="4 3" />
           </svg>
-          Implicit <code className="font-mono text-[12px]">Sum</code> on a date axis (original visual)
+          Implicit <code className="font-mono text-[0.75rem]">Sum</code> on a date axis (original visual)
         </li>
         <li className="flex items-center gap-2">
           <svg width="22" height="8" aria-hidden>
@@ -47,7 +47,7 @@ export function AggregationAudit({ audit }: { audit: Audit }) {
         </li>
       </ul>
 
-      <div className="mt-4 h-[260px]">
+      <div className="mt-4 h-[16.25rem]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 12, right: 72, bottom: 0, left: 0 }}>
             <CartesianGrid stroke="var(--grid)" vertical={false} />
@@ -60,7 +60,7 @@ export function AggregationAudit({ audit }: { audit: Audit }) {
                 const p = payload[0].payload as Audit["resting_hr"]["march_comparison"][number];
                 return (
                   <div className="rounded-md border border-line-strong bg-surface-3 px-3 py-2 text-sm shadow-xl">
-                    <p className="font-mono text-[11px] text-ink-3">{p.date}</p>
+                    <p className="font-mono text-[0.6875rem] text-ink-3">{p.date}</p>
                     <p className="mt-1 text-ink-1">Implicit Sum: {p.implicit_sum} bpm</p>
                     <p className="text-ink-1">Daily mean: {p.daily_mean} bpm</p>
                   </div>

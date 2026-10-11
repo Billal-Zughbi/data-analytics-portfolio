@@ -73,7 +73,7 @@ export function SiteNav() {
                 <Link
                   href={item.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative rounded-md px-3 py-2 font-mono text-[12px] uppercase tracking-[0.12em] transition-colors ${
+                  className={`relative rounded-md px-3 py-2 font-mono text-[0.75rem] uppercase tracking-[0.12em] transition-colors ${
                     isActive ? "text-ink-1" : "text-ink-3 hover:text-ink-1"
                   }`}
                 >

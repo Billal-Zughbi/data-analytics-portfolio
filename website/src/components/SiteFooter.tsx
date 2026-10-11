@@ -17,7 +17,7 @@ export function SiteFooter() {
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-3">
             {profile.title}. {profile.location}.
           </p>
-          <p className="mt-6 font-mono text-[11px] leading-relaxed text-ink-3">
+          <p className="mt-6 font-mono text-[0.6875rem] leading-relaxed text-ink-3">
             Built with Next.js, React Three Fiber and Recharts.{" "}
             <a className="underline decoration-line-strong underline-offset-4 hover:text-ink-1" href={profile.links.repository}>
               Source on GitHub
@@ -27,7 +27,7 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="Footer">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Sections</p>
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Sections</p>
           <ul className="mt-4 space-y-2 text-sm">
             {navigation.map((n) => (
               <li key={n.href}>
@@ -40,7 +40,7 @@ export function SiteFooter() {
         </nav>
 
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Case studies</p>
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Case studies</p>
           <ul className="mt-4 space-y-2 text-sm">
             {projects.map((p) => (
               <li key={p.slug}>
@@ -50,7 +50,7 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Elsewhere</p>
+          <p className="mt-6 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Elsewhere</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a href={profile.links.linkedin} className="text-ink-2 hover:text-ink-1">LinkedIn</a>
@@ -65,7 +65,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-line">
-        <p className="mx-auto max-w-6xl px-4 py-5 font-mono text-[11px] text-ink-3 sm:px-6">
+        <p className="mx-auto max-w-6xl px-4 py-5 font-mono text-[0.6875rem] text-ink-3 sm:px-6">
           © {BUILD_YEAR} {profile.name}
         </p>
       </div>

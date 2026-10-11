@@ -38,7 +38,7 @@ export default function HomePage() {
         index="02"
         eyebrow="How I work"
         title="How I approach a reporting project."
-        intro="These are roughly the steps I follow at work and in the projects here."
+        intro="These are the steps I follow at work and in the projects here."
         className="border-y border-line bg-surface-1/30"
       >
         <Workflow />
@@ -77,7 +77,7 @@ export default function HomePage() {
             <div className="node-rule my-8" aria-hidden />
             <dl>
               <div>
-                <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Education</dt>
+                <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Education</dt>
                 <dd className="mt-3">
                   <p className="font-semibold text-ink-1">{profile.education.degree}</p>
                   <p className="text-ink-2">{profile.education.school}</p>
