@@ -70,19 +70,25 @@ export function Hero() {
             {profile.resumeUrl && (
               <a
                 href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${profile.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium text-ink-1 transition-colors hover:border-accent"
               >
-                Resume (PDF)
+                Resume <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
               </a>
             )}
             <a
               href={profile.links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium text-ink-1 transition-colors hover:border-accent"
             >
               LinkedIn <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
             </a>
             <a
               href={profile.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-medium text-ink-1 transition-colors hover:border-accent"
             >
               GitHub <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
