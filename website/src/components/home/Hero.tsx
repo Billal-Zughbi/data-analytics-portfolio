@@ -46,7 +46,7 @@ export function Hero() {
         className="pointer-events-none absolute -right-40 top-10 h-[520px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(79_216_255/0.10),transparent)] blur-2xl"
       />
 
-      <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-10 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-0 lg:pb-28 lg:pt-6">
+      <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-14 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-0 lg:pb-28 lg:pt-16">
         <div className="relative z-10 max-w-xl">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
             {profile.title} · {profile.location}

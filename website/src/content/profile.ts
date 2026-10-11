@@ -39,7 +39,7 @@ export const profile = {
 
   headline: "From Raw Data to Business Decisions: Power BI, SQL, Python, and the Data Models Behind Them.",
   intro:
-    "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Sometimes that's a leadership team that needs an answer before the end of the day, and sometimes it's a workflow that's been done by hand for years and finally doesn't have to be. Below you'll find my work history and a few independent projects, each with the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
+    "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Below you'll find my work history and a few independent projects, each with the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
   aboutTitle:
     "From dreams of becoming an MD to the reality of debugging SQL code and fan-out joins: how I found my career in Analytics Engineering.",
   // Personal story written with Annie for the site. Keep resume facts out of this section.
