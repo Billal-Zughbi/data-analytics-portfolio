@@ -37,7 +37,7 @@ export const profile = {
    */
   resumeUrl: "/Billal-Zughbi-Resume.pdf" as string | null,
 
-  headline: "The Paths to a Decision: Power BI, SQL, Python, and the Data Models Behind Them.",
+  headline: "From Raw Data to Business Decisions: Power BI, SQL, Python, and the Data Models Behind Them.",
   intro:
     "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Sometimes that's a leadership team that needs an answer before the end of the day, and sometimes it's a workflow that's been done by hand for years and finally doesn't have to be. Below you'll find my work history and a few independent projects, each with the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
   aboutTitle:
