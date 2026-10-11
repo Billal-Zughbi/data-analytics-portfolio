@@ -15,7 +15,6 @@ export type Role = {
   location: string;
   start: string; // display text, e.g. "January 2023"
   end: string;
-  summary: string;
   highlights: string[];
   tools: string[];
   /** Company logo under public/, shown next to the role. */
@@ -42,7 +41,7 @@ export const profile = {
   intro:
     "I'm an analytics engineer at Arconic. I build SQL data models, ETL pipelines and Power BI dashboards, mostly to replace spreadsheet reporting and manual work. Below are my work history and some independent projects, with the code for each.",
   about: [
-    "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across an 8-business-unit manufacturing organization. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
+    "I'm a Business Intelligence and Analytics Engineer at Arconic, where I build enterprise reporting and data solutions across a company with 8 business units. My work spans Power BI and SQL models, ETL/ELT standardization, and integrating Snowflake and Microsoft Fabric lakehouse data into reporting.",
     // Written for the site; edit freely.
     "What I enjoy most about analytics is the detective work: taking a messy dataset, figuring out what is actually going on, and turning it into something people use to make decisions. Going forward, I want to keep growing on the analytics engineering side, building the data models and pipelines that bigger teams rely on, and doing more of the analysis behind the decisions themselves.",
   ],
@@ -62,8 +61,6 @@ export const experience: Role[] = [
     location: "Lancaster, PA",
     start: "January 2023",
     end: "Present",
-    summary:
-      "Enterprise Power BI and SQL reporting for operations, finance and executive leadership across 8 business units.",
     highlights: [
       "Designed and deployed 15+ enterprise Power BI dashboards for 200+ stakeholders across operations, finance and executive leadership, replacing legacy spreadsheet reporting with a centralized reporting layer for core KPIs.",
       "Analyzed manufacturing and product-quality data to identify key drivers of quality failures, informing process improvements that reduced defect rates by 25% and annual customer claims by $80K.",
@@ -81,7 +78,6 @@ export const experience: Role[] = [
     location: "Lancaster, PA",
     start: "May 2022",
     end: "August 2022",
-    summary: "Automation and reporting tools for customer service and workforce attendance.",
     highlights: [
       "Automated the collection and transformation of legacy customer-service data using Power Automate, creating a refreshable reporting dataset that reduced monthly preprocessing time by 40%.",
       "Built a Power BI and Power Apps attendance-tracking platform for 750+ hourly employees, standardizing data capture and KPI logic while reducing reliance on manual timecard audits.",

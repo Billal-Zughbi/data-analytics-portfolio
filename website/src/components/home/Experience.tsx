@@ -51,7 +51,6 @@ export function Experience() {
                 <p className="text-sm text-ink-3">{role.location}</p>
               </div>
             </div>
-            <p className="mt-3 text-ink-2">{role.summary}</p>
             <ul className="mt-4 space-y-2.5">
               {role.highlights.map((h) => (
                 <li key={h} className="flex gap-3 text-sm leading-relaxed text-ink-2">
