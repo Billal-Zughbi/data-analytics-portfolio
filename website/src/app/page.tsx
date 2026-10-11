@@ -18,6 +18,7 @@ export default function HomePage() {
 
       <Section
         id="projects"
+        sheet
         index="01"
         eyebrow="Selected projects"
         title="Projects I've built on my own."

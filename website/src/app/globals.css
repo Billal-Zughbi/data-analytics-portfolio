@@ -250,3 +250,53 @@ li:hover > div > .company-logo {
 @media (prefers-reduced-motion: reduce) {
   li:hover > div > .company-logo { transform: none; }
 }
+
+/* Home: the hero sinks and fades as the projects panel slides up over it.
+   Scroll-driven, so it only runs where supported and never when motion is reduced. */
+.sheet-panel {
+  box-shadow: 0 -24px 60px -20px rgb(0 0 0 / 0.9), inset 0 1px 0 var(--line-strong);
+}
+.sheet-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(480px, 60%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  opacity: 0.7;
+}
+@keyframes hero-exit {
+  to {
+    opacity: 0;
+    transform: translateY(22%) scale(0.95);
+  }
+}
+@keyframes scroll-cue-drop {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+.scroll-cue-dot {
+  animation: scroll-cue-drop 1.8s var(--ease-out) infinite;
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+  @supports (animation-timeline: view()) {
+    .hero-exit {
+      animation: hero-exit linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 60%;
+    }
+    .scroll-cue {
+      animation: scroll-cue-hide linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0px 160px;
+    }
+  }
+}
+@keyframes scroll-cue-hide {
+  to { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-dot { animation: none; }
+}

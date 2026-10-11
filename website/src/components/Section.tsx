@@ -8,13 +8,15 @@ type Props = {
   intro?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  /** The section right after the hero: a panel that slides up over it as you scroll. */
+  sheet?: boolean;
 };
 
 /** A homepage or case-study section with the indexed node-rule heading. */
-export function Section({ id, index, eyebrow, title, intro, children, className = "" }: Props) {
+export function Section({ id, index, eyebrow, title, intro, children, className = "", sheet = false }: Props) {
   const headingId = id ? `${id}-title` : undefined;
   return (
-    <section id={id} aria-labelledby={headingId} className={`relative scroll-mt-20 py-20 sm:py-28 ${className}`}>
+    <section id={id} aria-labelledby={headingId} className={`relative scroll-mt-20 ${sheet ? "sheet-panel z-10 -mt-12 rounded-t-[2.5rem] bg-bg pb-20 pt-16 sm:pb-28 sm:pt-20" : "py-20 sm:py-28"} ${className}`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <div className="flex items-center gap-4">
