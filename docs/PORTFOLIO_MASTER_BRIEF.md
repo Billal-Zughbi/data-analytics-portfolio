@@ -85,4 +85,4 @@ content, validated chart palette, ink tokens for all chart text, a table view fo
 * The planned housing-affordability project was replaced because census and BLS hosts were unreachable from
   the build environment; the owner chose the change of topic. See `docs/second-wave-dataset-selection.md`.
 * No `.pbix`/`.pbip` exists for either new project. Building them needs Power BI Desktop on Windows.
-* The site is not deployed yet.
+* The site is live on Vercel at https://data-analytics-portfolio-six.vercel.app and redeploys on every push to `main`.

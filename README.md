@@ -110,13 +110,13 @@ CI reruns `all` and fails if any committed output changes.
 
 The site is a static export, so any static host works.
 
-* **Vercel:** import the repository and set the project's root directory to `website`. Set
+* **Vercel (in use):** import the repository and set the project's root directory to `website`. Set
   `NEXT_PUBLIC_SITE_URL` to the production URL.
 * **GitHub Pages:** build with `NEXT_PUBLIC_BASE_PATH=/data-analytics-portfolio` and
   `NEXT_PUBLIC_SITE_URL=https://billal-zughbi.github.io/data-analytics-portfolio`, then publish
   `website/out/` (for example with the `actions/deploy-pages` workflow).
 
-The site is not deployed yet.
+Live at https://data-analytics-portfolio-six.vercel.app, deployed by Vercel from `main` (root directory `website`). Every push to `main` redeploys it.
 
 ## Attribution
 
