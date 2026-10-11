@@ -18,6 +18,8 @@ export type Role = {
   summary: string;
   highlights: string[];
   tools: string[];
+  /** Company logo under public/, shown next to the role. */
+  logo?: string;
 };
 
 export const profile = {
@@ -56,6 +58,7 @@ export const experience: Role[] = [
   {
     title: "Analytics Engineer",
     company: "Arconic",
+    logo: "/images/arconic-logo.png",
     location: "Lancaster, PA",
     start: "January 2023",
     end: "Present",
@@ -74,6 +77,7 @@ export const experience: Role[] = [
   {
     title: "Data Analytics Intern",
     company: "Arconic",
+    logo: "/images/arconic-logo.png",
     location: "Lancaster, PA",
     start: "May 2022",
     end: "August 2022",
