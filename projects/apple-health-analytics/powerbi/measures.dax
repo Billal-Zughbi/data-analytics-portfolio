@@ -1,9 +1,9 @@
 // Apple Health Analytics: DAX measures for the rebuilt model
 // ------------------------------------------------------------------
-// Model (load with powerquery.m, tables in ../data/sample/):
+// Model (load with powerquery.m, tables in ../data/model/):
 //   fact_daily_metric  date, metric, value       grain: date × metric
-//   dim_metric         metric, label, group, unit, daily_aggregation, hk_type
-//   dim_date           date, year, quarter, month, month_name, iso_week,
+//   dim_metric         metric, label, group, unit, kind, plausible_min, plausible_max
+//   dim_date           date, year, quarter, month, month_name,
 //                      week_start, day_of_week, day_name, is_weekend
 // Relationships (both many-to-one, single direction):
 //   fact_daily_metric[date]   -> dim_date[date]
@@ -12,13 +12,13 @@
 //
 // Rule: every fact value is already the correct DAILY value for its metric
 // (total, mean, energy average, last reading or distinct stood hours; see
-// dim_metric[daily_aggregation]). Measures below therefore only ever average
+// dim_metric[kind]). Measures below therefore only ever average
 // daily values across days, or take the latest one. No measure sums a rate.
 //
-// Status: written against the CSV schema. test_pipeline.py checks that the CSV
+// Status: written against the CSV schema. test_report.py checks that the CSV
 // tables join without fan-out and reconcile with the Python daily table. The
 // DAX itself has not been run in Power BI Desktop yet; README.md lists the
-// values each measure should return on the synthetic sample.
+// values each measure should return on the full data range.
 
 // ---- Base -----------------------------------------------------------------
 

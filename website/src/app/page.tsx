@@ -20,9 +20,9 @@ export default function HomePage() {
         id="projects"
         sheet
         index="01"
-        eyebrow="Selected projects"
-        title="Projects I've built on my own."
-        intro="Each write-up covers the question, the data, the code and the checks I ran, with everything in the GitHub repository."
+        eyebrow="Featured project"
+        title="Twelve years of my own health data."
+        intro="The write-up covers the question, the data, the code and the checks I ran, with everything in the GitHub repository."
       >
         <div className="space-y-6">
           {projects.map((p, i) => (
@@ -38,7 +38,7 @@ export default function HomePage() {
         index="02"
         eyebrow="How I work"
         title="How I approach a reporting project."
-        intro="These are the steps I follow at work and in the projects here."
+        intro="These are the steps I follow at work and in the project here."
         className="border-y border-line bg-surface-1/30"
       >
         <Workflow />

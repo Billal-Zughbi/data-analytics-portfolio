@@ -1,0 +1,31 @@
+metric,label,group,unit,kind,plausible_min,plausible_max
+steps,Steps,activity,steps,total,0.0,60000.0
+active_energy_kcal,Active energy,activity,kcal,total,0.0,4000.0
+basal_energy_kcal,Resting energy,activity,kcal,total,0.0,3000.0
+exercise_min,Exercise,activity,min,total,0.0,600.0
+stand_min,Stand time,activity,min,total,0.0,1080.0
+stand_hours,Stand hours,activity,hours,total,0.0,24.0
+flights_climbed,Flights climbed,activity,flights,total,0.0,150.0
+heart_rate_bpm,Average heart rate,cardio,bpm,average,40.0,150.0
+resting_hr_bpm,Resting heart rate,cardio,bpm,average,35.0,110.0
+walking_hr_bpm,Walking heart rate,cardio,bpm,average,50.0,180.0
+hrv_sdnn_ms,Heart rate variability (SDNN),cardio,ms,average,5.0,200.0
+vo2max,VO2 max,cardio,mL/kg·min,estimate,15.0,75.0
+distance_walk_run_mi,Walking and running distance,mobility,mi,total,0.0,40.0
+distance_cycling_mi,Cycling distance,mobility,mi,total,0.0,150.0
+walking_speed_mph,Walking speed,mobility,mph,average,0.5,5.0
+step_length_in,Step length,mobility,in,average,10.0,45.0
+walking_asymmetry_pct,Walking asymmetry,mobility,%,average,0.0,100.0
+double_support_pct,Double support time,mobility,%,average,10.0,50.0
+six_minute_walk_m,Six-minute walk distance,mobility,m,estimate,100.0,1000.0
+stair_ascent_ftps,Stair ascent speed,mobility,ft/s,average,0.2,5.0
+stair_descent_ftps,Stair descent speed,mobility,ft/s,average,0.2,5.0
+running_speed_mph,Running speed,mobility,mph,average,2.0,20.0
+running_stride_m,Running stride length,mobility,m,average,0.3,2.5
+running_gct_ms,Ground contact time,mobility,ms,average,150.0,500.0
+running_vo_cm,Vertical oscillation,mobility,cm,average,3.0,20.0
+running_power_w,Running power,mobility,W,average,20.0,2000.0
+physical_effort,Physical effort,environment,kcal/hr·kg,average,0.5,30.0
+env_audio_dba,Environmental sound level,environment,dBA,level_db,20.0,130.0
+headphone_audio_dba,Headphone audio level,environment,dBA,level_db,20.0,130.0
+time_in_daylight_min,Time in daylight,environment,min,total,0.0,1080.0

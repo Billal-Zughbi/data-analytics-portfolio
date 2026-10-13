@@ -1,0 +1,1088 @@
+{
+ "checks": [
+  {
+   "name": "original_cards_reproduced",
+   "result": "pass",
+   "detail": "24 of 24 card values match what the original report displayed."
+  },
+  {
+   "name": "records_read",
+   "result": "pass",
+   "detail": "4,387,607 records from 2014-09-10 to 2026-10-11; 0 could not be parsed."
+  },
+  {
+   "name": "exact_duplicates_removed",
+   "result": "info",
+   "detail": "55 records repeated type, device, interval and value exactly and were dropped."
+  },
+  {
+   "name": "device_overlap_removed",
+   "result": "info",
+   "detail": "130,941 step, distance, flight and energy records overlapped a higher-priority device in the same hour."
+  },
+  {
+   "name": "units_converted",
+   "result": "pass",
+   "detail": "0 records had a unit with no known conversion."
+  },
+  {
+   "name": "record_out_of_range",
+   "result": "info",
+   "detail": "15 single records fell outside the plausible range and were excluded."
+  },
+  {
+   "name": "implausible_days_excluded",
+   "result": "warn",
+   "detail": "34 daily values across 7 metrics fell outside a plausible daily range and were excluded, not changed."
+  },
+  {
+   "name": "inactive_relationships",
+   "result": "info",
+   "detail": "4 date relationships in the original model were inactive, so some cards ignored the date slicer."
+  },
+  {
+   "name": "no_device_names_or_times",
+   "result": "pass",
+   "detail": "Published files hold dates and daily values only."
+  },
+  {
+   "name": "series_aligned",
+   "result": "pass",
+   "detail": "Daily series share one calendar of 4,415 days from 2014-09-10 to 2026-10-11."
+  }
+ ],
+ "excluded_rebuilt": [
+  {
+   "metric": "steps",
+   "date": "2015-03-25",
+   "value": 199928.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-26",
+   "value": 315387.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-27",
+   "value": 313453.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-28",
+   "value": 304986.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-29",
+   "value": 295539.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-30",
+   "value": 314053.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-03-31",
+   "value": 314527.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-01",
+   "value": 314106.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-02",
+   "value": 314463.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-03",
+   "value": 314459.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-04",
+   "value": 305272.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-05",
+   "value": 314137.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-06",
+   "value": 314499.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "steps",
+   "date": "2015-04-07",
+   "value": 155684.0,
+   "reason": "outside the plausible daily range 0 to 60000 steps"
+  },
+  {
+   "metric": "basal_energy_kcal",
+   "date": "2019-01-16",
+   "value": 3025.0,
+   "reason": "outside the plausible daily range 0 to 3000 kcal"
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "date": "2021-02-27",
+   "value": 152.9,
+   "reason": "outside the plausible daily range 40 to 150 bpm"
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "date": "2020-02-01",
+   "value": 118.0,
+   "reason": "outside the plausible daily range 35 to 110 bpm"
+  },
+  {
+   "metric": "hrv_sdnn_ms",
+   "date": "2021-04-18",
+   "value": 4.9,
+   "reason": "outside the plausible daily range 5 to 200 ms"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-25",
+   "value": 301.01,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-26",
+   "value": 477.15,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-27",
+   "value": 473.94,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-28",
+   "value": 476.73,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-29",
+   "value": 475.19,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-30",
+   "value": 475.29,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-31",
+   "value": 475.7,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-01",
+   "value": 475.15,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-02",
+   "value": 474.82,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-03",
+   "value": 475.34,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-04",
+   "value": 475.93,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-05",
+   "value": 475.16,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-06",
+   "value": 475.95,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-07",
+   "value": 227.81,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "headphone_audio_dba",
+   "date": "2020-11-13",
+   "value": 0.0,
+   "reason": "outside the plausible daily range 20 to 130 dBA"
+  },
+  {
+   "metric": "headphone_audio_dba",
+   "date": "2021-08-06",
+   "value": 0.0,
+   "reason": "outside the plausible daily range 20 to 130 dBA"
+  }
+ ],
+ "excluded_original": [
+  {
+   "metric": "active_energy_kcal",
+   "date": "2024-10-23",
+   "value": 5594.0,
+   "reason": "outside the plausible daily range 0 to 4000 kcal"
+  },
+  {
+   "metric": "basal_energy_kcal",
+   "date": "2019-01-01",
+   "value": 3414.0,
+   "reason": "outside the plausible daily range 0 to 3000 kcal"
+  },
+  {
+   "metric": "basal_energy_kcal",
+   "date": "2019-01-10",
+   "value": 4795.0,
+   "reason": "outside the plausible daily range 0 to 3000 kcal"
+  },
+  {
+   "metric": "basal_energy_kcal",
+   "date": "2019-05-19",
+   "value": 4113.0,
+   "reason": "outside the plausible daily range 0 to 3000 kcal"
+  },
+  {
+   "metric": "flights_climbed",
+   "date": "2018-03-22",
+   "value": 432.0,
+   "reason": "outside the plausible daily range 0 to 150 flights"
+  },
+  {
+   "metric": "flights_climbed",
+   "date": "2024-05-20",
+   "value": 210.0,
+   "reason": "outside the plausible daily range 0 to 150 flights"
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "date": "2021-02-27",
+   "value": 152.9,
+   "reason": "outside the plausible daily range 40 to 150 bpm"
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "date": "2024-05-17",
+   "value": 178.0,
+   "reason": "outside the plausible daily range 40 to 150 bpm"
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "date": "2020-02-02",
+   "value": 118.0,
+   "reason": "outside the plausible daily range 35 to 110 bpm"
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "date": "2023-02-18",
+   "value": 151.0,
+   "reason": "outside the plausible daily range 35 to 110 bpm"
+  },
+  {
+   "metric": "hrv_sdnn_ms",
+   "date": "2021-04-18",
+   "value": 4.9,
+   "reason": "outside the plausible daily range 5 to 200 ms"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-25",
+   "value": 282.64,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-26",
+   "value": 490.51,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-27",
+   "value": 423.32,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-28",
+   "value": 518.84,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-29",
+   "value": 487.04,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-30",
+   "value": 468.61,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-03-31",
+   "value": 465.69,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-01",
+   "value": 486.9,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-02",
+   "value": 464.47,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-03",
+   "value": 473.94,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-04",
+   "value": 416.67,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-05",
+   "value": 544.36,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-06",
+   "value": 465.77,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2015-04-07",
+   "value": 246.43,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "date": "2018-03-22",
+   "value": 120.31,
+   "reason": "outside the plausible daily range 0 to 40 mi"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2023-10-07",
+   "value": 210.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-01-16",
+   "value": 1103.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-02-14",
+   "value": 638.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-08-10",
+   "value": 73487.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-08-13",
+   "value": 98328.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-08-20",
+   "value": 32073.0,
+   "reason": "rate added up per day in the original query"
+  },
+  {
+   "metric": "running_power_sum_w",
+   "date": "2024-10-30",
+   "value": 589.0,
+   "reason": "rate added up per day in the original query"
+  }
+ ],
+ "coverage": [
+  {
+   "metric": "steps",
+   "label": "Steps",
+   "unit": "steps",
+   "group": "activity",
+   "kind": "total",
+   "days": 4369,
+   "first": "2014-09-10",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "active_energy_kcal",
+   "label": "Active energy",
+   "unit": "kcal",
+   "group": "activity",
+   "kind": "total",
+   "days": 2355,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "basal_energy_kcal",
+   "label": "Resting energy",
+   "unit": "kcal",
+   "group": "activity",
+   "kind": "total",
+   "days": 2465,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "exercise_min",
+   "label": "Exercise",
+   "unit": "min",
+   "group": "activity",
+   "kind": "total",
+   "days": 2345,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "stand_min",
+   "label": "Stand time",
+   "unit": "min",
+   "group": "activity",
+   "kind": "total",
+   "days": 1686,
+   "first": "2020-02-12",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "stand_hours",
+   "label": "Stand hours",
+   "unit": "hours",
+   "group": "activity",
+   "kind": "total",
+   "days": 2333,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "flights_climbed",
+   "label": "Flights climbed",
+   "unit": "flights",
+   "group": "activity",
+   "kind": "total",
+   "days": 3467,
+   "first": "2016-10-27",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "label": "Average heart rate",
+   "unit": "bpm",
+   "group": "cardio",
+   "kind": "average",
+   "days": 2320,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "label": "Resting heart rate",
+   "unit": "bpm",
+   "group": "cardio",
+   "kind": "average",
+   "days": 2149,
+   "first": "2018-04-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "walking_hr_bpm",
+   "label": "Walking heart rate",
+   "unit": "bpm",
+   "group": "cardio",
+   "kind": "average",
+   "days": 2088,
+   "first": "2018-04-22",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "hrv_sdnn_ms",
+   "label": "Heart rate variability (SDNN)",
+   "unit": "ms",
+   "group": "cardio",
+   "kind": "average",
+   "days": 1951,
+   "first": "2018-04-22",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "vo2max",
+   "label": "VO2 max",
+   "unit": "mL/kg·min",
+   "group": "cardio",
+   "kind": "estimate",
+   "days": 77,
+   "first": "2019-03-17",
+   "last": "2026-10-09"
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "label": "Walking and running distance",
+   "unit": "mi",
+   "group": "mobility",
+   "kind": "total",
+   "days": 4358,
+   "first": "2014-09-17",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "distance_cycling_mi",
+   "label": "Cycling distance",
+   "unit": "mi",
+   "group": "mobility",
+   "kind": "total",
+   "days": 16,
+   "first": "2020-09-12",
+   "last": "2025-05-25"
+  },
+  {
+   "metric": "walking_speed_mph",
+   "label": "Walking speed",
+   "unit": "mph",
+   "group": "mobility",
+   "kind": "average",
+   "days": 2115,
+   "first": "2020-10-17",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "step_length_in",
+   "label": "Step length",
+   "unit": "in",
+   "group": "mobility",
+   "kind": "average",
+   "days": 2115,
+   "first": "2020-10-17",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "walking_asymmetry_pct",
+   "label": "Walking asymmetry",
+   "unit": "%",
+   "group": "mobility",
+   "kind": "average",
+   "days": 2021,
+   "first": "2020-10-17",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "double_support_pct",
+   "label": "Double support time",
+   "unit": "%",
+   "group": "mobility",
+   "kind": "average",
+   "days": 2106,
+   "first": "2020-10-17",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "six_minute_walk_m",
+   "label": "Six-minute walk distance",
+   "unit": "m",
+   "group": "mobility",
+   "kind": "estimate",
+   "days": 190,
+   "first": "2021-01-07",
+   "last": "2026-10-05"
+  },
+  {
+   "metric": "stair_ascent_ftps",
+   "label": "Stair ascent speed",
+   "unit": "ft/s",
+   "group": "mobility",
+   "kind": "average",
+   "days": 1042,
+   "first": "2023-08-21",
+   "last": "2026-10-09"
+  },
+  {
+   "metric": "stair_descent_ftps",
+   "label": "Stair descent speed",
+   "unit": "ft/s",
+   "group": "mobility",
+   "kind": "average",
+   "days": 1060,
+   "first": "2023-08-24",
+   "last": "2026-10-09"
+  },
+  {
+   "metric": "running_speed_mph",
+   "label": "Running speed",
+   "unit": "mph",
+   "group": "mobility",
+   "kind": "average",
+   "days": 10,
+   "first": "2023-09-17",
+   "last": "2026-06-17"
+  },
+  {
+   "metric": "running_stride_m",
+   "label": "Running stride length",
+   "unit": "m",
+   "group": "mobility",
+   "kind": "average",
+   "days": 10,
+   "first": "2023-09-17",
+   "last": "2026-06-17"
+  },
+  {
+   "metric": "running_gct_ms",
+   "label": "Ground contact time",
+   "unit": "ms",
+   "group": "mobility",
+   "kind": "average",
+   "days": 10,
+   "first": "2023-09-17",
+   "last": "2026-06-17"
+  },
+  {
+   "metric": "running_vo_cm",
+   "label": "Vertical oscillation",
+   "unit": "cm",
+   "group": "mobility",
+   "kind": "average",
+   "days": 10,
+   "first": "2023-09-17",
+   "last": "2026-06-17"
+  },
+  {
+   "metric": "running_power_w",
+   "label": "Running power",
+   "unit": "W",
+   "group": "mobility",
+   "kind": "average",
+   "days": 10,
+   "first": "2023-09-17",
+   "last": "2026-06-17"
+  },
+  {
+   "metric": "physical_effort",
+   "label": "Physical effort",
+   "unit": "kcal/hr·kg",
+   "group": "environment",
+   "kind": "average",
+   "days": 1049,
+   "first": "2023-11-22",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "env_audio_dba",
+   "label": "Environmental sound level",
+   "unit": "dBA",
+   "group": "environment",
+   "kind": "level_db",
+   "days": 1137,
+   "first": "2023-08-21",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "headphone_audio_dba",
+   "label": "Headphone audio level",
+   "unit": "dBA",
+   "group": "environment",
+   "kind": "level_db",
+   "days": 2191,
+   "first": "2019-10-04",
+   "last": "2026-10-11"
+  },
+  {
+   "metric": "time_in_daylight_min",
+   "label": "Time in daylight",
+   "unit": "min",
+   "group": "environment",
+   "kind": "total",
+   "days": 789,
+   "first": "2023-11-22",
+   "last": "2026-10-09"
+  }
+ ],
+ "comparison": [
+  {
+   "metric": "steps",
+   "label": "Steps",
+   "unit": "steps",
+   "days": 1612,
+   "original": 5595.12,
+   "rebuilt": 6170.03,
+   "change_pct": 10.3,
+   "same_day_share": 0.15
+  },
+  {
+   "metric": "distance_walk_run_mi",
+   "label": "Walking and running distance",
+   "unit": "mi",
+   "days": 3630,
+   "original": 3.53,
+   "rebuilt": 2.64,
+   "change_pct": -25.2,
+   "same_day_share": 0.293
+  },
+  {
+   "metric": "flights_climbed",
+   "label": "Flights climbed",
+   "unit": "flights",
+   "days": 2687,
+   "original": 11.86,
+   "rebuilt": 7.87,
+   "change_pct": -33.7,
+   "same_day_share": 0.396
+  },
+  {
+   "metric": "active_energy_kcal",
+   "label": "Active energy",
+   "unit": "kcal",
+   "days": 1643,
+   "original": 461.01,
+   "rebuilt": 461.67,
+   "change_pct": 0.1,
+   "same_day_share": 0.455
+  },
+  {
+   "metric": "exercise_min",
+   "label": "Exercise",
+   "unit": "min",
+   "days": 1526,
+   "original": 37.98,
+   "rebuilt": 37.98,
+   "change_pct": -0.0,
+   "same_day_share": 0.873
+  },
+  {
+   "metric": "stand_min",
+   "label": "Stand time",
+   "unit": "min",
+   "days": 964,
+   "original": 99.88,
+   "rebuilt": 99.88,
+   "change_pct": 0.0,
+   "same_day_share": 0.71
+  },
+  {
+   "metric": "heart_rate_bpm",
+   "label": "Average heart rate",
+   "unit": "bpm",
+   "days": 1615,
+   "original": 88.97,
+   "rebuilt": 87.76,
+   "change_pct": -1.4,
+   "same_day_share": 0.621
+  },
+  {
+   "metric": "resting_hr_bpm",
+   "label": "Resting heart rate",
+   "unit": "bpm",
+   "days": 1266,
+   "original": 67.83,
+   "rebuilt": 67.64,
+   "change_pct": -0.3,
+   "same_day_share": 0.524
+  },
+  {
+   "metric": "hrv_sdnn_ms",
+   "label": "Heart rate variability (SDNN)",
+   "unit": "ms",
+   "days": 1263,
+   "original": 38.54,
+   "rebuilt": 38.55,
+   "change_pct": 0.0,
+   "same_day_share": 0.96
+  },
+  {
+   "metric": "vo2max",
+   "label": "VO2 max",
+   "unit": "mL/kg·min",
+   "days": 38,
+   "original": 39.16,
+   "rebuilt": 39.15,
+   "change_pct": -0.0,
+   "same_day_share": 0.842
+  },
+  {
+   "metric": "walking_speed_mph",
+   "label": "Walking speed",
+   "unit": "mph",
+   "days": 1401,
+   "original": 2.61,
+   "rebuilt": 2.61,
+   "change_pct": 0.0,
+   "same_day_share": 0.739
+  },
+  {
+   "metric": "env_audio_dba",
+   "label": "Environmental sound level",
+   "unit": "dBA",
+   "days": 434,
+   "original": 69.28,
+   "rebuilt": 76.78,
+   "change_pct": 10.8,
+   "same_day_share": 0.0
+  },
+  {
+   "metric": "physical_effort",
+   "label": "Physical effort",
+   "unit": "kcal/hr·kg",
+   "days": 344,
+   "original": 3.66,
+   "rebuilt": 3.66,
+   "change_pct": -0.0,
+   "same_day_share": 0.916
+  }
+ ],
+ "cards": [
+  {
+   "page": "Energy and Activity",
+   "label": "Active Energy Burned (kCal)",
+   "shown": "72.26K",
+   "rebuilt": 72259.986,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Energy and Activity",
+   "label": "Average Daily Active kCals Burned",
+   "shown": "776.99",
+   "rebuilt": 776.9891,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Energy and Activity",
+   "label": "Average Stand Hours",
+   "shown": "127",
+   "rebuilt": 127.0108,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Energy and Activity",
+   "label": "Total Exercise Minutes",
+   "shown": "4.98K",
+   "rebuilt": 4983.0,
+   "matches": true,
+   "days": 90
+  },
+  {
+   "page": "Energy and Activity",
+   "label": "Flights Climbed",
+   "shown": "1642",
+   "rebuilt": 1642.0,
+   "matches": true,
+   "days": 89
+  },
+  {
+   "page": "Cardiovascular",
+   "label": "Average Active Heart Rate (bpm)",
+   "shown": "83.17",
+   "rebuilt": 83.1712,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Cardiovascular",
+   "label": "Average Resting Heart Rate (bpm)",
+   "shown": "61",
+   "rebuilt": 60.747,
+   "matches": true,
+   "days": 83
+  },
+  {
+   "page": "Cardiovascular",
+   "label": "Minimum VO2 Max",
+   "shown": "33.84",
+   "rebuilt": 33.84,
+   "matches": true,
+   "days": 38
+  },
+  {
+   "page": "Cardiovascular",
+   "label": "Maximum VO2 Max",
+   "shown": "45.24",
+   "rebuilt": 45.2438,
+   "matches": true,
+   "days": 38
+  },
+  {
+   "page": "Cardiovascular",
+   "label": "Average HR Variability SDNN (ms)",
+   "shown": "44.18",
+   "rebuilt": 44.181,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Average Walking Speed (mph)",
+   "shown": "2.61",
+   "rebuilt": 2.6067,
+   "matches": true,
+   "days": 1405
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Avg Walking Speed Length (in)",
+   "shown": "26.79",
+   "rebuilt": 26.786,
+   "matches": true,
+   "days": 1405
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Average Running Speed (mph)",
+   "shown": "5.56",
+   "rebuilt": 5.5646,
+   "matches": true,
+   "days": 6
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Average Running Stride (m)",
+   "shown": "0.94",
+   "rebuilt": 0.9444,
+   "matches": true,
+   "days": 6
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Total Steps Taken",
+   "shown": "590.72K",
+   "rebuilt": 590716.0,
+   "matches": true,
+   "days": 92
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Total Distance Cycled (mi)",
+   "shown": "6.86",
+   "rebuilt": 6.8643,
+   "matches": true,
+   "days": 6
+  },
+  {
+   "page": "Mobility and Movement",
+   "label": "Average 6 Minute Walk Test Distance",
+   "shown": "494",
+   "rebuilt": 493.6344,
+   "matches": true,
+   "days": 93
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Avg of Physical Effort (kcal/hr•kg)",
+   "shown": "3.71",
+   "rebuilt": 3.7118,
+   "matches": true,
+   "days": 92
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Avg of Env Audio Exposure (dBASPL)",
+   "shown": "70.75",
+   "rebuilt": 70.7536,
+   "matches": true,
+   "days": 92
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Avg of Headphone Audio Exposure (dBASPL)",
+   "shown": "18.43",
+   "rebuilt": 18.4282,
+   "matches": true,
+   "days": 85
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Min of HP Audio Exposure",
+   "shown": "0.13",
+   "rebuilt": 0.134,
+   "matches": true,
+   "days": 85
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Max of HP Audio Exposure",
+   "shown": "85.56",
+   "rebuilt": 85.557,
+   "matches": true,
+   "days": 85
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Min of Env Audio Exposure",
+   "shown": "58.68",
+   "rebuilt": 58.683,
+   "matches": true,
+   "days": 92
+  },
+  {
+   "page": "Physical and Environmental",
+   "label": "Max of Env Audio Exposure",
+   "shown": "83.56",
+   "rebuilt": 83.562,
+   "matches": true,
+   "days": 92
+  }
+ ]
+}

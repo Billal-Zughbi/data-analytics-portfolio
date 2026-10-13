@@ -21,21 +21,14 @@ cd website && npm ci
 npm run dev          # http://localhost:3000
 npm run lint && npm run build && npm run typecheck && npm test
 
-# Apple Health project
+# Apple Health project (real data, published as daily values only)
 cd projects/apple-health-analytics
 pip install -r requirements-dev.txt
 python -m pytest
-PYTHONPATH=src python -m apple_health demo     # regenerates synthetic outputs + website JSON
-
-# Olist delivery and reviews (raw CSVs downloaded into data/raw/, never committed)
-cd projects/olist-delivery-experience
-pip install -r requirements-dev.txt && python -m pytest
-PYTHONPATH=src python -m olist_delivery all     # rewrites outputs, Power BI tables and website JSON
-
-# Known exploited vulnerabilities (snapshot committed in data/sample/, runs offline)
-cd projects/known-exploited-vulnerabilities
-pip install -r requirements-dev.txt && python -m pytest
-PYTHONPATH=src python -m kev_analytics all      # CI fails if this changes a committed output
+PYTHONPATH=src python -m apple_health build    # committed daily tables → website JSON, star schema, quality report
+# Private, only where the files exist (never commit them):
+PYTHONPATH=src python -m apple_health ingest-xml --xml path/to/export.xml   # → data/daily/
+PYTHONPATH=src python -m apple_health ingest-pbix --pbix path/to/report.pbix  # needs requirements-pbix.txt
 
 # Before every push (from the repo root)
 git status && python3 scripts/check_sensitive_files.py
@@ -43,13 +36,11 @@ git status && python3 scripts/check_sensitive_files.py
 
 ## Rules
 
-* **Privacy:** never commit or publish raw Apple Health exports, `HK*.csv` extracts, `.pbix` files with personal
-  data, original report screenshots, device names or real daily aggregates. Public health figures are synthetic
-  and labelled as such.
+* **Privacy:** never commit or publish raw Apple Health exports, workout routes, `HK*.csv` extracts, `.pbix`
+  files, original report screenshots, device names, times of day or record-level rows. Billal agreed (October
+  2026) to publish the health data as daily values; that is the only form allowed.
 * **Honesty:** never type metric values into components; read generated outputs. Never claim a Power BI file,
-  test, build or deployment exists or passed unless it was produced or run. Mark synthetic data as synthetic.
-* **Third-party data:** never commit the Olist CSVs or review text (CC BY-NC-SA 4.0; publish aggregates
-  only, with attribution). The KEV snapshot is CC0 and committed; keep its licence files with it.
+  test, build or deployment exists or passed unless it was produced or run.
 * **Personal content:** only from the résumé; no phone number on the site or in the published résumé PDF.
 * **Voice:** plain first-person sentences. No slogans, aphorisms or buzzwords; Billal does not want copy that
   sounds machine-written.

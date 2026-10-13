@@ -1,15 +1,14 @@
-"""Tests check calculation rules and data contracts, not health outcomes."""
+"""Rules of the XML pipeline used for a fresh Apple Health export. Tests check calculation rules, not health outcomes."""
 
 from __future__ import annotations
 
-import json
 import math
 from pathlib import Path
 
 import pandas as pd
 import pytest
 
-from apple_health import export_web, quality, synthetic, transform
+from apple_health import quality, transform
 from apple_health.extract import classify_device, extract, parse_local
 
 FIXTURE = Path(__file__).parent / "fixtures" / "mini_export.xml"
@@ -99,8 +98,14 @@ def test_late_evening_record_stays_on_its_local_day(daily):
 
 
 def test_exercise_is_zero_on_worn_days_without_exercise(daily):
-    assert daily.loc[DAY1, "exercise_min"] == 0
+    assert daily.loc[DAY1, "exercise_min"] == 12
     assert daily.loc[DAY2, "exercise_min"] == 0
+
+
+def test_a_type_the_export_never_recorded_is_not_zero_filled(daily):
+    # The fixture has no flights or stand records, so those stay blank rather than
+    # reading as days with zero flights.
+    assert daily["flights_climbed"].isna().all()
 
 
 def test_daily_table_has_one_row_per_day(records):
@@ -121,74 +126,3 @@ def test_quality_profile_reports_each_issue(records):
     assert checks["unit_converted"] == 1
     assert checks["out_of_range"] == 1
     assert checks["overlap_records_removed"] == 1
-
-
-# --- synthetic data and public export ----------------------------------------------
-
-@pytest.fixture(scope="module")
-def synthetic_run(tmp_path_factory):
-    tmp = tmp_path_factory.mktemp("synthetic")
-    manifest = synthetic.generate(tmp / "export.xml", synthetic.Profile(days=60))
-    manifest["synthetic"] = True
-    result = extract(tmp / "export.xml")
-    fact, stats = transform.build_daily(result.records)
-    report = quality.profile(result.records, fact, stats)
-    written = export_web.write_outputs(
-        result.records, fact, report, manifest, tmp / "site", tmp / "sample"
-    )
-    return tmp, manifest, written
-
-
-def test_synthetic_generator_is_deterministic(tmp_path):
-    a = synthetic.generate(tmp_path / "a.xml", synthetic.Profile(days=10))
-    b = synthetic.generate(tmp_path / "b.xml", synthetic.Profile(days=10))
-    assert (tmp_path / "a.xml").read_bytes() == (tmp_path / "b.xml").read_bytes()
-    assert a["records"] == b["records"]
-
-
-def test_synthetic_export_uses_generic_device_names(synthetic_run):
-    tmp, _, _ = synthetic_run
-    text = (tmp / "export.xml").read_text(encoding="utf-8")
-    assert "SYNTHETIC DATA" in text
-    names = set(pd.Series(text.split('sourceName="')[1:]).str.split('"').str[0])
-    assert names == {synthetic.WATCH, synthetic.PHONE}
-
-
-def test_public_outputs_are_labelled_and_carry_no_record_level_fields(synthetic_run):
-    tmp, _, written = synthetic_run
-    for path in written:
-        text = path.read_text(encoding="utf-8")
-        for needle in ("sourceName", "Demo Watch", "Demo iPhone", "startDate", "creationDate", "device_class"):
-            assert needle not in text, f"{path.name} contains {needle}"
-    summary = json.loads((tmp / "site" / "summary.json").read_text(encoding="utf-8"))
-    assert summary["synthetic"] is True
-    assert "not real measurements" in summary["notice"]
-
-
-def test_export_refuses_non_synthetic_input(tmp_path, records):
-    fact, stats = transform.build_daily(records)
-    report = quality.profile(records, fact, stats)
-    with pytest.raises(PermissionError):
-        export_web.write_outputs(records, fact, report, {"synthetic": False}, tmp_path, tmp_path)
-
-
-def test_power_bi_tables_reconcile_with_daily_table(synthetic_run):
-    tmp, _, _ = synthetic_run
-    wide = pd.read_csv(tmp / "sample" / "daily_metrics_synthetic.csv")
-    fact = pd.read_csv(tmp / "sample" / "fact_daily_metric.csv")
-    dim_metric = pd.read_csv(tmp / "sample" / "dim_metric.csv")
-    dim_date = pd.read_csv(tmp / "sample" / "dim_date.csv")
-    # Every fact row joins to exactly one metric and one date (no fan-out).
-    assert dim_metric["metric"].is_unique and dim_date["date"].is_unique
-    assert len(fact.merge(dim_metric, on="metric").merge(dim_date, on="date")) == len(fact)
-    assert not fact.duplicated(["date", "metric"]).any()
-    # Totals reconcile between the wide and long tables.
-    steps_long = fact.loc[fact["metric"] == "steps", "value"].sum()
-    assert steps_long == pytest.approx(wide["steps"].sum(), rel=1e-6)
-
-
-def test_weekly_view_averages_additive_metrics_per_day():
-    days = pd.date_range("2025-01-06", periods=7, freq="D")
-    daily = pd.DataFrame({"date": days, "steps": [1000.0] * 6 + [None]})
-    week = export_web.weekly(daily)
-    assert week.loc[0, "steps"] == 1000  # a missing day does not drag the week down

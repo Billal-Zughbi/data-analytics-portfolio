@@ -33,6 +33,11 @@
   --series-3: #9085e9;
   /* Neutral middle step for ordered fast → slow splits (blue → grey → orange). */
   --neutral-mid: #5c6582;
+
+  /* Activity rings on the Apple Health case study (decorative; values are always printed beside them) */
+  --ring-move: #ff3d71;
+  --ring-exercise: #a3f53b;
+  --ring-stand: #36dcf5;
   --grid: rgb(148 163 255 / 0.09);
 
   /* Status (always paired with a label, never colour alone) */
@@ -301,4 +306,48 @@ li:hover > div > .company-logo {
 }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue-dot { animation: none; }
+}
+
+/* Fitness icon spin and sparks (components/case-study/health/FitnessIcon.tsx) */
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes ring-spark {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+}
+.ring-celebrate {
+  transform-origin: center;
+  animation: ring-spin 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s;
+}
+.ring-spark {
+  animation: ring-spark 0.9s var(--ease-out) forwards;
+}
+
+/* Steps calendar cells ripple in, column by column, the first time it scrolls into view */
+@keyframes cell-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+html.js .calendar-anim .cal-cell {
+  opacity: 0;
+}
+html.js .calendar-anim.is-visible .cal-cell {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cell-in 0.5s var(--ease-out) forwards;
+  animation-delay: calc(var(--col) * 14ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .calendar-anim .cal-cell { opacity: 1; animation: none; }
+}
+
+/* Report page switch */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.page-in {
+  animation: page-in 0.45s var(--ease-out);
 }

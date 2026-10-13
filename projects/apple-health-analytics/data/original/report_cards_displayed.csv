@@ -1,0 +1,25 @@
+page,label,shown
+Energy and Activity,Active Energy Burned (kCal),72.26K
+Energy and Activity,Average Daily Active kCals Burned,776.99
+Energy and Activity,Average Stand Hours,127
+Energy and Activity,Total Exercise Minutes,4.98K
+Energy and Activity,Flights Climbed,1642
+Cardiovascular,Average Active Heart Rate (bpm),83.17
+Cardiovascular,Average Resting Heart Rate (bpm),61
+Cardiovascular,Minimum VO2 Max,33.84
+Cardiovascular,Maximum VO2 Max,45.24
+Cardiovascular,Average HR Variability SDNN (ms),44.18
+Mobility and Movement,Total Steps Taken,590.72K
+Mobility and Movement,Average Walking Speed (mph),2.61
+Mobility and Movement,Avg Walking Speed Length (in),26.79
+Mobility and Movement,Average Running Speed (mph),5.56
+Mobility and Movement,Average Running Stride (m),0.94
+Mobility and Movement,Total Distance Cycled (mi),6.86
+Mobility and Movement,Average 6 Minute Walk Test Distance,494
+Physical and Environmental,Avg of Physical Effort (kcal/hr•kg),3.71
+Physical and Environmental,Avg of Env Audio Exposure (dBASPL),70.75
+Physical and Environmental,Avg of Headphone Audio Exposure (dBASPL),18.43
+Physical and Environmental,Min of HP Audio Exposure,0.13
+Physical and Environmental,Max of HP Audio Exposure,85.56
+Physical and Environmental,Min of Env Audio Exposure,58.68
+Physical and Environmental,Max of Env Audio Exposure,83.56

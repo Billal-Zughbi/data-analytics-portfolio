@@ -13,7 +13,7 @@ import pandas as pd
 from .extract import DEVICE_PRIORITY
 from .metrics import BY_TYPE, METRICS, STAND_HOUR_STOOD, UNIT_CONVERSIONS
 
-ZERO_FILL_WHEN_WORN = ("exercise_min", "flights_climbed", "stand_hours")
+ZERO_FILL_WHEN_WORN = ("exercise_min", "flights_climbed", "stand_hours", "stand_min")
 
 
 def normalize_units(records: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -48,7 +48,7 @@ def drop_exact_duplicates(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
 
     Exact duplicates appear when an export is merged from restored backups.
     """
-    key = ["metric", "device_class", "start_local", "end_local", "value_raw"]
+    key = ["metric", "device_class", "source_rank", "start_local", "end_local", "value_raw"]
     before = len(df)
     out = df.drop_duplicates(subset=key)
     return out, before - len(out)
@@ -73,7 +73,7 @@ def dedupe_additive(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
     When a watch and a phone both count steps for the same hour, adding them
     double-counts the walk. Within each (metric, hour-of-start) bucket we keep
     the records from the highest-priority device class present
-    (watch > phone > other). This is a documented approximation of Health's own
+    (watch > phone > other), and within that class the newest device. This is a documented approximation of Health's own
     source-priority merge, which works at a finer interval level.
     """
     if df.empty:
@@ -83,6 +83,11 @@ def dedupe_additive(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
     df["priority"] = df["device_class"].astype(str).map(DEVICE_PRIORITY).fillna(9)
     best = df.groupby(["metric", "hour"])["priority"].transform("min")
     kept = df[df["priority"] == best]
+    # Two devices of the same class in one hour (for example the day a new watch was
+    # paired): keep the newer device only.
+    if "source_rank" in kept:
+        newest = kept.groupby(["metric", "hour"])["source_rank"].transform("max")
+        kept = kept[kept["source_rank"] == newest]
     return kept.drop(columns=["hour", "priority"]), len(df) - len(kept)
 
 
@@ -158,7 +163,11 @@ def build_daily(records: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         for key in ZERO_FILL_WHEN_WORN:
             if key not in fact:
                 fact[key] = np.nan
-            fact.loc[worn & fact[key].isna(), key] = 0.0
+            # Only from the first day the metric exists, so a type that a later
+            # watchOS version introduced is not back-filled with zeros.
+            since = fact[key].first_valid_index()
+            started = fact.index >= since if since is not None else np.zeros(len(fact), dtype=bool)
+            fact.loc[worn & started & fact[key].isna(), key] = 0.0
         fact = fact[[m.key for m in METRICS if m.key in fact]]
     fact = fact.reset_index()
 

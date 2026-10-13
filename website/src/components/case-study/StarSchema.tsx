@@ -24,7 +24,7 @@ export function StarSchema() {
         <rect x="10" y="40" width="190" height="180" rx="10" className={box} />
         <text x="26" y="66" className="fill-[var(--ink-1)] font-mono text-[0.8125rem] font-semibold">dim_date</text>
         <text x="26" y="84" className="fill-[var(--ink-3)] font-mono text-[0.625rem]">1 row per calendar day</text>
-        {["date  (key)", "year · quarter · month", "iso_week · week_start", "day_of_week · day_name", "is_weekend"].map((t, i) => (
+        {["date  (key)", "year · quarter · month", "month_name · week_start", "day_of_week · day_name", "is_weekend"].map((t, i) => (
           <text key={t} x="26" y={112 + i * 20} className="fill-[var(--ink-2)] font-mono text-[0.6875rem]">{t}</text>
         ))}
 
@@ -42,7 +42,7 @@ export function StarSchema() {
         <rect x="440" y="40" width="190" height="180" rx="10" className={box} />
         <text x="456" y="66" className="fill-[var(--ink-1)] font-mono text-[0.8125rem] font-semibold">dim_metric</text>
         <text x="456" y="84" className="fill-[var(--ink-3)] font-mono text-[0.625rem]">1 row per metric</text>
-        {["metric  (key)", "label · group · unit", "daily_aggregation", "hk_type"].map((t, i) => (
+        {["metric  (key)", "label · group · unit", "kind (daily rule)", "plausible_min · max"].map((t, i) => (
           <text key={t} x="456" y={112 + i * 20} className="fill-[var(--ink-2)] font-mono text-[0.6875rem]">{t}</text>
         ))}
       </svg>

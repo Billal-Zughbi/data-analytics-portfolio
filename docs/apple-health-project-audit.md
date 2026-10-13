@@ -1,5 +1,11 @@
 # Apple Health project audit
 
+> **Update, October 2026.** This audit was written before the `.pbix` data model could be read. The model has
+> since been read with `pbixray`, every card on the report has been reproduced, and the open questions below
+> are settled: see [`projects/apple-health-analytics/powerbi/README.md`](../projects/apple-health-analytics/powerbi/README.md)
+> for the confirmed findings. The project now publishes real daily values, with the owner's agreement, instead
+> of synthetic data.
+
 Audit of the original project supplied as a ZIP of the `Health-Report` repository (snapshot dated
 9 March 2025), carried out before rebuilding it for the portfolio in October 2026. The ZIP was inspected
 locally and kept outside this repository. No script from it was executed.

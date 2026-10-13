@@ -51,7 +51,7 @@ SECRET_PATTERNS = {
     "assigned secret": re.compile(r"(?i)\b(?:api[_-]?key|secret|token)\b\s*[:=]\s*['\"][A-Za-z0-9/_+=-]{16,}['\"]"),
 }
 
-# Record-level Apple Health content is only allowed in the synthetic generator and tests.
+# Record-level Apple Health content is only allowed in the test fixtures.
 HEALTH_RECORD = re.compile(r"<Record\s+type=|\bsourceName=|HKCharacteristicTypeIdentifierDateOfBirth|<ClinicalRecord")
 HEALTH_RECORD_ALLOWED = ("projects/apple-health-analytics/tests/fixtures/",)
 # Device names in real exports look like "<First name>’s Apple Watch" and identify people.

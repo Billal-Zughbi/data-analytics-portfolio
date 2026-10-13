@@ -127,9 +127,11 @@ projects/**/data/*
 !projects/**/data/sanitized/
 !projects/**/data/sample/
 !projects/**/data/README.md
-# Synthetic export: reproducible and large, regenerate with `python -m apple_health demo`
-projects/**/data/synthetic/
-# Website content data (resume text and the aggregate-only health summary)
+# Apple Health daily tables (one value per day, no device names or times; published with the owner's OK)
+!projects/apple-health-analytics/data/daily/
+!projects/apple-health-analytics/data/original/
+!projects/apple-health-analytics/data/model/
+# Website content data (resume text and the health project's daily outputs)
 !website/src/data/
 
 # -----------------------------------------------------------------------------

@@ -48,9 +48,9 @@ content, validated chart palette, ink tokens for all chart text, a table view fo
 
 1. Raw Apple Health exports, extracted per-type CSVs, `.pbix` files with personal data, and report screenshots
    with real values are **never committed or published**.
-2. Public Apple Health figures come only from the synthetic generator and are labelled synthetic wherever they
-   appear.
-3. No device names, record-level timestamps or real daily aggregates in public outputs.
+2. Since October 2026 the Apple Health project uses Billal's real data, with the owner's agreement, published only as
+   one value per day (plus monthly workout totals).
+3. No device names, times of day, record-level rows or workout routes in public outputs.
 4. No secrets or `.env` files. `.env.example` holds placeholders only.
 5. Third-party datasets: check licence and redistribution terms before committing any file.
 6. Before every push: `git status`, review the staged file list, run
@@ -76,13 +76,10 @@ content, validated chart palette, ink tokens for all chart text, a table view fo
 ## Current state (October 2026)
 
 * Stage 1 (site, hero, Apple Health case study, pipeline, docs) is published on `main`.
-* Stage 2 added two projects on real public data, each with SQL (DuckDB), Python, an executed notebook,
-  pytest, SQL vs pandas reconciliation, docs, a Power BI model kit and a case-study page:
-  * `projects/olist-delivery-experience`: late deliveries and review scores (Olist, CC BY-NC-SA 4.0; raw
-    files are downloaded, never committed).
-  * `projects/known-exploited-vulnerabilities`: time from CVE publication to CISA KEV listing, and KEV
-    against CVSS severity (KEV CC0, CVE Terms of Use; the snapshot is committed).
-* The planned housing-affordability project was replaced because census and BLS hosts were unreachable from
-  the build environment; the owner chose the change of topic. See `docs/second-wave-dataset-selection.md`.
-* No `.pbix`/`.pbip` exists for either new project. Building them needs Power BI Desktop on Windows.
+* Stage 2 added two public-data projects (Olist deliveries, CISA KEV). Stage 3 (October 2026) removed both at
+  the owner's request; the site now has one project.
+* Stage 3 rebuilt the Apple Health project on a fresh export (September 2014 to October 2026): the original
+  `.pbix` model read with `pbixray`, all 24 report cards reproduced and audited, the four report pages rebuilt
+  as an interactive web report, and new analysis (yearly patterns, workouts, heart rate, records, activity rings).
+* No `.pbix`/`.pbip` rebuild exists yet. Building it needs Power BI Desktop on Windows.
 * The site is live on Vercel at https://data-analytics-portfolio-six.vercel.app and redeploys on every push to `main`.

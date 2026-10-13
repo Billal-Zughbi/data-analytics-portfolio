@@ -32,42 +32,8 @@ jobs:
       - run: python -m pytest -q
       - name: Regenerate published outputs and fail if they drift
         run: |
-          PYTHONPATH=src python -m apple_health demo
-          git diff --exit-code -- data/sample outputs ../../website/src/data/generated
-
-  olist-delivery:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: projects/olist-delivery-experience
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install -r requirements-dev.txt
-      # The raw Olist files are not in git, so the full-data contract tests skip here;
-      # every rule test runs on the hand-written fixture.
-      - run: python -m pytest -q
-
-  known-exploited-vulnerabilities:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: projects/known-exploited-vulnerabilities
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install -r requirements-dev.txt
-      - run: python -m pytest -q
-      # The KEV and CVE snapshot is committed, so the whole pipeline runs offline here.
-      # Figures are left out of the drift check because PNG bytes vary with the matplotlib build.
-      - name: Rebuild from the committed snapshot and fail if outputs drift
-        run: |
-          PYTHONPATH=src python -m kev_analytics all
-          git diff --exit-code -- outputs ':(exclude)outputs/figures' powerbi ../../website/src/data/generated/known-exploited-vulnerabilities
+          PYTHONPATH=src python -m apple_health build
+          git diff --exit-code -- data/model outputs ../../website/src/data/generated
 
   website:
     runs-on: ubuntu-latest

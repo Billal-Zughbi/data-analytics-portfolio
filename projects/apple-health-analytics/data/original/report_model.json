@@ -1,0 +1,929 @@
+{
+ "source": "AppleHealthReport.pbix (March 2025), read with pbixray. The file itself is not committed.",
+ "tables": [
+  {
+   "table": "Active Energy Burned",
+   "metric": "active_energy_kcal",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1648,
+   "first": "2018-04-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Basal Energy Burned",
+   "metric": "basal_energy_kcal",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1668,
+   "first": "2018-04-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Distance Cycling",
+   "metric": "distance_cycling_mi",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 14,
+   "first": "2020-09-12",
+   "last": "2024-10-19"
+  },
+  {
+   "table": "Distance Walking Running",
+   "metric": "distance_walk_run_mi",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 3644,
+   "first": "2014-09-18",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Environmental Audio Exposure",
+   "metric": "env_audio_dba",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 434,
+   "first": "2023-08-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Exercise Time",
+   "metric": "exercise_min",
+   "daily_rule": "sum",
+   "device_filter": true,
+   "devices_kept": 2,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1526,
+   "first": "2018-04-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Flights Climbed",
+   "metric": "flights_climbed",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 2688,
+   "first": "2016-10-27",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Headphone Audio Exposure",
+   "metric": "headphone_min_dba",
+   "daily_rule": "min",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 9,
+   "day_from": "creationDate",
+   "rows": 1023,
+   "first": "2019-10-04",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Heart Rate",
+   "metric": "heart_rate_bpm",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1623,
+   "first": "2018-04-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Heart Rate Variability SDNN",
+   "metric": "hrv_sdnn_ms",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1267,
+   "first": "2018-04-22",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Physical Effort",
+   "metric": "physical_effort",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 345,
+   "first": "2023-11-22",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Respiratory Rate",
+   "metric": null,
+   "daily_rule": null,
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 34,
+   "first": "2024-05-31",
+   "last": "2024-10-06",
+   "skipped": "Not grouped by day in the original query (one row per reading with a time) and not on any report page."
+  },
+  {
+   "table": "Resting Heart Rate",
+   "metric": "resting_hr_bpm",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1306,
+   "first": "2018-04-22",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Running Ground Contact Time",
+   "metric": "running_gct_ms",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 6,
+   "first": "2024-01-16",
+   "last": "2024-10-30"
+  },
+  {
+   "table": "Running Power",
+   "metric": "running_power_sum_w",
+   "daily_rule": "sum",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 7,
+   "first": "2023-10-07",
+   "last": "2024-10-30"
+  },
+  {
+   "table": "Running Speed",
+   "metric": "running_speed_mph",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 6,
+   "first": "2024-01-16",
+   "last": "2024-10-30"
+  },
+  {
+   "table": "Running Stride Length",
+   "metric": "running_stride_m",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 6,
+   "first": "2024-01-16",
+   "last": "2024-10-30"
+  },
+  {
+   "table": "Running Vertical Oscillation",
+   "metric": "running_vo_cm",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 6,
+   "first": "2024-01-16",
+   "last": "2024-10-30"
+  },
+  {
+   "table": "Six Minute Walk Test Distance",
+   "metric": "six_minute_walk_m",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 93,
+   "first": "2021-01-07",
+   "last": "2024-10-29"
+  },
+  {
+   "table": "Stair Ascent Speed",
+   "metric": "stair_ascent_ftps",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 407,
+   "first": "2023-08-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Stair Descent Speed",
+   "metric": "stair_descent_ftps",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 407,
+   "first": "2023-08-24",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Stand Time",
+   "metric": "stand_min",
+   "daily_rule": "sum",
+   "device_filter": true,
+   "devices_kept": 2,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 965,
+   "first": "2020-02-12",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Step Count",
+   "metric": "steps",
+   "daily_rule": "sum",
+   "device_filter": true,
+   "devices_kept": 2,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1612,
+   "first": "2018-04-21",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "VO2 Max",
+   "metric": "vo2max",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 38,
+   "first": "2019-03-17",
+   "last": "2024-10-20"
+  },
+  {
+   "table": "Walking Asymmetry Percentage",
+   "metric": "walking_asymmetry_pct",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1319,
+   "first": "2020-10-17",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Walking Double Support Percentage",
+   "metric": "double_support_pct",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1397,
+   "first": "2020-10-17",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Walking Heart Rate Average",
+   "metric": "walking_hr_bpm",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1262,
+   "first": "2018-04-23",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Walking Speed",
+   "metric": "walking_speed_mph",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1405,
+   "first": "2020-10-17",
+   "last": "2024-10-31"
+  },
+  {
+   "table": "Walking Step Length",
+   "metric": "step_length_in",
+   "daily_rule": "average",
+   "device_filter": false,
+   "devices_kept": null,
+   "hard_coded_value_exclusions": 0,
+   "day_from": "creationDate",
+   "rows": 1405,
+   "first": "2020-10-17",
+   "last": "2024-10-31"
+  }
+ ],
+ "relationships": [
+  {
+   "from_table": "Physical Effort",
+   "from_column": "value",
+   "to_table": "Basal Energy Burned",
+   "to_column": "value",
+   "active": true,
+   "cardinality": "M:1",
+   "cross_filter": "Single"
+  },
+  {
+   "from_table": "Running Stride Length",
+   "from_column": "value",
+   "to_table": "Basal Energy Burned",
+   "to_column": "value",
+   "active": true,
+   "cardinality": "M:1",
+   "cross_filter": "Single"
+  },
+  {
+   "from_table": "Running Vertical Oscillation",
+   "from_column": "value",
+   "to_table": "Basal Energy Burned",
+   "to_column": "value",
+   "active": true,
+   "cardinality": "M:1",
+   "cross_filter": "Single"
+  },
+  {
+   "from_table": "Active Energy Burned",
+   "from_column": "creation date",
+   "to_table": "Basal Energy Burned",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Active Energy Burned",
+   "from_column": "creation date",
+   "to_table": "Exercise Time",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Active Energy Burned",
+   "from_column": "creation date",
+   "to_table": "Step Count",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Active Energy Burned",
+   "from_column": "creation date",
+   "to_table": "Flights Climbed",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Active Energy Burned",
+   "from_column": "creation date",
+   "to_table": "Stand Time",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Heart Rate",
+   "from_column": "creation date",
+   "to_table": "Resting Heart Rate",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Heart Rate",
+   "from_column": "creation date",
+   "to_table": "Heart Rate Variability SDNN",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Heart Rate",
+   "from_column": "creation date",
+   "to_table": "VO2 Max",
+   "to_column": "creation date",
+   "active": false,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Distance Walking Running",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Running Ground Contact Time",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Running Power",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Running Stride Length",
+   "to_column": "creation date",
+   "active": false,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Stair Ascent Speed",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Stair Descent Speed",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Walking Asymmetry Percentage",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Walking Double Support Percentage",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Walking Heart Rate Average",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Walking Speed",
+   "to_column": "creation date",
+   "active": false,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Distance Cycling",
+   "from_column": "creation date",
+   "to_table": "Walking Step Length",
+   "to_column": "creation date",
+   "active": false,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Environmental Audio Exposure",
+   "from_column": "creation date",
+   "to_table": "Headphone Audio Exposure",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Environmental Audio Exposure",
+   "from_column": "creation date",
+   "to_table": "Physical Effort",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  },
+  {
+   "from_table": "Environmental Audio Exposure",
+   "from_column": "creation date",
+   "to_table": "Six Minute Walk Test Distance",
+   "to_column": "creation date",
+   "active": true,
+   "cardinality": "1:1",
+   "cross_filter": "Both"
+  }
+ ],
+ "measures": [
+  {
+   "table": "Stand Time",
+   "name": "StandHours",
+   "expression": "DIVIDE(AVERAGE('Stand Time'[value]), 60)"
+  },
+  {
+   "table": "Six Minute Walk Test Distance",
+   "name": "Min",
+   "expression": "400"
+  },
+  {
+   "table": "Six Minute Walk Test Distance",
+   "name": "Max",
+   "expression": "700"
+  }
+ ],
+ "pages": [
+  {
+   "name": "Energy and Activity",
+   "slicer": {
+    "table": "Active Energy Burned",
+    "window": {
+     "start": "2023-05-01",
+     "end_exclusive": "2023-08-02"
+    }
+   },
+   "visuals": [
+    {
+     "type": "card",
+     "label": "Active Energy Burned (kCal)",
+     "table": "Active Energy Burned",
+     "aggregation": "sum",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Daily Active kCals Burned",
+     "table": "Active Energy Burned",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Stand Hours",
+     "table": "Stand Time",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Total Exercise Minutes",
+     "table": "Exercise Time",
+     "aggregation": "sum",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Flights Climbed",
+     "table": "Flights Climbed",
+     "aggregation": "sum",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "lineChart",
+     "label": "Active kCals Burned",
+     "table": "Active Energy Burned",
+     "aggregation": "sum",
+     "axis_table": "Active Energy Burned",
+     "visual_filter": null
+    },
+    {
+     "type": "columnChart",
+     "label": "Exercise in Minutes",
+     "table": "Exercise Time",
+     "aggregation": "sum",
+     "axis_table": "Exercise Time",
+     "visual_filter": null
+    }
+   ]
+  },
+  {
+   "name": "Cardiovascular",
+   "slicer": {
+    "table": "Heart Rate",
+    "window": {
+     "start": "2023-05-01",
+     "end_exclusive": "2023-08-02"
+    }
+   },
+   "visuals": [
+    {
+     "type": "lineChart",
+     "label": "Resting HR",
+     "table": "Resting Heart Rate",
+     "aggregation": "sum",
+     "axis_table": "Heart Rate",
+     "visual_filter": null
+    },
+    {
+     "type": "lineChart",
+     "label": "Active HR",
+     "table": "Heart Rate",
+     "aggregation": "sum",
+     "axis_table": "Heart Rate",
+     "visual_filter": null
+    },
+    {
+     "type": "areaChart",
+     "label": "VO2 Max Reading",
+     "table": "VO2 Max",
+     "aggregation": "sum",
+     "axis_table": "VO2 Max",
+     "visual_filter": null
+    },
+    {
+     "type": "areaChart",
+     "label": "Variability (SDNN)",
+     "table": "Heart Rate Variability SDNN",
+     "aggregation": "sum",
+     "axis_table": "Heart Rate Variability SDNN",
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Active Heart Rate (bpm)",
+     "table": "Heart Rate",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Resting Heart Rate (bpm)",
+     "table": "Resting Heart Rate",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Minimum VO2 Max",
+     "table": "VO2 Max",
+     "aggregation": "min",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Maximum VO2 Max",
+     "table": "VO2 Max",
+     "aggregation": "max",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average HR Variability SDNN (ms)",
+     "table": "Heart Rate Variability SDNN",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    }
+   ]
+  },
+  {
+   "name": "Mobility and Movement",
+   "slicer": {
+    "table": "Distance Cycling",
+    "window": {
+     "start": "2024-05-01",
+     "end_exclusive": "2024-08-02"
+    }
+   },
+   "visuals": [
+    {
+     "type": "card",
+     "label": "Average Walking Speed (mph)",
+     "table": "Walking Speed",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Avg Walking Speed Length (in)",
+     "table": "Walking Step Length",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Running Speed (mph)",
+     "table": "Running Speed",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Average Running Stride (m)",
+     "table": "Running Stride Length",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Total Steps Taken",
+     "table": "Step Count",
+     "aggregation": "sum",
+     "axis_table": null,
+     "visual_filter": {
+      "start": "2024-05-01",
+      "end_exclusive": "2024-08-02"
+     }
+    },
+    {
+     "type": "columnChart",
+     "label": "Steps Taken",
+     "table": "Step Count",
+     "aggregation": "sum",
+     "axis_table": "Step Count",
+     "visual_filter": {
+      "start": "2024-05-01",
+      "end_exclusive": "2024-08-02"
+     }
+    },
+    {
+     "type": "card",
+     "label": "Total Distance Cycled (mi)",
+     "table": "Distance Cycling",
+     "aggregation": "sum",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "lineChart",
+     "label": "Step Length (in)",
+     "table": "Walking Step Length",
+     "aggregation": "sum",
+     "axis_table": "Walking Step Length",
+     "visual_filter": {
+      "start": "2024-05-01",
+      "end_exclusive": "2024-08-02"
+     }
+    },
+    {
+     "type": "gauge",
+     "label": "Average 6 Minute Walk Test Distance",
+     "table": "Six Minute Walk Test Distance",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    }
+   ]
+  },
+  {
+   "name": "Physical and Environmental",
+   "slicer": {
+    "table": "Environmental Audio Exposure",
+    "window": {
+     "start": "2024-05-01",
+     "end_exclusive": "2024-08-02"
+    }
+   },
+   "visuals": [
+    {
+     "type": "card",
+     "label": "Avg of Physical Effort (kcal/hr•kg)",
+     "table": "Physical Effort",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Avg of Env Audio Exposure (dBASPL)",
+     "table": "Environmental Audio Exposure",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "card",
+     "label": "Avg of Headphone Audio Exposure (dBASPL)",
+     "table": "Headphone Audio Exposure",
+     "aggregation": "average",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "multiRowCard",
+     "label": "Min of HP Audio Exposure",
+     "table": "Headphone Audio Exposure",
+     "aggregation": "min",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "multiRowCard",
+     "label": "Max of HP Audio Exposure",
+     "table": "Headphone Audio Exposure",
+     "aggregation": "max",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "multiRowCard",
+     "label": "Min of Env Audio Exposure",
+     "table": "Environmental Audio Exposure",
+     "aggregation": "min",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "multiRowCard",
+     "label": "Max of Env Audio Exposure",
+     "table": "Environmental Audio Exposure",
+     "aggregation": "max",
+     "axis_table": null,
+     "visual_filter": null
+    },
+    {
+     "type": "clusteredColumnChart",
+     "label": "Heaphone Audio Exposure",
+     "table": "Headphone Audio Exposure",
+     "aggregation": "sum",
+     "axis_table": "Environmental Audio Exposure",
+     "visual_filter": null
+    },
+    {
+     "type": "lineChart",
+     "label": "Physical Effort (kcal/hr•kg)",
+     "table": "Physical Effort",
+     "aggregation": "sum",
+     "axis_table": "Physical Effort",
+     "visual_filter": null
+    }
+   ]
+  }
+ ]
+}

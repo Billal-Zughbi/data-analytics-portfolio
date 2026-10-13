@@ -1,6 +1,6 @@
 # Build checklist
 
-Status as of 11 October 2026. ✓ done and verified · ◐ partly done · ○ not started.
+Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ not started.
 
 ## Stage 1: site and Apple Health case study
 
@@ -12,7 +12,7 @@ Status as of 11 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Reference research | ◐ | `docs/design-research.md`; Noah's source read in full; live sites could not be opened in a browser from the build environment |
 | Design system and tokens | ✓ | `website/src/app/globals.css`; chart palette validated |
 | Pipeline rebuild with tests | ✓ | `projects/apple-health-analytics`, 21 pytest tests passing |
-| Synthetic public dataset | ✓ | `synthetic.py`, labelled everywhere it is shown |
+| Synthetic public dataset | – | Replaced by real daily data in stage 3 |
 | Homepage (hero, projects, workflow, experience, skills, about, contact) | ✓ | `website/src/app/page.tsx` |
 | 3D hero with reduced-motion and no-WebGL fallbacks | ✓ | `website/src/components/hero/` |
 | Case study route works when loaded directly | ✓ | `/projects/apple-health-analytics/` in the static export |
@@ -24,7 +24,7 @@ Status as of 11 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Deployment | ✓ | Vercel, root directory `website`: https://data-analytics-portfolio-six.vercel.app (checked 11 October 2026) |
 | Résumé download | ✓ | Copy without a phone number at `website/public/Billal-Zughbi-Resume.pdf` |
 
-## Stage 2: two new analytics projects
+## Stage 2: two new analytics projects (removed in stage 3)
 
 | Item | Status | Evidence / notes |
 |---|---|---|
@@ -41,3 +41,18 @@ Status as of 11 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Case-study pages and home cards | ✓ | `/projects/olist-delivery-experience/`, `/projects/known-exploited-vulnerabilities/` |
 | Responsive checks (390 / 768 / 1440 px), no console errors | ✓ | Checked with Playwright before the push |
 | README, brief, CLAUDE.md updated | ✓ | |
+
+## Stage 3: one project on real data
+
+| Item | Status | Evidence / notes |
+|---|---|---|
+| Remove the Olist and KEV projects | ✓ | Owner's request; folders, pages, data and CI jobs removed |
+| Read the original `.pbix` model (Power Query, relationships, layout) | ✓ | `pbix_source.py`; `data/original/report_model.json` |
+| Reproduce every original card | ✓ | 24 of 24 match (`report_sim.py`, `tests/test_report.py`) |
+| Ingest a fresh export (Sep 2014 to Oct 2026) | ✓ | `xml_source.py`; 4,387,607 records, 1,342 workouts; daily values only in `data/daily/` |
+| Rebuilt four-page report on the site | ✓ | `HealthReport.tsx`, with original dates, year presets and custom ranges |
+| New analysis: yearly, weekly, workouts, fitness, records, activity rings | ✓ | `HealthCharts.tsx`, `DayExplorer.tsx` |
+| Python tests | ✓ | 30 passing |
+| Lint, typecheck, build, site tests | ✓ | Run before the push |
+| Responsive checks (390 / 768 / 1440 px), no console errors | ✓ | Playwright |
+| Native rebuilt `.pbip` | ○ | Needs Power BI Desktop (Windows) |

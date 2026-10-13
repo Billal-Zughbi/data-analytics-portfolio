@@ -16,30 +16,38 @@ const walk = (dir) =>
   });
 
 const summary = JSON.parse(readFileSync(join(generated, "summary.json"), "utf8"));
-const weekly = JSON.parse(readFileSync(join(generated, "weekly.json"), "utf8"));
-
-test("Apple Health outputs are labelled synthetic", () => {
-  assert.equal(summary.synthetic, true);
-  assert.equal(weekly.synthetic, true);
-  assert.match(summary.notice, /not real measurements/i);
-});
+const daily = JSON.parse(readFileSync(join(generated, "daily.json"), "utf8"));
 
 test("summary has the fields the case study renders", () => {
-  for (const key of ["period", "metrics", "kpis", "quality", "aggregation_audit"]) {
+  for (const key of ["source", "headline", "cards", "comparison", "findings", "quality", "yearly", "workouts", "records", "model", "metrics"]) {
     assert.ok(key in summary, `missing ${key}`);
   }
-  assert.ok(summary.kpis.length >= 8);
-  for (const k of summary.kpis) assert.ok(k.definition.length > 20, `${k.key} needs a definition`);
-  assert.ok(weekly.rows.length >= 50);
+  assert.equal(summary.cards.length, 24);
+  assert.ok(summary.cards.every((c) => c.matches), "every original card reproduces");
+  for (const f of summary.findings) assert.ok(f.caveat.length > 0 && f.metric.length > 0, `${f.id} needs a method and caveat`);
+  assert.ok(summary.quality.checks.every((c) => c.result !== "fail"), "no failed quality checks");
+});
+
+test("daily series share one calendar", () => {
+  const span = (Date.parse(daily.end) - Date.parse(daily.start)) / 86_400_000 + 1;
+  assert.equal(daily.days, span);
+  for (const [key, d] of Object.entries(daily.dense)) {
+    assert.ok(d.offset >= 0 && d.offset + d.values.length <= daily.days, key);
+  }
+  for (const [key, pairs] of Object.entries(daily.sparse)) {
+    assert.ok(pairs.every(([i]) => i >= 0 && i < daily.days), key);
+  }
+  assert.equal(summary.source.last_day, daily.end);
 });
 
 test("generated data carries no device names or record-level fields", () => {
   for (const file of walk(generated)) {
     const text = readFileSync(file, "utf8");
-    for (const needle of ["sourceName", "Demo Watch", "Demo iPhone", "HKDevice", "creationDate", "startDate", "endDate", "device_class"]) {
+    for (const needle of ["sourceName", "HKDevice", "creationDate", "startDate", "endDate", "device_class", "source_rank"]) {
       assert.ok(!text.includes(needle), `${file} contains ${needle}`);
     }
     assert.doesNotMatch(text, /[’']s (Apple Watch|iPhone)/, `${file} contains a personal device name`);
+    assert.doesNotMatch(text, /\d{2}:\d{2}:\d{2}/, `${file} contains a time of day`);
   }
 });
 
@@ -50,33 +58,19 @@ test("site source does not publish a phone number", () => {
   }
 });
 
-for (const slug of ["olist-delivery-experience", "known-exploited-vulnerabilities"]) {
-  test(`${slug} summary follows the shared case-study contract`, () => {
-    const s = JSON.parse(readFileSync(join(root, "src/data/generated", slug, "summary.json"), "utf8"));
-    for (const key of ["source", "question", "kpis", "findings", "quality", "reconciliation", "next_steps"]) {
-      assert.ok(key in s, `missing ${key}`);
-    }
-    assert.ok(s.source.license && s.source.url, "source needs a licence and URL");
-    for (const k of s.kpis) assert.ok(k.definition.length > 20, `${k.key} needs a definition`);
-    for (const f of s.findings) assert.ok(f.caveat.length > 0, `${f.id} needs a caveat`);
-    assert.ok(s.reconciliation.length > 0 && s.reconciliation.every((r) => r.match), "SQL and pandas must agree");
-    assert.ok(s.quality.checks.every((c) => c.result !== "fail"), "no failed quality checks");
-  });
-}
-
-test("public-data outputs carry no review text or customer identifiers", () => {
-  for (const file of walk(join(root, "src/data/generated/olist-delivery-experience"))) {
+test("site copy avoids the phrases the brief rules out", () => {
+  const banned = /actionable insights|genuinely|messy data|reporting people trust|got hooked|fell in love with the challenge|come say hi/i;
+  for (const file of walk(join(root, "src"))) {
+    if (file.endsWith(".json")) continue;
     const text = readFileSync(file, "utf8");
-    // Olist order, customer, seller and review IDs are 32-character hex strings.
-    assert.doesNotMatch(text, /\b[0-9a-f]{32}\b/, `${file} contains a record identifier`);
-    assert.ok(!text.includes("review_comment_message\":"), `${file} contains review text`);
+    assert.doesNotMatch(text, banned, file);
+    assert.doesNotMatch(text, /analytics engineer(ing)?\b/, `${file}: write "Analytics Engineer" with capitals`);
   }
 });
 
-test("site copy avoids the phrases the brief rules out", () => {
-  for (const file of walk(join(root, "src"))) {
-    assert.doesNotMatch(readFileSync(file, "utf8"), /actionable insights/i, file);
-  }
+test("only the Apple Health case study is published", () => {
+  const pages = readdirSync(join(root, "src/app/projects"));
+  assert.deepEqual(pages, ["apple-health-analytics"]);
 });
 
 const built = existsSync(join(out, "index.html"));
@@ -85,8 +79,6 @@ test("static export contains every route", { skip: !built && "run npm run build 
   for (const route of [
     "index.html",
     "projects/apple-health-analytics/index.html",
-    "projects/olist-delivery-experience/index.html",
-    "projects/known-exploited-vulnerabilities/index.html",
     "404.html",
   ]) {
     assert.ok(existsSync(join(out, route)), `missing ${route}`);

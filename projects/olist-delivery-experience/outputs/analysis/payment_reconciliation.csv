@@ -1,7 +1,0 @@
-reconciliation_class,orders,item_revenue,payment_total,gap,orders_with_voucher,statuses
-no_items,775,0,162591.95,162591.95,100,"canceled, created, invoiced, shipped, unavailable"
-payments_above_items_installments,249,34065.98,37129.67,3063.69,3,"canceled, delivered, shipped"
-payments_below_items,39,10079.91,9880.83,-199.08,0,delivered
-no_payments,1,143.46,0,-143.46,0,delivered
-payments_above_items_single_payment,15,6175.11,6181.56,6.45,4,delivered
-match_within_1_cent,98362,15793088.78,15793088.11,-0.67,3759,"approved, canceled, delivered, invoiced, processing, shipped, unavailable"
