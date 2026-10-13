@@ -1,5 +1,7 @@
 import { experience, highlights } from "@/content/profile";
+import { toolsIn, xf } from "@/content/tools";
 import { Reveal } from "@/components/Reveal";
+import { Mentions, Pin, ToolChip } from "@/components/tools/ToolBits";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -18,18 +20,21 @@ export function Experience() {
   return (
     <div className="grid gap-12 lg:grid-cols-[1fr_2.2fr]">
       <Reveal>
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line lg:sticky lg:top-24 lg:grid-cols-1">
-          {highlights.map((h) => (
-            <div key={h.label} className="bg-surface-1 p-5">
-              <dt className="sr-only">{h.label}</dt>
-              <dd>
-                <span className="block text-3xl font-semibold tracking-tight">{h.value}</span>
-                <span aria-hidden className="mt-1 block text-sm text-ink-3">{h.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-3 font-mono text-[0.6875rem] text-ink-3">Results from my time at Arconic, as listed on my resume.</p>
+        <div className="lg:sticky lg:top-24">
+          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line lg:grid-cols-1">
+            {highlights.map((h) => (
+              <div key={h.label} data-xf={xf(h.tools)} className="relative bg-surface-1 p-5">
+                <dt className="sr-only">{h.label}</dt>
+                <dd>
+                  <Pin className="absolute right-3 top-3" />
+                  <span className="block text-3xl font-semibold tracking-tight">{h.value}</span>
+                  <span aria-hidden className="mt-1 block text-sm text-ink-3">{h.label}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-3 font-mono text-[0.6875rem] text-ink-3">Results from my time at Arconic, as listed on my resume.</p>
+        </div>
       </Reveal>
 
       <ol className="relative space-y-10 border-l border-line pl-8">
@@ -53,16 +58,18 @@ export function Experience() {
             </div>
             <ul className="mt-4 space-y-2.5">
               {role.highlights.map((h) => (
-                <li key={h} className="flex gap-3 text-sm leading-relaxed text-ink-2">
-                  <span aria-hidden className="mt-2 h-1 w-3 shrink-0 rounded-full bg-accent/60" />
-                  <span>{h}</span>
+                <li key={h} data-xf={xf(toolsIn(h))} className="flex gap-3 text-sm leading-relaxed text-ink-2">
+                  <span aria-hidden data-pin className="bullet-pin relative mt-2 h-1 w-3 shrink-0 rounded-full bg-accent/60" />
+                  <span>
+                    <Mentions text={h} />
+                  </span>
                 </li>
               ))}
             </ul>
             <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Tools used">
               {role.tools.map((t) => (
-                <li key={t} className="rounded-md border border-line px-2 py-1 font-mono text-[0.6875rem] text-ink-3">
-                  {t}
+                <li key={t}>
+                  <ToolChip label={t} className="rounded-md border border-line px-2 py-1 font-mono text-[0.6875rem] text-ink-3" />
                 </li>
               ))}
             </ul>

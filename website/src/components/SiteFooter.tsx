@@ -22,7 +22,7 @@ export function SiteFooter() {
             <a className="underline decoration-line-strong underline-offset-4 hover:text-ink-1" href={profile.links.repository}>
               Source on GitHub
             </a>
-            .
+            . The contour lines in the background are Mount Rainier, drawn from USGS elevation data.
           </p>
         </div>
 

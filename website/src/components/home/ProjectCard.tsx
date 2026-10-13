@@ -1,12 +1,16 @@
 import Link from "next/link";
 import type { Project } from "@/content/projects";
 import { ArrowRight } from "@/components/icons";
+import { toolFor, xf } from "@/content/tools";
+import { Pin, ToolChip } from "@/components/tools/ToolBits";
 
 export type CardPreview = { label: string; badge?: string; node: React.ReactNode };
 
 export function ProjectCard({ project, preview }: { project: Project; preview: CardPreview }) {
   return (
-    <article className="group relative overflow-hidden rounded-[var(--radius-lg)] border border-line bg-surface-1 transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-line-strong">
+    <article
+      data-xf={xf([...project.stack.map((s) => toolFor(s).slug), ...project.alsoUses])}
+      className="group relative overflow-hidden rounded-[var(--radius-lg)] border border-line bg-surface-1 transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-line-strong">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(600px_circle_at_80%_0%,rgb(79_216_255/0.08),transparent_60%)]"
@@ -15,6 +19,7 @@ export function ProjectCard({ project, preview }: { project: Project; preview: C
         <div className="relative p-6 sm:p-10">
           <div className="flex items-center gap-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
             <span className="text-accent">Case study</span>
+            <Pin />
           </div>
           <h3 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl">
             <Link
@@ -29,10 +34,11 @@ export function ProjectCard({ project, preview }: { project: Project; preview: C
             <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Question</span>
             {project.question}
           </p>
-          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tools">
+          {/* Above the card-wide link, so the chips filter the page instead of opening the case study. */}
+          <ul className="relative z-10 mt-6 flex flex-wrap gap-2" aria-label="Tools">
             {project.stack.map((s) => (
-              <li key={s} className="rounded-full border border-line px-3 py-1 font-mono text-[0.6875rem] text-ink-2">
-                {s}
+              <li key={s}>
+                <ToolChip label={s} className="rounded-full border border-line px-3 py-1 font-mono text-[0.6875rem] text-ink-2" />
               </li>
             ))}
           </ul>

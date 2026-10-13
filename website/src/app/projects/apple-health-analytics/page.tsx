@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Topo } from "@/components/Topo";
 import Link from "next/link";
 import { getProject, repoFileUrl, repoUrl } from "@/content/projects";
 import { summary } from "@/data/apple-health";
@@ -104,7 +105,7 @@ export default function AppleHealthCaseStudy() {
   return (
     <article className="pt-16">
       <header className="relative overflow-hidden border-b border-line">
-        <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden />
+        <Topo />
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 sm:pt-20">
           <nav aria-label="Breadcrumb" className="font-mono text-xs text-ink-3">
             <Link href="/#projects" className="hover:text-ink-1">

@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { HeroFallback } from "./HeroFallback";
 
 const DataFlowScene = dynamic(() => import("./DataFlowScene"), { ssr: false });
 
@@ -22,7 +21,7 @@ function supportsWebGL() {
  *  - a single still frame when the visitor prefers reduced motion;
  *  - paused while the hero is scrolled out of view.
  */
-export function HeroVisual() {
+export function HeroVisual({ start, steps, fallback }: { start: string; steps: (number | null)[]; fallback: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [webgl, setWebgl] = useState(false);
   const [ready, setReady] = useState(false);
@@ -56,16 +55,11 @@ export function HeroVisual() {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className="relative h-full w-full [mask-image:linear-gradient(to_right,transparent,black_14%,black_90%,transparent)]"
-    >
-      <HeroFallback
-        className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-100"}`}
-      />
+    <div ref={ref} className="relative h-full w-full [mask-image:linear-gradient(to_right,transparent,black_14%,black_95%,transparent)]">
+      <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-100"}`}>{fallback}</div>
       {webgl && (
         <div className={`absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}>
-          <DataFlowScene animate={!reduceMotion && inView} dense={dense} onReady={() => setReady(true)} />
+          <DataFlowScene animate={!reduceMotion && inView} dense={dense} start={start} steps={steps} onReady={() => setReady(true)} />
         </div>
       )}
     </div>

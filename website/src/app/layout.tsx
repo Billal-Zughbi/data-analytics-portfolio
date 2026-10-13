@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ConsoleHello } from "@/components/surprises/ConsoleHello";
 import { siteDescription, siteTitle, siteUrl } from "@/content/site";
 import { profile } from "@/content/profile";
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteNav />
         <main id="main">{children}</main>
         <SiteFooter />
+        <ConsoleHello />
       </body>
     </html>
   );

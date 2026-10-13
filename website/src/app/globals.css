@@ -114,13 +114,34 @@ body {
   border-radius: 4px;
 }
 
-/* Faint measurement grid behind content sections */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, var(--grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+/* Contour lines of Mount Rainier behind the hero and case-study header (components/Topo.tsx).
+   The SVG is a mask, so the lines take their color from the tokens here. */
+.topo > span {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover, 100% 100%;
+  mask-size: cover, 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.topo-lines {
+  background: rgb(148 163 255 / 0.2);
+  -webkit-mask-image: var(--topo), radial-gradient(ellipse 85% 75% at 50% 25%, #000 25%, transparent 80%);
+  mask-image: var(--topo), radial-gradient(ellipse 85% 75% at 50% 25%, #000 25%, transparent 80%);
+}
+.topo-lit {
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+  -webkit-mask-image: var(--topo), radial-gradient(circle 240px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
+  mask-image: var(--topo), radial-gradient(circle 240px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
+}
+.topo.is-lit .topo-lit {
+  opacity: 0.6;
 }
 
 /* Hairline with a node at its start: the site's recurring motif */
@@ -350,4 +371,291 @@ html.js .calendar-anim.is-visible .cal-cell {
 }
 .page-in {
   animation: page-in 0.45s var(--ease-out);
+}
+
+/* ---------------------------------------------------------------------------
+   Page filter (components/tools). Selecting a tool lights up the places it is used,
+   pins its logo there and dims the rest. Logos are never recolored or altered.
+   --------------------------------------------------------------------------- */
+@layer components {
+  [data-xf],
+  [data-xf-text] {
+    transition: opacity var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
+  }
+}
+html[data-xf-active] .xf-dim {
+  opacity: 0.3;
+  filter: saturate(0.3);
+}
+html[data-xf-active] article.xf-hit {
+  border-color: var(--xf-color);
+  box-shadow: 0 0 0 1px var(--xf-color), 0 24px 60px -36px var(--xf-color);
+}
+html[data-xf-active] li.xf-hit {
+  color: var(--ink-1);
+}
+
+.tool-chip {
+  cursor: pointer;
+  transition: border-color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.tool-chip:hover {
+  border-color: color-mix(in srgb, var(--tool, var(--accent)) 60%, transparent);
+  color: var(--ink-1);
+}
+.tool-chip[aria-pressed="true"],
+.tool-tile[aria-pressed="true"] {
+  border-color: var(--xf-color);
+  background-color: color-mix(in srgb, var(--xf-color) 15%, var(--surface-2));
+  color: var(--ink-1);
+  box-shadow: 0 0 0 1px var(--xf-color), 0 10px 26px -14px var(--xf-color);
+}
+.tool-tile {
+  cursor: pointer;
+  transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.tool-tile-logo {
+  transition: transform var(--dur-3) var(--ease-out);
+}
+.tool-tile:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tool, var(--accent)) 55%, transparent);
+  box-shadow: 0 14px 30px -18px var(--tool, var(--accent));
+}
+.tool-tile:hover .tool-tile-logo {
+  transform: scale(1.12);
+}
+.tool-tile[aria-pressed="true"] > span:last-child {
+  color: var(--ink-1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-tile:hover,
+  .tool-tile:hover .tool-tile-logo {
+    transform: none;
+  }
+}
+
+/* A light plate behind logos that are dark (the file itself is unchanged). Matches the tile style of the Microsoft icons. */
+.logo-plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18%;
+  background: linear-gradient(#f7f6f4, #e8e6df);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+}
+
+/* Mentions of the selected tool inside text */
+.xf-mark {
+  color: var(--ink-1);
+  background: color-mix(in srgb, var(--xf-color) 24%, transparent);
+  box-shadow: inset 0 -1.5px 0 var(--xf-color);
+  border-radius: 3px;
+}
+
+/* The selected tool's logo, popped onto each matching spot */
+.xf-hit [data-pin]::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--xf-pin-bg, var(--surface-2)) var(--xf-logo) center / contain no-repeat;
+  background-origin: content-box;
+  box-shadow: 0 0 0 1.5px var(--xf-color), 0 6px 18px -4px var(--xf-color);
+  animation: pin-pop 0.6s var(--ease-out) both;
+  animation-delay: calc(var(--xf-i, 0) * 50ms);
+}
+html:not(.xf-has-logo) .xf-hit [data-pin]::after {
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+  background: var(--xf-color);
+  box-shadow: 0 0 12px var(--xf-color);
+}
+.bullet-pin {
+  transition: background-color var(--dur-2) var(--ease-out);
+}
+.xf-hit > .bullet-pin {
+  background-color: transparent;
+}
+.xf-hit > .bullet-pin::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.375rem;
+  height: 1.375rem;
+  padding: 0.25rem;
+  translate: -50% -50%;
+}
+html:not(.xf-has-logo) .xf-hit > .bullet-pin::after {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+@keyframes pin-pop {
+  0% { transform: scale(0) rotate(-40deg); opacity: 0; }
+  60% { transform: scale(1.18) rotate(8deg); opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* Stepping through matches */
+.xf-flash {
+  animation: xf-flash 1.3s var(--ease-out);
+}
+@keyframes xf-flash {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--xf-color) 60%, transparent); }
+  100% { box-shadow: 0 0 0 18px transparent; }
+}
+
+.xf-bar {
+  animation: xf-bar-in 0.5s var(--ease-out);
+}
+@keyframes xf-bar-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.xf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  min-width: 2rem;
+  border-radius: 999px;
+  color: var(--ink-2);
+  transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+}
+.xf-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink-1);
+}
+.xf-mark-dot {
+  background: var(--xf-color);
+  box-shadow: 0 0 10px var(--xf-color);
+  animation: pin-pop 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--xf-i, 0) * 40ms);
+  cursor: pointer;
+}
+
+/* Reading rings in the corner of the home page (components/home/ReadingRings.tsx) */
+.rings-dock {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.92);
+  transition:
+    opacity var(--dur-3) var(--ease-out),
+    transform var(--dur-3) var(--ease-out),
+    visibility 0s linear var(--dur-3);
+}
+.rings-dock.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.rings-toast {
+  animation: xf-bar-in 0.5s var(--ease-out);
+}
+
+/* Join puzzle (components/home/JoinPuzzle.tsx) */
+.puzzle-line {
+  border-radius: 3px;
+  transition: background-color var(--dur-2) var(--ease-out);
+}
+.puzzle-line.is-bad {
+  text-decoration: underline wavy var(--warn);
+  text-underline-offset: 4px;
+}
+.puzzle-line.is-good {
+  background: rgb(63 207 142 / 0.12);
+  box-shadow: 0 0 0 3px rgb(63 207 142 / 0.12);
+}
+.puzzle-row {
+  animation: page-in 0.4s var(--ease-out) both;
+}
+
+/* About: story markers on the step chart (components/home/LifeTimeline.tsx).
+   --ev-on is 1 while a marker or its list item is hovered or focused. */
+.life-marker {
+  width: 0;
+  outline: none;
+}
+.life-stem {
+  position: absolute;
+  left: 0;
+  top: calc(-1 * var(--row));
+  bottom: 0;
+  width: 1px;
+  translate: -50% 0;
+  background: linear-gradient(to bottom, var(--accent), transparent 90%);
+  opacity: calc(0.35 + var(--ev-on, 0) * 0.65);
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.life-dot {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  translate: -50% 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 calc(var(--ev-on, 0) * 14px) var(--accent);
+  transition: box-shadow var(--dur-2) var(--ease-out);
+}
+.life-badge,
+.life-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--ink-1);
+  box-shadow: 0 0 0 calc(var(--ev-on, 0) * 4px) rgb(79 216 255 / 0.25), 0 0 calc(var(--ev-on, 0) * 16px) rgb(79 216 255 / 0.55);
+  transition: box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+.life-badge {
+  position: absolute;
+  left: 0;
+  top: calc(-1 * var(--row));
+  translate: -50% -50%;
+  transform: scale(calc(1 + var(--ev-on, 0) * 0.15));
+}
+.life-num {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.life-marker:focus-visible .life-badge {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.life-item {
+  background: rgb(22 32 58 / calc(var(--ev-on, 0) * 0.75));
+  transition: background-color var(--dur-2) var(--ease-out), opacity var(--dur-3) var(--ease-out);
+}
+.life-item:target {
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.xf-hit > .life-num {
+  color: transparent;
+}
+.xf-hit > .life-num::after {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 1.375rem;
+  height: 1.375rem;
+  padding: 0.25rem;
+}
+
+/* Hero day tooltip (components/hero/DataFlowScene.tsx): sits centered above the pointer. */
+.hero-tip {
+  translate: -50% calc(-100% - 14px);
 }

@@ -18,6 +18,8 @@ export type Project = {
   role: string;
   period: string;
   stack: string[];
+  /** Tools the project also uses beyond its stack, for the home page filter (slugs from content/tools.ts). */
+  alsoUses: string[];
   /** Short labels for what the case study demonstrates. */
   demonstrates: string[];
   dataNote: string;
@@ -36,6 +38,8 @@ export const projects: Project[] = [
     role: "Independent project · pipeline, data model, report",
     period: "Built March 2025 · rebuilt with data through October 2026",
     stack: ["Python", "pandas", "ElementTree", "Power BI", "Power Query", "DAX", "pytest", "Recharts"],
+    // The pipeline writes a star schema (data/model/) and the code lives in Git on GitHub.
+    alsoUses: ["data-modeling", "star-schema", "git", "github"],
     demonstrates: [
       "Streaming XML extraction",
       "Reverse-engineering a Power BI model",

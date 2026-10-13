@@ -10,6 +10,11 @@ import { Reveal } from "@/components/Reveal";
 import { ExternalIcon } from "@/components/icons";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
+import { toolsIn, xf } from "@/content/tools";
+import { Mentions } from "@/components/tools/ToolBits";
+import { ToolFilter } from "@/components/tools/ToolFilter";
+import { ReadingRings } from "@/components/home/ReadingRings";
+import { LifeTimeline } from "@/components/home/LifeTimeline";
 
 export default function HomePage() {
   return (
@@ -58,6 +63,7 @@ export default function HomePage() {
         index="04"
         eyebrow="Toolkit"
         title="Tools I work with."
+        intro="Click any tool, here or anywhere else on the page, to see where I've used it. It filters the page the way a slicer filters a Power BI report."
         className="border-y border-line bg-surface-1/30"
       >
         <Skills />
@@ -71,7 +77,9 @@ export default function HomePage() {
           <Reveal delay={0.1}>
             <div className="space-y-5 text-lg leading-relaxed text-ink-2 text-pretty">
               {profile.about.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
+                <p key={p.slice(0, 24)} data-xf-text={xf(toolsIn(p))}>
+                  <Mentions text={p} />
+                </p>
               ))}
             </div>
             <div className="node-rule my-8" aria-hidden />
@@ -89,6 +97,9 @@ export default function HomePage() {
             </dl>
           </Reveal>
         </div>
+        <Reveal>
+          <LifeTimeline />
+        </Reveal>
       </Section>
 
       <Section
@@ -122,6 +133,9 @@ export default function HomePage() {
           </div>
         </Reveal>
       </Section>
+
+      <ToolFilter />
+      <ReadingRings />
     </>
   );
 }

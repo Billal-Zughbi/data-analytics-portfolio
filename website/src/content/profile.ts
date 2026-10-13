@@ -91,12 +91,13 @@ export const experience: Role[] = [
   },
 ];
 
-/** Professional results, quoted from the résumé. Shown with the Experience section. */
+/** Professional results, quoted from the résumé. Shown with the Experience section. `tools` are the page-filter slugs (content/tools.ts). */
 export const highlights = [
-  { value: "15+", label: "enterprise Power BI dashboards" },
-  { value: "200+", label: "stakeholders using them" },
-  { value: "8", label: "business units on shared ETL standards" },
-  { value: "~90 hrs", label: "of manual scheduling removed each month" },
+  { value: "15+", label: "enterprise Power BI dashboards", tools: ["power-bi"] },
+  { value: "200+", label: "stakeholders using them", tools: ["power-bi"] },
+  { value: "8", label: "business units on shared ETL standards", tools: ["etl"] },
+  // From the resource-planning bullet: "Automated resource-planning workflows in SQL and Power BI…"
+  { value: "~90 hrs", label: "of manual scheduling removed each month", tools: ["sql", "power-bi"] },
 ];
 
 export const skills: { group: string; note: string; items: string[] }[] = [
