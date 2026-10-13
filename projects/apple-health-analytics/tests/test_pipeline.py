@@ -8,7 +8,9 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from apple_health import quality, transform
+import zipfile
+
+from apple_health import analysis, quality, transform, xml_source
 from apple_health.extract import classify_device, extract, parse_local
 
 FIXTURE = Path(__file__).parent / "fixtures" / "mini_export.xml"
@@ -46,6 +48,13 @@ def test_local_time_is_kept_from_each_offset():
 
 def test_default_extractor_only_keeps_registered_types(records):
     assert "HKQuantityTypeIdentifierBodyMass" not in set(records["hk_type"].astype(str))
+
+
+def test_a_zip_export_is_read_in_place(tmp_path, records):
+    archive = tmp_path / "export.zip"
+    with zipfile.ZipFile(archive, "w") as z:
+        z.write(FIXTURE, "apple_health_export/export.xml")
+    assert len(extract(archive).records) == len(records)
 
 
 def test_missing_file_has_a_helpful_error(tmp_path):
@@ -126,3 +135,29 @@ def test_quality_profile_reports_each_issue(records):
     assert checks["unit_converted"] == 1
     assert checks["out_of_range"] == 1
     assert checks["overlap_records_removed"] == 1
+
+
+# --- workouts -------------------------------------------------------------------
+
+def test_walks_and_runs_keep_their_indoor_or_outdoor_tag():
+    wk = extract(FIXTURE, workouts=True).workouts
+    assert dict(zip(wk["activity"], wk["location"])) == {
+        "Walking": "outdoor",
+        "Running": "indoor",
+        "TraditionalStrengthTraining": "outdoor",
+    }
+    monthly = xml_source.workouts_monthly(wk)
+    # The default tag on strength training means nothing, so the monthly table leaves it blank.
+    assert dict(zip(monthly["activity"], monthly["location"])) == {
+        "Walking": "outdoor",
+        "Running": "indoor",
+        "TraditionalStrengthTraining": "",
+    }
+
+
+def test_walks_and_runs_are_labelled_by_setting():
+    monthly = xml_source.workouts_monthly(extract(FIXTURE, workouts=True).workouts)
+    labels = [a["activity"] for a in analysis.workouts_summary(monthly)["by_activity"]]
+    # Equal session counts are ordered by time spent: 45 minutes of strength, a 30 minute walk, a 20 minute run.
+    assert labels == ["Strength training", "Outdoor walk", "Indoor run"]
+    assert analysis.activity_label("Walking") == "Walking"

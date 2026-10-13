@@ -176,19 +176,32 @@ function CountUp({ value, digits = 0 }: { value: number | null; digits?: number 
   );
 }
 
-function KpiCard({ spec, page, from, to, isOriginalWindow }: { spec: CardSpec; page: PageSpec; from: number; to: number; isOriginalWindow: boolean }) {
+/**
+ * Every page has five cards. The spans keep each row of the card grid full: one column on the
+ * narrowest phones, then 2 + 2 + 1, then 3 + 2 on a six-column grid, then a single row of five.
+ */
+const KPI_SPAN = [
+  "@md:col-span-2 @3xl:col-span-1",
+  "@md:col-span-2 @3xl:col-span-1",
+  "@md:col-span-2 @3xl:col-span-1",
+  "@md:col-span-3 @3xl:col-span-1",
+  "@2xs:col-span-2 @md:col-span-3 @3xl:col-span-1",
+];
+
+function KpiCard({ spec, page, from, to, isOriginalWindow, className }: { spec: CardSpec; page: PageSpec; from: number; to: number; isOriginalWindow: boolean; className: string }) {
   const raw = aggregate(spec.metric, from, to, spec.agg);
   const value = raw === null ? null : raw * (spec.scale ?? 1);
   const orig: Card | undefined = spec.original ? original(page.name, spec.original) : undefined;
   const differs = orig && isOriginalWindow && (orig.notes.length > 0 || !orig.matches);
   return (
-    <div className="flex min-w-0 flex-col bg-surface-1 p-4">
+    <div className={`@container/kpi flex min-w-0 flex-col bg-surface-1 p-4 ${className}`}>
       <dt className="text-xs leading-snug text-ink-3">{spec.label}</dt>
-      <dd className="mt-1.5">
-        <span className="text-2xl font-semibold tracking-tight text-ink-1 tabular-nums">
+      {/* Totals over all twelve years run to eight digits, so the number steps down a size in a narrow card and the unit can wrap under it */}
+      <dd className="mt-1.5 flex flex-wrap items-baseline gap-x-1">
+        <span className="text-xl font-semibold tracking-tight text-ink-1 tabular-nums @min-[8.5rem]/kpi:text-2xl">
           <CountUp value={value} digits={spec.digits ?? 0} />
         </span>
-        <span className="ml-1 text-xs text-ink-3">{spec.unit}</span>
+        <span className="text-xs text-ink-3">{spec.unit}</span>
       </dd>
       {differs && (
         <p className="mt-2 text-[0.6875rem] leading-snug text-warn">
@@ -201,7 +214,7 @@ function KpiCard({ spec, page, from, to, isOriginalWindow }: { spec: CardSpec; p
 
 function ChartCard({ title, subtitle, children, wide }: { title: string; subtitle: string; children: React.ReactNode; wide?: boolean }) {
   return (
-    <figure className={`min-w-0 rounded-[var(--radius-md)] border border-line bg-surface-1 p-4 ${wide ? "lg:col-span-2" : ""}`}>
+    <figure className={`min-w-0 rounded-[var(--radius-md)] border border-line bg-surface-1 p-4 ${wide ? "@3xl:col-span-2" : ""}`}>
       <figcaption>
         <p className="font-semibold tracking-tight text-ink-1">{title}</p>
         <p className="text-xs text-ink-3">{subtitle}</p>
@@ -258,16 +271,16 @@ function Chart({ spec, from, to }: { spec: ChartSpec; from: number; to: number }
     const [tx1, ty1] = arc(tFrac);
     return (
       <ChartCard title={spec.title} subtitle={`${count} estimate${count === 1 ? "" : "s"} in this window · target line at ${spec.target} m`}>
-        <svg viewBox="0 0 200 120" className="mx-auto h-full w-auto" role="img" aria-label={`${spec.label}: ${fmt(avg)} ${spec.unit}`}>
+        <svg viewBox="0 0 200 120" className="h-full w-full" role="img" aria-label={`${spec.label}: ${fmt(avg)} ${spec.unit}`}>
           <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--surface-3)" strokeWidth="18" strokeLinecap="round" />
           {avg !== null && (
             <path d={`M20 100 A80 80 0 0 1 ${ex.toFixed(2)} ${ey.toFixed(2)}`} fill="none" stroke={S2} strokeWidth="18" strokeLinecap="round" className="gauge-arc" />
           )}
           <line x1={tx1} y1={ty1} x2={100 + (tx1 - 100) * 1.22} y2={100 + (ty1 - 100) * 1.22} stroke="var(--ink-1)" strokeWidth="2" />
-          <text x="100" y="92" textAnchor="middle" className="fill-[var(--ink-1)] text-[1.6rem] font-semibold">
+          <text x="100" y="92" textAnchor="middle" className="fill-[var(--ink-1)] text-[26px] font-semibold">
             {fmt(avg)}
           </text>
-          <text x="100" y="112" textAnchor="middle" className="fill-[var(--ink-3)] font-mono text-[0.5rem]">
+          <text x="100" y="112" textAnchor="middle" className="fill-[var(--ink-3)] font-mono text-[8px]">
             meters in six minutes
           </text>
         </svg>
@@ -409,7 +422,7 @@ export function HealthReport() {
 
   return (
     <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line bg-surface-2/40">
-      <div className="grid lg:grid-cols-[13rem_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 lg:grid-cols-[13rem_minmax(0,1fr)]">
         {/* Page navigator, like the report's side panel */}
         <nav aria-label="Report pages" className="border-b border-line bg-surface-1 p-3 lg:border-b-0 lg:border-r lg:p-4">
           <p className="hidden px-2 pb-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3 lg:block">Health analysis</p>
@@ -433,8 +446,9 @@ export function HealthReport() {
           </ul>
         </nav>
 
-        <div className="min-w-0 p-4 sm:p-6">
-          <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        {/* Laid out by the width of this column (container queries), since the page beside it changes with the screen */}
+        <div className="@container min-w-0 p-4 sm:p-6">
+          <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-end @3xl:justify-between">
             <div>
               <h3 className="text-xl font-semibold tracking-tight text-ink-1 sm:text-2xl">{page.name}</h3>
               <p className="mt-1 text-sm text-ink-3">
@@ -487,12 +501,12 @@ export function HealthReport() {
           </div>
 
           <div key={page.id} className="page-in">
-            <dl className="mt-5 grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line [grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))]">
-              {page.cards.map((c) => (
-                <KpiCard key={c.label} spec={c} page={page} from={from} to={to} isOriginalWindow={isOriginalWindow} />
+            <dl className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-md)] border border-line bg-line @2xs:grid-cols-2 @md:grid-cols-6 @3xl:grid-cols-5">
+              {page.cards.map((c, i) => (
+                <KpiCard key={c.label} spec={c} page={page} from={from} to={to} isOriginalWindow={isOriginalWindow} className={KPI_SPAN[i] ?? ""} />
               ))}
             </dl>
-            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <div className="mt-4 grid gap-4 @3xl:grid-cols-2">
               {page.charts.map((c) => (
                 <Chart key={c.title} spec={c} from={from} to={to} />
               ))}

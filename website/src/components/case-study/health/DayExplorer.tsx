@@ -163,7 +163,7 @@ export function DayExplorer() {
             <strong className="text-ink-1">{year}</strong>: {n0(yearTotal)} steps over {yearDays} days,{" "}
             {goalDays} of them at 10,000 or more.
           </p>
-          <div role="group" aria-label="Year" className="inline-flex flex-wrap gap-1 rounded-full bg-surface-2 p-1">
+          <div role="group" aria-label="Year" className="inline-flex flex-wrap gap-1 rounded-[1.25rem] bg-surface-2 p-1">
             {years.map((y) => (
               <button
                 key={y}
@@ -188,7 +188,7 @@ export function DayExplorer() {
             aria-label={`Daily steps in ${year}, one square per day. Select a square to load that day into the rings.`}
           >
             {["Mon", "Wed", "Fri"].map((d, k) => (
-              <text key={d} x={0} y={18 + (1 + k * 2) * pitch + 9} className="fill-[var(--ink-3)] font-mono text-[0.5rem]">
+              <text key={d} x={0} y={18 + (1 + k * 2) * pitch + 9} className="fill-[var(--ink-3)] font-mono text-[8px]">
                 {d}
               </text>
             ))}
@@ -197,7 +197,7 @@ export function DayExplorer() {
               const jan1 = new Date(Date.UTC(year, 0, 1)).getUTCDay();
               const doy = Math.round((d.getTime() - Date.UTC(year, 0, 1)) / 86_400_000);
               return (
-                <text key={m} x={24 + Math.floor((doy + jan1) / 7) * pitch} y={10} className="fill-[var(--ink-3)] font-mono text-[0.5rem]">
+                <text key={m} x={24 + Math.floor((doy + jan1) / 7) * pitch} y={10} className="fill-[var(--ink-3)] font-mono text-[8px]">
                   {d.toLocaleString("en-US", { month: "short", timeZone: "UTC" })}
                 </text>
               );

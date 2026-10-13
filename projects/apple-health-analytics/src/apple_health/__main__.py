@@ -1,7 +1,7 @@
 """Command line entry point. Run from ``projects/apple-health-analytics`` with ``PYTHONPATH=src``.
 
     python -m apple_health build                       # committed daily table → site JSON, Power BI tables, quality report
-    python -m apple_health ingest-xml --xml PATH       # private: fresh export.xml → data/daily/
+    python -m apple_health ingest-xml --xml PATH       # private: fresh export.zip or export.xml → data/daily/
     python -m apple_health ingest-pbix --pbix PATH     # private: original .pbix → data/original/
     python -m apple_health profile --xml PATH          # private: quality profile of a fresh export.xml (prints counts only)
     python -m apple_health legacy-csv --xml PATH --out DIR
@@ -69,7 +69,7 @@ def main(argv: list[str] | None = None) -> None:
     ing = sub.add_parser("ingest-pbix", help="read the original .pbix into data/original/ (private input)")
     ing.add_argument("--pbix", required=True)
     ing.set_defaults(func=run_ingest)
-    ixml = sub.add_parser("ingest-xml", help="read a fresh export.xml into data/daily/ (private input)")
+    ixml = sub.add_parser("ingest-xml", help="read a fresh export.zip or export.xml into data/daily/ (private input)")
     ixml.add_argument("--xml", required=True)
     ixml.set_defaults(func=run_ingest_xml)
     prof = sub.add_parser("profile", help="quality profile of a fresh export.xml (prints counts only)")

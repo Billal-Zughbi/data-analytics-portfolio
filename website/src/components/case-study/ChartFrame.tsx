@@ -32,7 +32,7 @@ export function ChartFrame({
   const [showTable, setShowTable] = useState(false);
   const id = useId();
   return (
-    <figure className="rounded-[var(--radius-lg)] border border-line bg-surface-1 p-4 sm:p-6">
+    <figure className="min-w-0 rounded-[var(--radius-lg)] border border-line bg-surface-1 p-4 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <figcaption>
           <p className="text-lg font-semibold tracking-tight text-ink-1">{title}</p>
@@ -127,7 +127,7 @@ export function TipBox({ title, lines }: { title: string; lines: (string | null)
   );
 }
 
-/** Pill buttons for switching a chart's view. */
+/** Pill buttons for switching a chart's view. The radius reads as a pill on one row and as a rounded box when the buttons wrap. */
 export function Segmented<T extends string>({
   label,
   options,
@@ -140,7 +140,7 @@ export function Segmented<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div role="group" aria-label={label} className="inline-flex flex-wrap gap-1 rounded-full bg-surface-2 p-1">
+    <div role="group" aria-label={label} className="inline-flex flex-wrap gap-1 rounded-[1.25rem] bg-surface-2 p-1">
       {options.map((o) => (
         <button
           key={o.value}

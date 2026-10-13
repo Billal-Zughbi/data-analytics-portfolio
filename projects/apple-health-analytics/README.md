@@ -21,7 +21,7 @@ Case study: [`/projects/apple-health-analytics`](../../website/src/app/projects/
 ## How it fits together
 
 ```
-export.xml (private) ─► ingest-xml ─► data/daily/          one row per day, workouts per month, source profile
+export.zip (private) ─► ingest-xml ─► data/daily/          one row per day, workouts per month, source profile
 original .pbix (private) ─► ingest-pbix ─► data/original/  the old model's daily tables, Power Query rules,
                                                            relationships and report layout
 data/daily + data/original ─► build ─► website JSON, data/model/ star schema, outputs/data_quality.json
@@ -93,8 +93,9 @@ PYTHONPATH=src python -m apple_health build             # committed daily tables
 ### With your own export (stays on your machine)
 
 ```bash
-# Unzip the Health app export into data/raw/ (git-ignored)
-PYTHONPATH=src python -m apple_health ingest-xml --xml data/raw/apple_health_export/export.xml
+# Put the Health app's export.zip in data/raw/ (git-ignored). It is read in place, never unzipped;
+# --xml also takes an unzipped apple_health_export/export.xml.
+PYTHONPATH=src python -m apple_health ingest-xml --xml data/raw/export.zip
 PYTHONPATH=src python -m apple_health build
 ```
 

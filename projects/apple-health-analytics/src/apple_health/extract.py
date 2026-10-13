@@ -16,6 +16,7 @@ a person's first name). This version:
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+import zipfile
 from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -35,7 +36,10 @@ RECORD_COLUMNS = [
     "unit",
 ]
 
-WORKOUT_COLUMNS = ["activity", "start_local", "duration_min", "active_kcal", "distance_mi", "device_class"]
+WORKOUT_COLUMNS = ["activity", "location", "start_local", "duration_min", "active_kcal", "distance_mi", "device_class"]
+
+#: Where an export keeps its XML inside the zip the Health app shares.
+ZIP_MEMBER = "apple_health_export/export.xml"
 
 DEVICE_PRIORITY = {"watch": 0, "phone": 1, "other": 2}
 
@@ -81,8 +85,11 @@ class ExtractResult:
     workouts: pd.DataFrame | None = None
 
 
-def iter_elements(xml_path: Path, target_types: Iterable[str], workouts: bool = False):
-    """Yield ``("record", attrib)`` for target records and, optionally, ``("workout", attrib, stats)``."""
+def iter_elements(xml_path, target_types: Iterable[str], workouts: bool = False):
+    """Yield ``("record", attrib)`` for target records and, optionally, ``("workout", attrib, stats, meta)``.
+
+    ``xml_path`` is a path or an open file, such as the XML read straight out of the export zip.
+    """
     targets = set(target_types)
     for _event, elem in ET.iterparse(xml_path, events=("end",)):
         tag = elem.tag
@@ -93,7 +100,8 @@ def iter_elements(xml_path: Path, target_types: Iterable[str], workouts: bool = 
         elif tag == "Workout":
             if workouts:
                 stats = {c.attrib.get("type"): c.attrib.copy() for c in elem if c.tag == "WorkoutStatistics"}
-                yield ("workout", elem.attrib.copy(), stats)
+                meta = {c.attrib.get("key"): c.attrib.get("value") for c in elem if c.tag == "MetadataEntry"}
+                yield ("workout", elem.attrib.copy(), stats, meta)
             elem.clear()
         elif tag in ("ActivitySummary", "Correlation"):
             # Clear every finished element so a multi-GB export does not accumulate in memory.
@@ -105,7 +113,13 @@ def iter_records(xml_path: Path, target_types: Iterable[str]):
         yield item[1]
 
 
-def _workout_row(attrib: dict, stats: dict) -> tuple:
+def workout_location(meta: dict) -> str:
+    """``indoor`` or ``outdoor`` from the ``HKIndoorWorkout`` tag the Workout app adds to walks, runs and rides; blank when untagged."""
+    flag = str(meta.get("HKIndoorWorkout", "")).strip().lower()
+    return {"1": "indoor", "true": "indoor", "0": "outdoor", "false": "outdoor"}.get(flag, "")
+
+
+def _workout_row(attrib: dict, stats: dict, meta: dict | None = None) -> tuple:
     energy = stats.get("HKQuantityTypeIdentifierActiveEnergyBurned", {})
     distance = next((v for k, v in stats.items() if k and k.startswith("HKQuantityTypeIdentifierDistance")), {})
     kcal = float(energy["sum"]) * (0.239006 if energy.get("unit") == "kJ" else 1.0) if energy.get("sum") else None
@@ -116,24 +130,35 @@ def _workout_row(attrib: dict, stats: dict) -> tuple:
     if duration is not None and attrib.get("durationUnit") == "sec":
         duration /= 60
     activity = attrib.get("workoutActivityType", "").replace("HKWorkoutActivityType", "")
-    return (activity, attrib.get("startDate"), duration, kcal, miles, classify_device(attrib.get("sourceName")))
+    return (activity, workout_location(meta or {}), attrib.get("startDate"), duration, kcal, miles, classify_device(attrib.get("sourceName")))
 
 
 def extract(xml_path: str | Path, target_types: Iterable[str] | None = None, workouts: bool = False) -> ExtractResult:
-    """Read an Apple Health export into a record-level DataFrame (and optionally its workouts)."""
+    """Read an Apple Health export into a record-level DataFrame (and optionally its workouts).
+
+    ``xml_path`` is either ``export.xml`` or the ``export.zip`` the Health app shares. A zip is read
+    in place, so the health data never has to be unzipped onto the disk.
+    """
     xml_path = Path(xml_path)
     if not xml_path.exists():
         raise FileNotFoundError(
             f"{xml_path} not found. Export from the Health app (profile picture → "
-            "Export All Health Data), unzip it, and point --xml at apple_health_export/export.xml."
+            "Export All Health Data) and point --xml at export.zip or apple_health_export/export.xml."
         )
+    if zipfile.is_zipfile(xml_path):
+        with zipfile.ZipFile(xml_path) as archive, archive.open(ZIP_MEMBER) as xml_file:
+            return _extract(xml_file, target_types, workouts)
+    return _extract(xml_path, target_types, workouts)
+
+
+def _extract(xml_source, target_types: Iterable[str] | None, workouts: bool) -> ExtractResult:
     targets = list(target_types) if target_types is not None else list(BY_TYPE)
 
     cols: dict[str, list] = {k: [] for k in ("hk_type", "source", "start", "end", "value_raw", "unit")}
     workout_rows: list[tuple] = []
-    for item in iter_elements(xml_path, targets, workouts=workouts):
+    for item in iter_elements(xml_source, targets, workouts=workouts):
         if item[0] == "workout":
-            workout_rows.append(_workout_row(item[1], item[2]))
+            workout_rows.append(_workout_row(item[1], item[2], item[3]))
             continue
         attrib = item[1]
         cols["hk_type"].append(attrib["type"])

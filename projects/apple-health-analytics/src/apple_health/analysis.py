@@ -267,12 +267,26 @@ ACTIVITY_LABELS = {
 }
 
 
+#: Walks and runs are split by the export's indoor or outdoor tag, named the way the Workout app names them.
+SETTING_LABELS = {
+    ("Walking", "indoor"): "Indoor walk",
+    ("Walking", "outdoor"): "Outdoor walk",
+    ("Running", "indoor"): "Indoor run",
+    ("Running", "outdoor"): "Outdoor run",
+}
+
+
+def activity_label(activity: str, location: str = "") -> str:
+    return SETTING_LABELS.get((activity, location)) or ACTIVITY_LABELS.get(activity) or re_words(activity)
+
+
 def workouts_summary(monthly: pd.DataFrame, top: int = 5) -> dict:
     w = monthly.copy()
-    w["activity"] = w["activity"].map(lambda a: ACTIVITY_LABELS.get(a, re_words(a)))
+    location = w["location"].fillna("") if "location" in w else pd.Series("", index=w.index)
+    w["activity"] = [activity_label(a, loc) for a, loc in zip(w["activity"], location)]
     totals = (
         w.groupby("activity", as_index=False)[["workouts", "minutes", "active_kcal", "distance_mi"]].sum()
-        .sort_values("workouts", ascending=False)
+        .sort_values(["workouts", "minutes"], ascending=False, kind="stable")
     )
     keep = totals["activity"].head(top).tolist()
     w["group"] = w["activity"].where(w["activity"].isin(keep), "Other")

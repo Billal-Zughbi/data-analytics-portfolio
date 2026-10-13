@@ -3256,10 +3256,10 @@
   "first_month": "2019-03",
   "groups": [
    "Strength training",
-   "Walking",
-   "Running",
    "Core training",
+   "Indoor run",
    "Stair climbing",
+   "Indoor walk",
    "Other"
   ],
   "by_activity": [
@@ -3272,28 +3272,20 @@
     "distance_mi": 0.0
    },
    {
-    "activity": "Walking",
-    "workouts": 172,
-    "hours": 78.8,
-    "avg_minutes": 28.0,
-    "active_kcal": 32146,
-    "distance_mi": 189.7
-   },
-   {
-    "activity": "Running",
-    "workouts": 160,
-    "hours": 44.8,
-    "avg_minutes": 17.0,
-    "active_kcal": 29449,
-    "distance_mi": 231.2
-   },
-   {
     "activity": "Core training",
     "workouts": 139,
     "hours": 54.7,
     "avg_minutes": 24.0,
     "active_kcal": 18765,
     "distance_mi": 0.0
+   },
+   {
+    "activity": "Indoor run",
+    "workouts": 128,
+    "hours": 33.9,
+    "avg_minutes": 16.0,
+    "active_kcal": 23462,
+    "distance_mi": 183.8
    },
    {
     "activity": "Stair climbing",
@@ -3304,12 +3296,28 @@
     "distance_mi": 0.0
    },
    {
-    "activity": "Cycling",
-    "workouts": 20,
-    "hours": 9.7,
-    "avg_minutes": 29.0,
-    "active_kcal": 2879,
-    "distance_mi": 73.2
+    "activity": "Indoor walk",
+    "workouts": 118,
+    "hours": 47.0,
+    "avg_minutes": 24.0,
+    "active_kcal": 25623,
+    "distance_mi": 120.6
+   },
+   {
+    "activity": "Outdoor walk",
+    "workouts": 54,
+    "hours": 31.9,
+    "avg_minutes": 35.0,
+    "active_kcal": 6524,
+    "distance_mi": 69.1
+   },
+   {
+    "activity": "Outdoor run",
+    "workouts": 32,
+    "hours": 10.9,
+    "avg_minutes": 21.0,
+    "active_kcal": 5989,
+    "distance_mi": 47.4
    },
    {
     "activity": "Hiking",
@@ -3320,12 +3328,12 @@
     "distance_mi": 64.6
    },
    {
-    "activity": "Elliptical",
-    "workouts": 9,
-    "hours": 3.1,
-    "avg_minutes": 20.0,
-    "active_kcal": 1902,
-    "distance_mi": 0.0
+    "activity": "Cycling",
+    "workouts": 20,
+    "hours": 9.7,
+    "avg_minutes": 29.0,
+    "active_kcal": 2879,
+    "distance_mi": 73.2
    },
    {
     "activity": "Pilates",
@@ -3333,6 +3341,14 @@
     "hours": 5.4,
     "avg_minutes": 36.0,
     "active_kcal": 2360,
+    "distance_mi": 0.0
+   },
+   {
+    "activity": "Elliptical",
+    "workouts": 9,
+    "hours": 3.1,
+    "avg_minutes": 20.0,
+    "active_kcal": 1902,
     "distance_mi": 0.0
    },
    {
@@ -3381,81 +3397,81 @@
     "year": 2019,
     "hours": 1.0,
     "Strength training": 0,
-    "Walking": 1,
-    "Running": 4,
     "Core training": 0,
+    "Indoor run": 1,
     "Stair climbing": 0,
-    "Other": 0
+    "Indoor walk": 0,
+    "Other": 4
    },
    {
     "year": 2020,
     "hours": 3.0,
     "Strength training": 0,
-    "Walking": 0,
-    "Running": 9,
     "Core training": 0,
+    "Indoor run": 0,
     "Stair climbing": 0,
-    "Other": 0
+    "Indoor walk": 0,
+    "Other": 9
    },
    {
     "year": 2021,
     "hours": 1.0,
     "Strength training": 2,
-    "Walking": 0,
-    "Running": 0,
     "Core training": 0,
+    "Indoor run": 0,
     "Stair climbing": 0,
+    "Indoor walk": 0,
     "Other": 0
    },
    {
     "year": 2022,
     "hours": 5.0,
     "Strength training": 1,
-    "Walking": 0,
-    "Running": 4,
     "Core training": 0,
+    "Indoor run": 0,
     "Stair climbing": 0,
-    "Other": 1
+    "Indoor walk": 0,
+    "Other": 5
    },
    {
     "year": 2023,
     "hours": 321.0,
     "Strength training": 195,
-    "Walking": 89,
-    "Running": 53,
     "Core training": 74,
+    "Indoor run": 44,
     "Stair climbing": 13,
-    "Other": 17
+    "Indoor walk": 74,
+    "Other": 41
    },
    {
     "year": 2024,
     "hours": 315.0,
     "Strength training": 195,
-    "Walking": 33,
-    "Running": 29,
     "Core training": 40,
+    "Indoor run": 25,
     "Stair climbing": 58,
-    "Other": 23
+    "Indoor walk": 21,
+    "Other": 39
    },
    {
     "year": 2025,
     "hours": 248.0,
     "Strength training": 168,
-    "Walking": 17,
-    "Running": 46,
     "Core training": 23,
+    "Indoor run": 44,
     "Stair climbing": 25,
-    "Other": 18
+    "Indoor walk": 6,
+    "Other": 31
    },
    {
     "year": 2026,
     "hours": 167.0,
     "Strength training": 105,
-    "Walking": 32,
-    "Running": 15,
     "Core training": 2,
+    "Indoor run": 14,
     "Stair climbing": 31,
-    "Other": 19
+    "Indoor walk": 17,
+    "Other": 35
    }
   ]
  },

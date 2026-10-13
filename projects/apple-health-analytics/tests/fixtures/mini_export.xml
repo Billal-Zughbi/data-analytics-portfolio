@@ -36,4 +36,15 @@
   <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Test Watch" unit="count/min" creationDate="2025-01-02 23:40:00 -0800" startDate="2025-01-02 23:40:00 -0800" endDate="2025-01-02 23:40:00 -0800" value="70"/>
   <!-- A type the daily model does not use: ignored by the default extractor -->
   <Record type="HKQuantityTypeIdentifierBodyMass" sourceName="Test iPhone" unit="lb" creationDate="2025-01-02 07:00:00 -0500" startDate="2025-01-02 07:00:00 -0500" endDate="2025-01-02 07:00:00 -0500" value="170"/>
+  <!-- Workouts: an outdoor walk, an indoor run, and strength training with the default "outdoor" tag Apple writes on every workout -->
+  <Workout workoutActivityType="HKWorkoutActivityTypeWalking" duration="30" durationUnit="min" sourceName="Test Watch" creationDate="2025-01-01 08:31:00 -0500" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 08:30:00 -0500">
+    <MetadataEntry key="HKIndoorWorkout" value="0"/>
+    <WorkoutStatistics type="HKQuantityTypeIdentifierDistanceWalkingRunning" startDate="2025-01-01 08:00:00 -0500" endDate="2025-01-01 08:30:00 -0500" sum="1.2" unit="mi"/>
+  </Workout>
+  <Workout workoutActivityType="HKWorkoutActivityTypeRunning" duration="20" durationUnit="min" sourceName="Test Watch" creationDate="2025-01-02 18:21:00 -0500" startDate="2025-01-02 18:00:00 -0500" endDate="2025-01-02 18:20:00 -0500">
+    <MetadataEntry key="HKIndoorWorkout" value="1"/>
+  </Workout>
+  <Workout workoutActivityType="HKWorkoutActivityTypeTraditionalStrengthTraining" duration="45" durationUnit="min" sourceName="Test Watch" creationDate="2025-01-02 07:46:00 -0500" startDate="2025-01-02 07:00:00 -0500" endDate="2025-01-02 07:45:00 -0500">
+    <MetadataEntry key="HKIndoorWorkout" value="0"/>
+  </Workout>
 </HealthData>

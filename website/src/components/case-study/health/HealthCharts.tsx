@@ -36,8 +36,12 @@ const YEAR_METRICS: Record<YearMetric, { label: string; unit: string; digits: nu
   goal_share: { label: "Days at 10,000 steps or more", unit: "", digits: 0, fmt: (v) => pct(v, 0) },
 };
 
+/** Below this chart width thirteen upright bars leave no room for their labels, so the bars lie on their side. */
+const SIDEWAYS_BELOW = 520;
+
 export function YearlyChart() {
   const [metric, setMetric] = useState<YearMetric>("steps_mean");
+  const [sideways, setSideways] = useState(false);
   const m = YEAR_METRICS[metric];
   const rows = summary.yearly.filter((y) => y.step_days > 0);
   const watchMetric = metric === "exercise_mean" || metric === "resting_hr";
@@ -45,10 +49,35 @@ export function YearlyChart() {
   const thin = (y: (typeof rows)[number]) => (watchMetric ? y.watch_days < 180 : y.step_days < 180);
   const thinWatchYears = rows.filter((y) => y.watch_days > 0 && y.watch_days < 180).map((y) => y.year);
   const listed = thinWatchYears.length > 1 ? `${thinWatchYears.slice(0, -1).join(", ")} and ${thinWatchYears.at(-1)}` : String(thinWatchYears[0] ?? "");
+  const days = (year: number) => {
+    const y = rows.find((r) => r.year === year)!;
+    return y.watch_days ? `${y.watch_days}d` : "phone";
+  };
+  const axisLabel = (v: number) => (metric === "goal_share" ? pct(v, 0) : v === 0 ? "0" : v >= 1000 ? `${v / 1000}k` : String(v));
+  const domain: [number, "auto"] = [metric === "resting_hr" ? 50 : 0, "auto"];
+  const valueLabel = (v: unknown) => (typeof v === "number" ? (metric === "steps_mean" ? `${(v / 1000).toFixed(1)}k` : show(v)) : "");
+  const tooltip = (
+    <Tooltip
+      cursor={{ fill: "var(--line)" }}
+      content={({ active, payload }) =>
+        active && payload?.length ? (
+          <TipBox
+            title={String(payload[0].payload.year)}
+            lines={[
+              `${m.label}: ${show(payload[0].value === null ? null : Number(payload[0].value))} ${m.unit}`,
+              payload[0].payload.watch_days ? `${payload[0].payload.watch_days} days with watch data` : `${payload[0].payload.step_days} days of phone steps`,
+            ]}
+          />
+        ) : null
+      }
+    />
+  );
+  const cells = rows.map((y) => <Cell key={y.year} fill={S1} fillOpacity={thin(y) ? 0.35 : 0.95} />);
   return (
     <ChartFrame
       title={`${m.label} by year`}
-      subtitle={`Under each year is how many days the watch was worn, or "phone" for the years before it.`}
+      subtitle={`${sideways ? "Next to" : "Under"} each year is how many days the watch was worn, or "phone" for the years before it.`}
+      height={sideways ? rows.length * 26 + 32 : 300}
       controls={
         <Segmented
           label="Metric"
@@ -74,51 +103,67 @@ export function YearlyChart() {
           : `Steps before ${new Date(`${summary.source.watch_start}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })} come from the phone alone, which only counts steps while it is being carried. Years with fewer than 180 days of data are drawn lighter.`
       }
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={rows} margin={{ top: 24, right: 8, bottom: 8, left: -4 }}>
-          <CartesianGrid stroke="var(--grid)" vertical={false} />
-          <XAxis
-            dataKey="year"
-            {...axisProps}
-            interval={0}
-            height={36}
-            tick={(raw: unknown) => {
-              const props = raw as { x: number; y: number; payload: { value: number } };
-              const y = rows.find((r) => r.year === props.payload.value)!;
-              return (
-                <g transform={`translate(${props.x},${props.y + 10})`}>
-                  <text textAnchor="middle" className="fill-[var(--ink-2)] font-mono text-[0.625rem]">
-                    {`'${String(props.payload.value).slice(2)}`}
-                  </text>
-                  <text y={14} textAnchor="middle" className="fill-[var(--ink-3)] font-mono text-[0.5rem]">
-                    {y.watch_days ? `${y.watch_days}d` : "phone"}
-                  </text>
-                </g>
-              );
-            }}
-          />
-          <YAxis {...axisProps} width={44} tickFormatter={(v: number) => (metric === "goal_share" ? pct(v, 0) : v === 0 ? "0" : v >= 1000 ? `${v / 1000}k` : String(v))} domain={metric === "resting_hr" ? [50, "auto"] : [0, "auto"]} />
-          <Tooltip
-            cursor={{ fill: "var(--line)" }}
-            content={({ active, payload }) =>
-              active && payload?.length ? (
-                <TipBox
-                  title={String(payload[0].payload.year)}
-                  lines={[
-                    `${m.label}: ${show(payload[0].value === null ? null : Number(payload[0].value))} ${m.unit}`,
-                    payload[0].payload.watch_days ? `${payload[0].payload.watch_days} days with watch data` : `${payload[0].payload.step_days} days of phone steps`,
-                  ]}
-                />
-              ) : null
-            }
-          />
-          <Bar dataKey={metric} radius={[4, 4, 0, 0]} maxBarSize={48} animationDuration={800}>
-            {rows.map((y) => (
-              <Cell key={y.year} fill={S1} fillOpacity={thin(y) ? 0.35 : 0.95} />
-            ))}
-            <LabelList dataKey={metric} position="top" formatter={(v: unknown) => (typeof v === "number" ? (metric === "steps_mean" ? `${(v / 1000).toFixed(1)}k` : show(v)) : "")} className="fill-[var(--ink-2)] font-mono text-[0.5625rem]" />
-          </Bar>
-        </BarChart>
+      <ResponsiveContainer width="100%" height="100%" onResize={(width) => setSideways(width > 0 && width < SIDEWAYS_BELOW)}>
+        {sideways ? (
+          <BarChart data={rows} layout="vertical" margin={{ top: 0, right: 36, bottom: 0, left: 0 }}>
+            <CartesianGrid stroke="var(--grid)" horizontal={false} />
+            <XAxis type="number" {...axisProps} tickFormatter={axisLabel} domain={domain} />
+            <YAxis
+              type="category"
+              dataKey="year"
+              {...axisProps}
+              width={74}
+              interval={0}
+              tick={(raw: unknown) => {
+                const props = raw as { x: number; y: number; payload: { value: number } };
+                return (
+                  <g transform={`translate(${props.x},${props.y})`}>
+                    <text x={-36} textAnchor="end" dominantBaseline="central" className="fill-[var(--ink-2)] font-mono text-[10px]">
+                      {`'${String(props.payload.value).slice(2)}`}
+                    </text>
+                    <text x={-4} textAnchor="end" dominantBaseline="central" className="fill-[var(--ink-3)] font-mono text-[8px]">
+                      {days(props.payload.value)}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+            {tooltip}
+            <Bar dataKey={metric} radius={[0, 4, 4, 0]} maxBarSize={18} animationDuration={800}>
+              {cells}
+              <LabelList dataKey={metric} position="right" formatter={valueLabel} className="fill-[var(--ink-2)] font-mono text-[9px]" />
+            </Bar>
+          </BarChart>
+        ) : (
+          <BarChart data={rows} margin={{ top: 24, right: 8, bottom: 8, left: -4 }}>
+            <CartesianGrid stroke="var(--grid)" vertical={false} />
+            <XAxis
+              dataKey="year"
+              {...axisProps}
+              interval={0}
+              height={36}
+              tick={(raw: unknown) => {
+                const props = raw as { x: number; y: number; payload: { value: number } };
+                return (
+                  <g transform={`translate(${props.x},${props.y + 10})`}>
+                    <text textAnchor="middle" className="fill-[var(--ink-2)] font-mono text-[10px]">
+                      {`'${String(props.payload.value).slice(2)}`}
+                    </text>
+                    <text y={14} textAnchor="middle" className="fill-[var(--ink-3)] font-mono text-[8px]">
+                      {days(props.payload.value)}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+            <YAxis {...axisProps} width={44} tickFormatter={axisLabel} domain={domain} />
+            {tooltip}
+            <Bar dataKey={metric} radius={[4, 4, 0, 0]} maxBarSize={48} animationDuration={800}>
+              {cells}
+              <LabelList dataKey={metric} position="top" formatter={valueLabel} className="fill-[var(--ink-2)] font-mono text-[9px]" />
+            </Bar>
+          </BarChart>
+        )}
       </ResponsiveContainer>
     </ChartFrame>
   );
@@ -172,7 +217,7 @@ export function RhythmCharts() {
             {rows.map((r) => (
               <Cell key={r.name} fill={r.steps_mean === max ? S2 : r.steps_mean === min ? S3 : S1} fillOpacity={r.steps_mean === max || r.steps_mean === min ? 1 : 0.55} />
             ))}
-            <LabelList dataKey="steps_mean" position="top" formatter={(v: unknown) => num(Number(v))} className="fill-[var(--ink-3)] font-mono text-[0.5625rem]" />
+            <LabelList dataKey="steps_mean" position="top" formatter={(v: unknown) => num(Number(v))} className="fill-[var(--ink-3)] font-mono text-[9px]" />
           </Bar>
         </BarChart>
       </ResponsiveContainer>
@@ -415,7 +460,7 @@ export function WorkoutsChart() {
       subtitle={
         view === "year"
           ? `${num(w.total)} workouts and ${num(w.hours)} hours since ${w.first_month.slice(0, 4)}. Strength training is split out from everything else.`
-          : `The eight workout types with the most sessions, by total hours.`
+          : `The eight workout types with the most sessions, by total hours. Walks and runs are split into indoor and outdoor.`
       }
       controls={
         <Segmented
@@ -477,7 +522,7 @@ export function WorkoutsChart() {
             />
             <Bar dataKey="strength" stackId="w" fill={S1} stroke="var(--surface-1)" strokeWidth={2} maxBarSize={48} animationDuration={800} />
             <Bar dataKey="rest" stackId="w" fill={S3} stroke="var(--surface-1)" strokeWidth={2} radius={[4, 4, 0, 0]} maxBarSize={48} animationDuration={800}>
-              <LabelList dataKey="total" position="top" className="fill-[var(--ink-2)] font-mono text-[0.625rem]" />
+              <LabelList dataKey="total" position="top" className="fill-[var(--ink-2)] font-mono text-[10px]" />
             </Bar>
           </BarChart>
         ) : (
@@ -497,7 +542,7 @@ export function WorkoutsChart() {
               }
             />
             <Bar dataKey="hours" fill={S1} radius={[0, 4, 4, 0]} maxBarSize={22} animationDuration={800}>
-              <LabelList dataKey="hours" position="right" formatter={(v: unknown) => `${num(Number(v))} h`} className="fill-[var(--ink-2)] font-mono text-[0.625rem]" />
+              <LabelList dataKey="hours" position="right" formatter={(v: unknown) => `${num(Number(v))} h`} className="fill-[var(--ink-2)] font-mono text-[10px]" />
             </Bar>
           </BarChart>
         )}

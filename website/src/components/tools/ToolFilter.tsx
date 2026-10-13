@@ -240,7 +240,7 @@ export function ToolFilter() {
         <div
           role="region"
           aria-label="Page filter"
-          className="xf-bar fixed bottom-3 left-3 right-[4.25rem] z-40 flex flex-col gap-1 rounded-[1.375rem] border border-line-strong bg-surface-2/95 p-1.5 shadow-[0_18px_40px_-16px_rgb(0_0_0/0.9)] backdrop-blur-md sm:bottom-5 sm:left-1/2 sm:right-auto sm:max-w-[min(60rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:pl-2.5"
+          className="xf-bar fixed bottom-3 left-3 right-[4.25rem] z-40 flex flex-col gap-1 rounded-[1.375rem] border border-line-strong bg-surface-2/95 p-1.5 shadow-[0_18px_40px_-16px_rgb(0_0_0/0.9)] backdrop-blur-md sm:bottom-5 sm:left-1/2 sm:right-auto sm:max-w-[min(60rem,calc(100vw-10rem))] sm:-translate-x-1/2 sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:pl-2.5"
         >
           {/* The selected tools, in the order they were picked. On phones they scroll sideways above the controls. */}
           <div ref={chipsRef} onScroll={(e) => edgeFade(e.currentTarget)} className="xf-chips flex min-w-0 items-center gap-1.5 overflow-x-auto">

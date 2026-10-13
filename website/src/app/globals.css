@@ -183,9 +183,11 @@ body {
 .recharts-text {
   fill: var(--ink-3);
 }
+/* Pixels, not rem: Recharts lays out axes in pixels for an 11px label, so a label that grew with
+   the root size on a large monitor would be cut off at the chart's edge. */
 .recharts-cartesian-axis-tick-value {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 11px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -599,6 +601,12 @@ html[data-xf-active] li.xf-hit {
   animation: pin-pop 0.5s var(--ease-out) both;
   animation-delay: calc(var(--xf-i, 0) * 40ms);
   cursor: pointer;
+}
+/* A 24px tap area around the 10px dot, for touch screens */
+.xf-mark-dot::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
 }
 
 /* Reading rings in the corner of the home page (components/home/ReadingRings.tsx) */

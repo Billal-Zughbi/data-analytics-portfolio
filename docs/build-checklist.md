@@ -52,7 +52,8 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Ingest a fresh export (Sep 2014 to Oct 2026) | ✓ | `xml_source.py`; 4,387,607 records, 1,342 workouts; daily values only in `data/daily/` |
 | Rebuilt four-page report on the site | ✓ | `HealthReport.tsx`, with original dates, year presets and custom ranges |
 | New analysis: yearly, weekly, workouts, fitness, records, activity rings | ✓ | `HealthCharts.tsx`, `DayExplorer.tsx` |
-| Python tests | ✓ | 30 passing |
+| Walks and runs split into indoor and outdoor (13 Oct) | ✓ | Every workout in the export carries the Workout app's indoor/outdoor tag; `extract.py`, `xml_source.py`, `analysis.py`. A second export, read straight from its zip, reproduced `daily_metrics.csv` and `source_profile.json` byte for byte, and was deleted afterwards |
+| Python tests | ✓ | 33 passing |
 | Lint, typecheck, build, site tests | ✓ | Run before the push |
 | Responsive checks (390 / 768 / 1440 px), no console errors | ✓ | Playwright |
 | Native rebuilt `.pbip` | ○ | Needs Power BI Desktop (Windows) |

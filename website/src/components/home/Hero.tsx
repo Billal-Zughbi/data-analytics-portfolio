@@ -21,12 +21,13 @@ const monthYear = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 
 function StageAxis() {
-  // Never closer than 2.5rem to the left edge, so the first label stays inside the figure.
-  const at = (k: number) => `max(calc(50% + ${k} * var(--fig-h)), 2.5rem)`;
+  // Never closer than 2.5rem to the left edge, so the first label stays inside the figure. On the narrowest
+  // phones the first label is clamped right against the second, so it hugs the left edge instead and the type steps down.
+  const at = (k: number) => `max(calc(50% + ${k} * var(--fig-h)), var(--stage-min, 2.5rem))`;
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-[80%] font-mono text-[0.625rem] uppercase tracking-[0.08em] sm:tracking-[0.16em]"
+      className="pointer-events-none absolute inset-x-0 top-[80%] font-mono text-[0.625rem] uppercase max-[359px]:text-[0.5625rem] max-[359px]:[--stage-min:0.5rem] sm:tracking-[0.16em]"
     >
       <div
         className="absolute h-px bg-gradient-to-r from-transparent via-line-strong to-accent/60"
@@ -39,8 +40,12 @@ function StageAxis() {
       >
         <path d="M0 0 L8 4 L0 8" fill="none" stroke="currentColor" strokeWidth="1.2" />
       </svg>
-      {STAGES.map((s) => (
-        <div key={s.n} className="absolute flex -translate-x-1/2 flex-col items-center" style={{ left: at(s.offset) }}>
+      {STAGES.map((s, i) => (
+        <div
+          key={s.n}
+          className={`absolute flex -translate-x-1/2 flex-col items-center ${i === 0 ? "max-[359px]:translate-x-0 max-[359px]:items-start" : ""}`}
+          style={{ left: at(s.offset) }}
+        >
           <span className="h-2 w-2 -translate-y-1/2 rounded-full border border-accent bg-bg shadow-[0_0_10px_rgb(79_216_255/0.5)]" />
           <span className="mt-1.5 whitespace-nowrap text-ink-2">
             <span className="text-accent">{s.n}</span> {s.label}
@@ -66,7 +71,7 @@ export function Hero() {
       <div className="hero-exit relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-20 pt-14 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:gap-0 lg:pb-28 lg:pt-16">
         <div className="relative z-10 max-w-xl">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
-            {profile.title} · {profile.location}
+            {profile.title} · <span className="whitespace-nowrap">{profile.location}</span>
           </p>
           <h1 id="hero-title" className="mt-6 text-5xl font-semibold tracking-[-0.035em] sm:text-6xl lg:text-7xl">
             {profile.name}
