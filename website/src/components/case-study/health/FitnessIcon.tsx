@@ -5,8 +5,8 @@ import { usePrefersReducedMotion } from "./motion";
 const SPARK_COLORS = ["var(--ring-move)", "var(--ring-exercise)", "var(--ring-stand)"];
 
 /**
- * The Apple Fitness icon as supplied, enlarged 4x (Lanczos plus a light sharpen) so it stays crisp on
- * high-density screens; CSS only rounds off the white corners around it. On a day with all three rings closed it spins once and throws a few
+ * The Apple Fitness rings image, shown exactly as supplied (300 px with a transparent background,
+ * drawn at 148 CSS px so it stays sharp on high-density screens). On a day with all three rings closed it spins once and throws a few
  * sparks, replaying whenever `replayKey` changes. The day's numbers are always printed beside it.
  */
 export function FitnessIcon({ closed, play, replayKey }: { closed: boolean; play: boolean; replayKey: string | number }) {
@@ -21,7 +21,7 @@ export function FitnessIcon({ closed, play, replayKey }: { closed: boolean; play
         alt="Apple Fitness icon"
         width={148}
         height={148}
-        className={`block h-[148px] w-[148px] [clip-path:inset(3px_round_26%)] ${celebrate ? "ring-celebrate" : ""}`}
+        className={`block h-[148px] w-[148px] ${celebrate ? "ring-celebrate" : ""}`}
       />
       {celebrate &&
         Array.from({ length: 14 }, (_, i) => {
