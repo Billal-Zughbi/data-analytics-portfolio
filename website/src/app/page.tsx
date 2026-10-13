@@ -63,7 +63,7 @@ export default function HomePage() {
         index="04"
         eyebrow="Toolkit"
         title="Tools I work with."
-        intro="Click any tool, here or anywhere else on the page, to see where I've used it. It filters the page the way a slicer filters a Power BI report."
+        intro="Click one or more tools, here or anywhere else on the page, to see where I've used them. It filters the page the way a slicer filters a Power BI report."
         className="border-y border-line bg-surface-1/30"
       >
         <Skills />

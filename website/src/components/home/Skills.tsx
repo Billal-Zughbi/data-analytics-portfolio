@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { ToolChip, ToolTile } from "@/components/tools/ToolBits";
 
 /**
- * The toolkit, laid out like a Power BI tile slicer: selecting a tool filters the rest of the page
+ * The toolkit, laid out like a Power BI tile slicer: selecting one or more tools filters the rest of the page
  * (see components/tools/ToolFilter.tsx). Tools with an official logo get a tile; the rest are chips.
  */
 export function Skills() {

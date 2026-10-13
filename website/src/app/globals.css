@@ -133,24 +133,10 @@ body {
   -webkit-mask-image: var(--topo), radial-gradient(ellipse 85% 75% at 50% 25%, #000 25%, transparent 80%);
   mask-image: var(--topo), radial-gradient(ellipse 85% 75% at 50% 25%, #000 25%, transparent 80%);
 }
-.topo-lit {
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.8s var(--ease-out);
-  -webkit-mask-image: var(--topo), radial-gradient(circle 240px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
-  mask-image: var(--topo), radial-gradient(circle 240px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
-}
-.topo.is-lit .topo-lit {
-  opacity: 0.6;
-}
 /* The legend in the corner. The lines cover the box at max(width / 1280, height / 800) screen pixels
    per tile pixel, so the scale bar uses the same factor to stay one real kilometer long. */
 .topo {
   container-type: size;
-}
-.topo-caption,
-.topo-peak {
-  transition: color 0.8s var(--ease-out);
 }
 .topo-scale {
   width: 2.75rem;
@@ -159,12 +145,6 @@ body {
   border: 1px solid currentColor;
   border-top: 0;
   opacity: 0.6;
-}
-.topo.is-lit .topo-caption {
-  color: var(--ink-2);
-}
-.topo.is-lit .topo-peak {
-  color: var(--accent);
 }
 
 /* Hairline with a node at its start: the site's recurring motif */
@@ -397,8 +377,10 @@ html.js .calendar-anim.is-visible .cal-cell {
 }
 
 /* ---------------------------------------------------------------------------
-   Page filter (components/tools). Selecting a tool lights up the places it is used,
-   pins its logo there and dims the rest. Logos are never recolored or altered.
+   Page filter (components/tools). Selecting one or more tools lights up the places they
+   are used, pins their logos there and dims the rest. ToolFilter.tsx sets --xf-color on
+   each lit element and mention (the first selected tool that matches it), and --pin-*
+   on each pinned logo. Logos are never recolored or altered.
    --------------------------------------------------------------------------- */
 @layer components {
   [data-xf],
@@ -428,10 +410,10 @@ html[data-xf-active] li.xf-hit {
 }
 .tool-chip[aria-pressed="true"],
 .tool-tile[aria-pressed="true"] {
-  border-color: var(--xf-color);
-  background-color: color-mix(in srgb, var(--xf-color) 15%, var(--surface-2));
+  border-color: var(--tool, var(--accent));
+  background-color: color-mix(in srgb, var(--tool, var(--accent)) 15%, var(--surface-2));
   color: var(--ink-1);
-  box-shadow: 0 0 0 1px var(--xf-color), 0 10px 26px -14px var(--xf-color);
+  box-shadow: 0 0 0 1px var(--tool, var(--accent)), 0 10px 26px -14px var(--tool, var(--accent));
 }
 .tool-tile {
   cursor: pointer;
@@ -476,27 +458,33 @@ html[data-xf-active] li.xf-hit {
   border-radius: 3px;
 }
 
-/* The selected tool's logo, popped onto each matching spot */
-.xf-hit [data-pin]::after {
-  content: "";
+/* The selected tools' logos, popped onto each matching spot and stacked when several match */
+.xf-pin {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 1.5rem;
   height: 1.5rem;
   padding: 0.3rem;
   border-radius: 999px;
-  background: var(--xf-pin-bg, var(--surface-2)) var(--xf-logo) center / contain no-repeat;
+  background: var(--pin-bg, var(--surface-2)) var(--pin-logo) center / contain no-repeat;
   background-origin: content-box;
-  box-shadow: 0 0 0 1.5px var(--xf-color), 0 6px 18px -4px var(--xf-color);
+  box-shadow: 0 0 0 1.5px var(--pin-color), 0 6px 18px -4px var(--pin-color);
   animation: pin-pop 0.6s var(--ease-out) both;
-  animation-delay: calc(var(--xf-i, 0) * 50ms);
 }
-html:not(.xf-has-logo) .xf-hit [data-pin]::after {
+.xf-pin + .xf-pin {
+  margin-left: -0.375rem;
+}
+.xf-pin-dot {
   width: 0.75rem;
   height: 0.75rem;
   padding: 0;
-  background: var(--xf-color);
-  box-shadow: 0 0 12px var(--xf-color);
+  background: var(--pin-color);
+  box-shadow: 0 0 12px var(--pin-color);
+}
+.xf-pin-dot + .xf-pin,
+.xf-pin + .xf-pin-dot {
+  margin-left: 0.25rem;
 }
 .bullet-pin {
   transition: background-color var(--dur-2) var(--ease-out);
@@ -504,18 +492,25 @@ html:not(.xf-has-logo) .xf-hit [data-pin]::after {
 .xf-hit > .bullet-pin {
   background-color: transparent;
 }
-.xf-hit > .bullet-pin::after {
+/* Resume bullets and timeline numbers have room for one logo: the first selected tool that matches */
+.bullet-pin > .xf-pin {
   position: absolute;
   left: 50%;
   top: 50%;
   width: 1.375rem;
   height: 1.375rem;
   padding: 0.25rem;
+  margin: 0;
   translate: -50% -50%;
 }
-html:not(.xf-has-logo) .xf-hit > .bullet-pin::after {
+.bullet-pin > .xf-pin-dot {
   width: 0.625rem;
   height: 0.625rem;
+  padding: 0;
+}
+.bullet-pin > .xf-pin ~ .xf-pin,
+.life-num > .xf-pin ~ .xf-pin {
+  display: none;
 }
 @keyframes pin-pop {
   0% { transform: scale(0) rotate(-40deg); opacity: 0; }
@@ -550,6 +545,51 @@ html:not(.xf-has-logo) .xf-hit > .bullet-pin::after {
   transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
 }
 .xf-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink-1);
+}
+/* Selected tools in the bar */
+.xf-chips {
+  scrollbar-width: none;
+}
+.xf-chips::-webkit-scrollbar {
+  display: none;
+}
+.xf-chips[data-fade="left"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem);
+  mask-image: linear-gradient(to right, transparent, #000 1.5rem);
+}
+.xf-chips[data-fade="right"] {
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 1.5rem);
+  mask-image: linear-gradient(to left, transparent, #000 1.5rem);
+}
+.xf-chips[data-fade="both"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+}
+.xf-chip {
+  border: 1px solid color-mix(in srgb, var(--tool) 55%, transparent);
+  background: color-mix(in srgb, var(--tool) 12%, var(--surface-2));
+  animation: chip-in 0.35s var(--ease-out) both;
+}
+@keyframes chip-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: none; }
+}
+.xf-chip-logo {
+  background: var(--surface-1);
+}
+.xf-chip-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  color: var(--ink-3);
+  transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+}
+.xf-chip-x:hover {
   background: var(--surface-3);
   color: var(--ink-1);
 }
@@ -669,13 +709,22 @@ html:not(.xf-has-logo) .xf-hit > .bullet-pin::after {
 .xf-hit > .life-num {
   color: transparent;
 }
-.xf-hit > .life-num::after {
+.life-num > .xf-pin {
   position: absolute;
   left: -1px;
   top: -1px;
   width: 1.375rem;
   height: 1.375rem;
   padding: 0.25rem;
+  margin: 0;
+}
+.life-num > .xf-pin-dot {
+  left: 50%;
+  top: 50%;
+  width: 0.625rem;
+  height: 0.625rem;
+  padding: 0;
+  translate: -50% -50%;
 }
 
 /* Hero day tooltip (components/hero/DataFlowScene.tsx): sits centered above the pointer. */
