@@ -69,5 +69,6 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Mount Rainier contour lines (USGS elevation) | ✓ | `scripts/rainier_contours.py`, `public/images/rainier-contours.svg` |
 | Hero made of real days, with year labels and date tooltip | ✓ | `components/hero/` |
 | On-this-day line, SQL 404 page, console hello | ✓ | `components/hero/OnThisDay.tsx`, `components/surprises/` |
+| Map-style caption naming the Mount Rainier contour lines, with a 1 km scale bar | ✓ | `components/Topo.tsx` |
 | Lint, typecheck, build, site tests, Python tests | ✓ | Run before the push |
 | Responsive checks (390 / 768 / 1440 px), reduced motion, no console errors | ✓ | Playwright |

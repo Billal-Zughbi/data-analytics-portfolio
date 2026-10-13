@@ -57,7 +57,7 @@ export function Hero() {
   const years = Number(lastDay.slice(0, 4)) - Number(firstDay.slice(0, 4)) + 1;
   return (
     <section aria-labelledby="hero-title" className="relative overflow-clip pt-16">
-      <Topo />
+      <Topo captionTop="5rem" />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-40 top-10 h-[32.5rem] w-[45rem] rounded-full bg-[radial-gradient(closest-side,rgb(79_216_255/0.10),transparent)] blur-2xl"
