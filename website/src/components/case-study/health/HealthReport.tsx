@@ -30,7 +30,7 @@ import {
   type Agg,
   type Card,
 } from "@/data/apple-health";
-import { TipBox, axisProps } from "../ChartFrame";
+import { TipBox, axisNum, axisProps } from "../ChartFrame";
 
 /* ---------------------------------------------------------------------------
    The four pages of the original Power BI report, rebuilt on the cleaned daily
@@ -211,8 +211,19 @@ function ChartCard({ title, subtitle, children, wide }: { title: string; subtitl
   );
 }
 
-const tick = (bucket: string) => (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", bucket === "month" ? { month: "short", year: "2-digit", timeZone: "UTC" } : { month: "short", day: "numeric", timeZone: "UTC" });
+const tipTitle = (bucket: string, iso: string) =>
+  bucket === "day"
+    ? shortDate(iso)
+    : bucket === "week"
+      ? `Week of ${shortDate(iso)}`
+      : new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+
+/** Axis dates: "May 12" for days and weeks, "May '24" for months so a month never reads like a day. */
+const tick = (bucket: string) => (iso: string) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  const month = d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
+  return bucket === "month" ? `${month} '${iso.slice(2, 4)}` : `${month} ${d.getUTCDate()}`;
+};
 
 function linearTrend(rows: Record<string, number | string | null>[], key: string) {
   const pts = rows.map((r, i) => [i, r[key]] as const).filter((p): p is readonly [number, number] => typeof p[1] === "number");
@@ -257,7 +268,7 @@ function Chart({ spec, from, to }: { spec: ChartSpec; from: number; to: number }
             {fmt(avg)}
           </text>
           <text x="100" y="112" textAnchor="middle" className="fill-[var(--ink-3)] font-mono text-[0.5rem]">
-            metres in six minutes
+            meters in six minutes
           </text>
         </svg>
       </ChartCard>
@@ -299,16 +310,16 @@ function Chart({ spec, from, to }: { spec: ChartSpec; from: number; to: number }
     return (
       <ChartCard title={spec.title} subtitle={`${per}${spec.threshold ? ` · line at ${spec.thresholdLabel}` : ""}`} wide={spec.key === "steps"}>
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={rows} margin={{ top: 8, right: 18, bottom: 0, left: -6 }}>
+          <ComposedChart data={rows} margin={{ top: 8, right: 26, bottom: 0, left: -6 }}>
             <CartesianGrid stroke="var(--grid)" vertical={false} />
             <XAxis dataKey="date" {...axisProps} tickFormatter={tick(bucket)} minTickGap={28} />
-            <YAxis {...axisProps} width={44} domain={[0, "auto"]} tickFormatter={(v: number) => (v >= 1000 ? `${v / 1000}k` : fmt(v))} />
+            <YAxis {...axisProps} width={52} domain={[0, "auto"]} tickFormatter={axisNum} />
             <Tooltip
               cursor={{ fill: "var(--line)" }}
               content={({ active, payload }) =>
                 active && payload?.length ? (
                   <TipBox
-                    title={bucket === "day" ? shortDate(String(payload[0].payload.date)) : `${bucket === "week" ? "Week of" : "Month of"} ${shortDate(String(payload[0].payload.date))}`}
+                    title={tipTitle(bucket, String(payload[0].payload.date))}
                     lines={[`${spec.label}: ${fmt(Number(payload[0].value), spec.unit === "dBA" ? 1 : 0)} ${spec.unit}`]}
                   />
                 ) : null
@@ -337,16 +348,16 @@ function Chart({ spec, from, to }: { spec: ChartSpec; from: number; to: number }
   return (
     <ChartCard title={spec.title} subtitle={`${per}${spec.trend ? " · dashed line is the linear trend" : ""}`} wide={spec.keys.length > 1}>
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={rows} margin={{ top: 8, right: 18, bottom: 0, left: -6 }}>
+        <ComposedChart data={rows} margin={{ top: 8, right: 26, bottom: 0, left: -6 }}>
           <CartesianGrid stroke="var(--grid)" vertical={false} />
           <XAxis dataKey="date" {...axisProps} tickFormatter={tick(bucket)} minTickGap={28} />
-          <YAxis {...axisProps} width={44} domain={["auto", "auto"]} tickFormatter={(v: number) => (v >= 1000 ? `${(v / 1000).toFixed(1)}k` : fmt(v, v < 10 ? 1 : 0))} />
+          <YAxis {...axisProps} width={52} domain={["auto", "auto"]} tickFormatter={axisNum} />
           <Tooltip
             cursor={{ stroke: "var(--line-strong)" }}
             content={({ active, payload }) =>
               active && payload?.length ? (
                 <TipBox
-                  title={bucket === "day" ? shortDate(String(payload[0].payload.date)) : `${bucket === "week" ? "Week of" : "Month of"} ${shortDate(String(payload[0].payload.date))}`}
+                  title={tipTitle(bucket, String(payload[0].payload.date))}
                   lines={spec.keys.map((k) => {
                     const v = payload[0].payload[k.key];
                     return `${k.label}: ${typeof v === "number" ? fmt(v, v < 10 ? 2 : 1) : "–"} ${spec.unit}`;
@@ -409,7 +420,7 @@ export function HealthReport() {
                   type="button"
                   aria-current={p.id === pageId ? "page" : undefined}
                   onClick={() => setPageId(p.id)}
-                  className={`relative w-full whitespace-nowrap rounded-[var(--radius-sm)] px-3 py-2 text-left text-sm transition-colors ${
+                  className={`relative w-full whitespace-nowrap rounded-[var(--radius-sm)] lg:whitespace-normal px-3 py-2 text-left text-sm transition-colors ${
                     p.id === pageId ? "bg-surface-3 text-ink-1" : "text-ink-3 hover:bg-surface-2 hover:text-ink-1"
                   }`}
                 >

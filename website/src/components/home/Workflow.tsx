@@ -26,7 +26,7 @@ const STAGES = [
     key: "communicate",
     title: "Communicate",
     verb: "Build the report",
-    body: "Lay the report out around the questions people actually ask, set up security, and write documentation people can follow.",
+    body: "Lay the report out around the questions people actually ask, set up security, and write documentation that's easy to follow.",
     tools: ["Power BI", "Row-Level Security", "Documentation"],
   },
 ];

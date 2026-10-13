@@ -112,7 +112,7 @@ export const skills: { group: string; note: string; items: string[] }[] = [
   },
   {
     group: "Automation & development",
-    note: "Automation and version control",
+    note: "Workflows, apps and version control",
     items: ["Power Automate", "Power Apps", "Git", "GitHub", "Azure DevOps"],
   },
 ];

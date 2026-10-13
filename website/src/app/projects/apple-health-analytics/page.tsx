@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   title: project.title,
   description: project.summary,
   openGraph: { title: `${project.title} · case study`, description: project.summary, type: "article" },
+  twitter: { title: `${project.title} · case study`, description: project.summary },
   alternates: process.env.NEXT_PUBLIC_SITE_URL ? { canonical: `/projects/${project.slug}/` } : undefined,
 };
 
@@ -55,6 +56,8 @@ const ORIGINAL_RULE_KEY: Record<string, string> = { headphone_audio_dba: "headph
 const ORIGINAL_RULE: Record<string, string> = { sum: "Sum", average: "Average", min: "Minimum" };
 
 const n = (x: number) => x.toLocaleString("en-US");
+const shortDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const longDate = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
 
@@ -90,7 +93,6 @@ export default function AppleHealthCaseStudy() {
   const h = summary.headline;
   const src = summary.source;
   const q = summary.quality;
-  const issues = summary.cards.filter((c) => c.notes.length).length;
   const excludedMetrics = new Set(q.excluded.map((e) => e.metric)).size;
   const stats: [string, string][] = [
     [n(h.records), "records in the export"],
@@ -178,8 +180,8 @@ export default function AppleHealthCaseStudy() {
             <p>
               The original report had four pages: <strong>Energy and Activity</strong>, <strong>Cardiovascular</strong>,{" "}
               <strong>Mobility and Movement</strong>, and <strong>Physical and Environmental</strong>. Each one has the same cards
-              and charts here, driven by the rebuilt daily data. It opens on the dates each page was set to in the original file,
-              and you can switch to any year or pick your own range.
+              and charts here, driven by the rebuilt daily data. The report opens on the dates each page was set to in the original
+              file, and you can switch to any year or pick your own range.
             </p>
             <p className="text-sm text-ink-3">
               When the original dates are selected, each card also shows the number the old report displayed. Where they differ,
@@ -192,8 +194,9 @@ export default function AppleHealthCaseStudy() {
             <p>
               Before trusting my own rebuild, I wanted to know whether I could explain the old numbers. I read the report&apos;s
               layout, Power Query steps and relationships straight out of the .pbix file, then recomputed every card in pandas
-              following the same filters. <strong>All {summary.cards.length} cards reproduce</strong>, including the strange ones,
-              and {issues} of them needed a fix or a caveat.
+              following the same filters. Below, each card shows the number the old report displayed and the number it should
+              have shown: my rebuilt numbers, from the {longDate(src.last_day)} export with the corrected rules, for the same dates
+              the old page was filtered to. Card names are copied from the old report as they were.
             </p>
             <FindingCard id="cards" />
             <CardAudit />
@@ -298,7 +301,7 @@ export default function AppleHealthCaseStudy() {
                   {summary.metrics.map((m) => {
                     const key = ORIGINAL_RULE_KEY[m.key] ?? m.key;
                     const orig = key ? summary.model.rules[key] : null;
-                    const rule = m.key === "stand_hours" ? { label: "Distinct hours", why: "Count the hours marked as stood, as the watch does." } : RULES[m.kind];
+                    const rule = m.key === "stand_hours" ? { label: "Distinct hours", why: "Only hours marked as stood count, as on the watch." } : RULES[m.kind];
                     return (
                       <tr key={m.key} className="border-t border-line align-top">
                         <td className="px-4 py-2.5 text-ink-1">{m.label}</td>
@@ -349,7 +352,7 @@ export default function AppleHealthCaseStudy() {
                   <tbody>
                     {q.excluded.map((e) => (
                       <tr key={`${e.metric}-${e.date}`} className="border-t border-line">
-                        <td className="px-4 py-2 font-mono text-xs text-ink-2">{e.date}</td>
+                        <td className="whitespace-nowrap px-4 py-2 font-mono text-xs text-ink-2">{shortDate(e.date)}</td>
                         <td className="px-4 py-2 text-ink-1">{summary.metrics.find((m) => m.key === e.metric)?.label ?? e.metric}</td>
                         <td className="px-4 py-2 text-right font-mono text-xs tabular-nums">{n(e.value)}</td>
                         <td className="px-4 py-2 text-xs text-ink-3">{e.reason}</td>

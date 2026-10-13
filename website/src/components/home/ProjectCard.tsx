@@ -4,7 +4,7 @@ import { ArrowRight } from "@/components/icons";
 
 export type CardPreview = { label: string; badge?: string; node: React.ReactNode };
 
-export function ProjectCard({ project, index, preview }: { project: Project; index: number; preview: CardPreview }) {
+export function ProjectCard({ project, preview }: { project: Project; preview: CardPreview }) {
   return (
     <article className="group relative overflow-hidden rounded-[var(--radius-lg)] border border-line bg-surface-1 transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-line-strong">
       <div
@@ -14,8 +14,7 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
       <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr]">
         <div className="relative p-6 sm:p-10">
           <div className="flex items-center gap-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
-            <span className="text-accent">P{String(index + 1).padStart(2, "0")}</span>
-            <span>{index === 0 ? "Flagship case study" : "Case study"}</span>
+            <span className="text-accent">Case study</span>
           </div>
           <h3 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl">
             <Link
@@ -47,7 +46,7 @@ export function ProjectCard({ project, index, preview }: { project: Project; ind
           <div className="flex items-center justify-between font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
             <span>{preview.label}</span>
             {preview.badge && (
-              <span className="rounded-full border border-warn/40 px-2 py-0.5 text-warn normal-case tracking-normal">
+              <span className="ml-3 shrink-0 whitespace-nowrap rounded-full border border-warn/40 px-2 py-0.5 text-warn normal-case tracking-normal">
                 {preview.badge}
               </span>
             )}

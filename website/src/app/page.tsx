@@ -21,13 +21,13 @@ export default function HomePage() {
         sheet
         index="01"
         eyebrow="Featured project"
-        title="Twelve years of my own health data."
+        title="A project built on my own data."
         intro="The write-up covers the question, the data, the code and the checks I ran, with everything in the GitHub repository."
       >
         <div className="space-y-6">
-          {projects.map((p, i) => (
+          {projects.map((p) => (
             <Reveal key={p.slug}>
-              <ProjectCard project={p} index={i} preview={previewFor(p.slug)} />
+              <ProjectCard project={p} preview={previewFor(p.slug)} />
             </Reveal>
           ))}
         </div>
@@ -38,7 +38,7 @@ export default function HomePage() {
         index="02"
         eyebrow="How I work"
         title="How I approach a reporting project."
-        intro="These are the steps I follow at work and in the project here."
+        intro="These are the steps I follow at work, and the same ones I used for the project above."
         className="border-y border-line bg-surface-1/30"
       >
         <Workflow />

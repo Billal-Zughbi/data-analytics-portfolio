@@ -11,6 +11,15 @@ export const GOALS = { move: 500, exercise: 30, stand: 12 };
 const fmtDay = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 const n0 = (v: number | null) => (v === null ? "–" : Math.round(v).toLocaleString("en-US"));
+const shortDay = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+const RING_COUNT = ["No rings", "One of three rings", "Two of three rings", "All three rings"];
+
+function dayStatus(closed: number, noWatch: boolean, steps: number | null) {
+  const stepText = steps === null ? "" : `${n0(steps)} steps`;
+  if (noWatch) return steps === null ? "No watch or phone data for this day." : `No watch that day, so no rings. The phone counted ${stepText}.`;
+  return `${RING_COUNT[closed]} closed${stepText ? `, and ${stepText}` : ""}.`;
+}
 
 export function ringsFor(i: number): RingSpec[] {
   return [
@@ -112,9 +121,7 @@ export function DayExplorer() {
           <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Selected day</p>
           <p className="mt-1 text-xl font-semibold tracking-tight text-ink-1">{fmtDay(iso)}</p>
           <p className="mt-1 text-sm text-ink-3">
-            {rings.every((r) => r.value === null)
-              ? `No watch that day, so no rings. The phone counted ${n0(steps[day])} steps.`
-              : `${closed === 3 ? "All three rings closed" : `${closed} of 3 rings closed`}, and ${n0(steps[day])} steps.`}
+            {dayStatus(closed, rings.every((r) => r.value === null), steps[day])}
           </p>
           <dl className="mt-5 grid grid-cols-3 gap-3">
             {rings.map((r) => (
@@ -214,7 +221,7 @@ export function DayExplorer() {
                   strokeWidth={selected ? 1.5 : 0}
                   onClick={() => pick(c.i)}
                 >
-                  <title>{`${c.iso}: ${c.v === null ? "no data" : `${n0(c.v)} steps`}`}</title>
+                  <title>{`${shortDay(c.iso)}: ${c.v === null ? "no data" : `${n0(c.v)} steps`}`}</title>
                 </rect>
               );
             })}
@@ -226,7 +233,7 @@ export function DayExplorer() {
           </li>
           {LEVELS.map((l) => (
             <li key={l.label} className="flex items-center gap-1.5">
-              <span aria-hidden className="h-2.5 w-2.5 rounded-[3px]" style={{ background: "var(--ring-stand)", opacity: l.opacity }} />
+              <span aria-hidden className="h-2.5 w-2.5 rounded-[3px]" style={{ background: "var(--series-1)", opacity: l.opacity }} />
               {l.label}
             </li>
           ))}

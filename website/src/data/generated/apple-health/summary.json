@@ -342,7 +342,7 @@
     "end_exclusive": "2023-08-02"
    },
    "notes": [
-    "The two exports agree on average across the 1,643 days they share (461 against 462 kcal a day), but not day by day, and these months sum higher in the March 2025 one."
+    "The two exports agree on average across the 1,643 days they share (461 against 462 kcal a day), but not day by day, and for these months the March 2025 export has more active energy."
    ],
    "hint": "The two exports differ day by day for these months, though their long-run averages match."
   },
@@ -365,7 +365,7 @@
     "end_exclusive": "2023-08-02"
    },
    "notes": [
-    "The two exports agree on average across the 1,643 days they share (461 against 462 kcal a day), but not day by day, and these months sum higher in the March 2025 one."
+    "The two exports agree on average across the 1,643 days they share (461 against 462 kcal a day), but not day by day, and for these months the March 2025 export has more active energy."
    ],
    "hint": "The two exports differ day by day for these months, though their long-run averages match."
   },
@@ -388,10 +388,10 @@
     "end_exclusive": "2023-08-02"
    },
    "notes": [
-    "Labelled hours, but the column holds minutes: 127 minutes is 2.1 hours. The model had a StandHours measure that divides by 60, but the card did not use it.",
+    "Labeled hours, but the column holds minutes: 127 minutes is 2.1 hours. The model had a StandHours measure that divides by 60, but the card did not use it.",
     "The rebuilt page shows the watch's stand hours instead (hours with at least a minute of standing): 13.6 a day for these dates."
    ],
-   "hint": "Labelled hours, but the column holds minutes: 127 minutes is 2.1 hours."
+   "hint": "Labeled hours, but the column holds minutes: 127 minutes is 2.1 hours."
   },
   {
    "page": "Energy and Activity",
@@ -456,9 +456,9 @@
     "end_exclusive": "2023-08-02"
    },
    "notes": [
-    "Labelled active heart rate, but it is the average of every heart-rate reading in the day, resting included."
+    "Labeled active heart rate, but it is the average of every heart-rate reading in the day, resting included."
    ],
-   "hint": "Labelled active heart rate, but it is the average of every heart-rate reading in the day, resting included."
+   "hint": "Labeled active heart rate, but it is the average of every heart-rate reading in the day, resting included."
   },
   {
    "page": "Cardiovascular",
@@ -1009,27 +1009,27 @@
   {
    "id": "cards",
    "title": "All 24 numbers on the original report reproduce, and 21 needed a fix or a caveat",
-   "summary": "Recomputing each card from the report's own tables matches every number it showed. Following the model's relationships explains the odd ones: the Mobility page's date slicer sat on the cycling table, whose links to walking speed and step length were inactive, so those cards showed all-time averages. Walking speed read 2.61 mph; for the page's May to July 2024 dates it was 2.52. The stand card read 127 \"hours\", which is 2.1 hours of standing.",
-   "metric": "Each card's aggregation, filters and relationships read from the report layout and data model, then recomputed in pandas.",
+   "summary": "Recomputing each card from the report's own tables matches every number it showed. Following the model's relationships explains the odd ones: the Mobility page's date slicer sat on the cycling table, whose links to walking speed and step length were inactive, so those cards showed all-time averages. Walking speed read 2.61 mph; for the page's own dates (May 1, 2024 to Aug 1, 2024) it was 2.52. The stand card read 127 \"hours\", which is 2.1 hours of standing.",
+   "metric": "Each card was recomputed in pandas from the aggregation, filters and relationships stored in the report layout and data model.",
    "caveat": "The displayed values were transcribed from the March 2025 report screenshots; the tolerance is the precision each card showed."
   },
   {
    "id": "distance",
-   "title": "The original report counted walking distance about 2.0 times",
+   "title": "The original report counted walking distance about twice",
    "summary": "Steps were filtered to the watch, but distance kept every device, so a walk logged by both the watch and the phone counted twice. At a median step length of 26.5 inches, 1,000 steps cover about 0.42 miles. The original table recorded 0.84; the rebuild, which keeps one device per hour, records 0.44.",
    "metric": "Median of daily miles ÷ steps × 1,000 on days with at least 1,000 steps, against step length × 1,000 ÷ 63,360.",
    "caveat": "Step length comes from the phone's walking metrics, which start in late 2020; the median is applied to every year."
   },
   {
    "id": "dedup",
-   "title": "Counting each hour once removes about 27% of raw steps",
+   "title": "Keeping one device per hour removes about 27% of raw steps",
    "summary": "Adding up every step record in the export gives 9,282 steps a day. Keeping one device per hour (the watch when it was worn, the phone otherwise) gives 6,819. Unlike the original report, phone-only hours still count, so days without the watch are no longer blank.",
    "metric": "Daily sums with and without the de-duplication step, over every day in the export.",
    "caveat": "Health's own merge works on finer intervals than an hour, so daily totals can differ slightly from the Health app."
   },
   {
    "id": "fitness",
-   "title": "More exercise went with a lower resting heart rate (r = -0.71)",
+   "title": "More exercise went with a lower resting heart rate (r = −0.71)",
    "summary": "Across 72 months with at least 15 days of data, months with more exercise had a lower resting heart rate and higher heart rate variability (r = 0.83). Through 2020 the average was 17 exercise minutes a day and a resting heart rate of 72 bpm; from 2023 it was 57 minutes and 63 bpm, with 1,320 workouts logged since the start of 2023.",
    "metric": "Pearson correlation of monthly means. The drop shows on the same watch too: 72.5 bpm in 2019 against 60.9 bpm in January to August 2023.",
    "caveat": "A correlation across months, not proof that one caused the other. Sleep, stress and season also move resting heart rate."
@@ -1038,7 +1038,7 @@
    "id": "rates",
    "title": "Three daily rules in the original query were wrong for their metric",
    "summary": "Running power was summed per day, giving totals such as 98,328 W. Headphone exposure kept each day's quietest reading, with nine tiny values hard-coded out. Environmental sound was averaged arithmetically, which understates decibels: on the same 434 days the energy average is 7.5 dB higher.",
-   "metric": "Daily rules read from each table's Power Query (List.Sum, List.Min, List.Average) and compared with the rebuild's rules.",
+   "metric": "Each table's daily rule was read from its Power Query step (List.Sum, List.Min, List.Average) and compared with the rebuild's rule.",
    "caveat": "Each rebuilt rule is documented in metrics.py and covered by a test on a hand-written fixture."
   }
  ],
@@ -1052,7 +1052,7 @@
    {
     "name": "records_read",
     "result": "pass",
-    "detail": "4,387,607 records from 2014-09-10 to 2026-10-11; 0 could not be parsed."
+    "detail": "4,387,607 records from Sep 10, 2014 to Oct 11, 2026; 0 could not be parsed."
    },
    {
     "name": "exact_duplicates_removed",
@@ -1092,7 +1092,7 @@
    {
     "name": "series_aligned",
     "result": "pass",
-    "detail": "Daily series share one calendar of 4,415 days from 2014-09-10 to 2026-10-11."
+    "detail": "Daily series share one calendar of 4,415 days from Sep 10, 2014 to Oct 11, 2026."
    }
   ],
   "excluded": [

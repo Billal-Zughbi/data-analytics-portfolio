@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { summary } from "@/data/apple-health";
-import { CheckIcon } from "@/components/icons";
 import { Segmented } from "../ChartFrame";
 
 const fmt = (v: number | null, unit: string) => {
@@ -11,7 +10,7 @@ const fmt = (v: number | null, unit: string) => {
   return `${v.toLocaleString("en-US", { maximumFractionDigits: digits })} ${unit}`;
 };
 
-/** Every card on the original report: what it showed, what the rebuild computes, and what it should have said. */
+/** Every card on the original report: what it showed, and what the rebuild gives for the same dates. */
 export function CardAudit() {
   const pages = Array.from(new Set(summary.cards.map((c) => c.page)));
   const [view, setView] = useState<"issues" | "all">("issues");
@@ -49,20 +48,13 @@ export function CardAudit() {
                         <p className="mt-1.5 text-xs text-ink-3">Correct as shown.</p>
                       )}
                     </div>
-                    <dl className="grid grid-cols-3 gap-4 text-right text-xs sm:w-[22rem]">
+                    <dl className="grid grid-cols-2 gap-4 text-right text-xs sm:w-[16rem]">
                       <div>
                         <dt className="text-ink-3">Report showed</dt>
                         <dd className="mt-0.5 font-mono text-sm text-ink-1">{c.shown}</dd>
                       </div>
                       <div>
-                        <dt className="text-ink-3">Recomputed</dt>
-                        <dd className="mt-0.5 inline-flex items-center gap-1 font-mono text-sm text-good">
-                          {c.matches && <CheckIcon className="h-3 w-3" />}
-                          {c.rebuilt.toLocaleString("en-US", { maximumFractionDigits: 2 })}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-ink-3">Rebuild, its dates</dt>
+                        <dt className="text-ink-3">Should have shown</dt>
                         <dd className={`mt-0.5 font-mono text-sm ${c.notes.length ? "text-warn" : "text-ink-2"}`}>
                           {fmt(c.corrected, c.corrected_unit)}
                         </dd>

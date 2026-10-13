@@ -20,13 +20,13 @@ import {
 } from "recharts";
 import { summary } from "@/data/apple-health";
 import { usePrefersReducedMotion } from "./motion";
-import { ChartFrame, Segmented, TipBox, axisProps, num, pct } from "../ChartFrame";
+import { ChartFrame, Segmented, TipBox, axisProps, monthLabel, num, pct, signed } from "../ChartFrame";
 
 const S1 = "var(--series-1)";
 const S2 = "var(--series-2)";
 const S3 = "var(--series-3)";
 
-/* ---------------- Seven years, year by year ---------------- */
+/* ---------------- Year by year ---------------- */
 
 type YearMetric = "steps_mean" | "exercise_mean" | "resting_hr" | "goal_share";
 const YEAR_METRICS: Record<YearMetric, { label: string; unit: string; digits: number; fmt?: (v: number) => string }> = {
@@ -43,10 +43,12 @@ export function YearlyChart() {
   const watchMetric = metric === "exercise_mean" || metric === "resting_hr";
   const show = (v: number | null) => (v === null ? "–" : m.fmt ? m.fmt(v) : num(v, m.digits));
   const thin = (y: (typeof rows)[number]) => (watchMetric ? y.watch_days < 180 : y.step_days < 180);
+  const thinWatchYears = rows.filter((y) => y.watch_days > 0 && y.watch_days < 180).map((y) => y.year);
+  const listed = thinWatchYears.length > 1 ? `${thinWatchYears.slice(0, -1).join(", ")} and ${thinWatchYears.at(-1)}` : String(thinWatchYears[0] ?? "");
   return (
     <ChartFrame
-      title={`${rows.length} years, one bar each`}
-      subtitle={`${m.label} per year. Under each year is how many days the watch was worn, or "phone" for the years before it.`}
+      title={`${m.label} by year`}
+      subtitle={`Under each year is how many days the watch was worn, or "phone" for the years before it.`}
       controls={
         <Segmented
           label="Metric"
@@ -68,8 +70,8 @@ export function YearlyChart() {
       }}
       note={
         watchMetric
-          ? "Exercise and heart rate need the watch, so the phone-only years are empty. 2021 and 2022 have few watch days and are drawn lighter."
-          : "Steps before April 2018 come from the phone alone, which only counts steps while it is in a pocket. Years with under 180 days of data are drawn lighter."
+          ? `Exercise and heart rate need the watch, so the phone-only years are empty.${listed ? ` ${listed} ${thinWatchYears.length > 1 ? "have" : "has"} fewer than 180 watch days and ${thinWatchYears.length > 1 ? "are" : "is"} drawn lighter.` : ""}`
+          : `Steps before ${new Date(`${summary.source.watch_start}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })} come from the phone alone, which only counts steps while it is being carried. Years with fewer than 180 days of data are drawn lighter.`
       }
     >
       <ResponsiveContainer width="100%" height="100%">
@@ -95,7 +97,7 @@ export function YearlyChart() {
               );
             }}
           />
-          <YAxis {...axisProps} width={44} tickFormatter={(v: number) => (metric === "goal_share" ? pct(v, 0) : v >= 1000 ? `${v / 1000}k` : String(v))} domain={metric === "resting_hr" ? [50, "auto"] : [0, "auto"]} />
+          <YAxis {...axisProps} width={44} tickFormatter={(v: number) => (metric === "goal_share" ? pct(v, 0) : v === 0 ? "0" : v >= 1000 ? `${v / 1000}k` : String(v))} domain={metric === "resting_hr" ? [50, "auto"] : [0, "auto"]} />
           <Tooltip
             cursor={{ fill: "var(--line)" }}
             content={({ active, payload }) =>
@@ -157,7 +159,7 @@ export function RhythmCharts() {
         <BarChart data={rows} margin={{ top: 24, right: 8, bottom: 0, left: -4 }}>
           <CartesianGrid stroke="var(--grid)" vertical={false} />
           <XAxis dataKey="name" {...axisProps} interval={0} />
-          <YAxis {...axisProps} width={44} tickFormatter={(v: number) => `${v / 1000}k`} />
+          <YAxis {...axisProps} width={44} tickFormatter={(v: number) => (v === 0 ? "0" : `${v / 1000}k`)} />
           <Tooltip
             cursor={{ fill: "var(--line)" }}
             content={({ active, payload }) =>
@@ -181,7 +183,7 @@ export function RhythmCharts() {
 /* ---------------- Distribution of daily steps ---------------- */
 
 export function StepsHistogram() {
-  const rows = summary.histogram.map((h) => ({ ...h, name: h.to ? `${h.from / 1000}k` : `${h.from / 1000}k+`, goal: h.from >= 10000 }));
+  const rows = summary.histogram.map((h) => ({ ...h, name: h.from === 0 ? "0" : h.to ? `${h.from / 1000}k` : `${h.from / 1000}k+`, goal: h.from >= 10000 }));
   const total = rows.reduce((a, r) => a + r.days, 0);
   return (
     <ChartFrame
@@ -247,7 +249,7 @@ export function DistanceCheck() {
       table={{
         caption: "Miles per 1,000 steps by month",
         columns: ["Month", "Original report", "Rebuilt"],
-        rows: rows.map((m) => [m.month, num(m.original ?? null, 3), num(m.rebuilt ?? null, 3)]),
+        rows: rows.map((m) => [monthLabel(m.month), num(m.original ?? null, 3), num(m.rebuilt ?? null, 3)]),
         align: ["left", "right", "right"],
       }}
       note={`The original report filtered steps to the watch but kept every device's distance, so walks the phone and watch both recorded counted twice: ${o.recorded_mi_per_1000} miles per 1,000 steps, ${o.ratio_to_expected}× what the stride allows. Keeping one device per hour brings it to ${r.recorded_mi_per_1000} (${r.ratio_to_expected}×).`}
@@ -265,7 +267,7 @@ export function DistanceCheck() {
             content={({ active, payload }) =>
               active && payload?.length ? (
                 <TipBox
-                  title={String(payload[0].payload.month)}
+                  title={monthLabel(String(payload[0].payload.month))}
                   lines={[
                     `Original: ${payload[0].payload.original === undefined ? "–" : num(payload[0].payload.original, 3)} mi per 1,000`,
                     `Rebuilt: ${payload[0].payload.rebuilt === undefined ? "–" : num(payload[0].payload.rebuilt, 3)} mi per 1,000`,
@@ -292,7 +294,7 @@ export function FitnessScatter() {
   return (
     <ChartFrame
       title="Months with more exercise had a lower resting heart rate"
-      subtitle={`Each dot is one month with at least 15 days of data (${f.months} months). r = ${f.r_exercise_resting_hr}.`}
+      subtitle={`Each dot is one month with at least 15 days of data (${f.months} months): exercise minutes per day across, average resting heart rate in bpm up the side. r = ${signed(f.r_exercise_resting_hr)}.`}
       legend={[
         { label: span(early), color: S1, shape: "box" },
         { label: span(later), color: S2, shape: "box" },
@@ -300,7 +302,7 @@ export function FitnessScatter() {
       table={{
         caption: "Monthly exercise and resting heart rate",
         columns: ["Month", "Exercise (min/day)", "Resting HR (bpm)", "HRV (ms)"],
-        rows: f.monthly.map((m) => [m.month, num(m.exercise_min, 1), num(m.resting_hr, 1), num(m.hrv, 1)]),
+        rows: f.monthly.map((m) => [monthLabel(m.month), num(m.exercise_min, 1), num(m.resting_hr, 1), num(m.hrv, 1)]),
         align: ["left", "right", "right", "right"],
       }}
       note={`Same watch before and after the change in routine: ${f.same_watch.before.resting_hr} bpm in ${f.same_watch.before.label}, ${f.same_watch.after.resting_hr} bpm in ${f.same_watch.after.label}. A correlation, not proof of cause.`}
@@ -316,7 +318,7 @@ export function FitnessScatter() {
             cursor={{ stroke: "var(--line-strong)" }}
             content={({ active, payload }) =>
               active && payload?.length ? (
-                <TipBox title={String(payload[0].payload.month)} lines={[`${num(payload[0].payload.exercise_min, 1)} exercise min/day`, `${num(payload[0].payload.resting_hr, 1)} bpm resting`]} />
+                <TipBox title={monthLabel(String(payload[0].payload.month))} lines={[`${num(payload[0].payload.exercise_min, 1)} exercise min/day`, `${num(payload[0].payload.resting_hr, 1)} bpm resting`]} />
               ) : null
             }
           />
@@ -464,7 +466,11 @@ export function WorkoutsChart() {
                 active && payload?.length ? (
                   <TipBox
                     title={String(payload[0].payload.year)}
-                    lines={[`${payload[0].payload.strength} strength sessions`, `${payload[0].payload.rest} other workouts`, `${num(payload[0].payload.hours)} hours in total`]}
+                    lines={[
+                      `${payload[0].payload.strength} strength ${payload[0].payload.strength === 1 ? "session" : "sessions"}`,
+                      `${payload[0].payload.rest} other ${payload[0].payload.rest === 1 ? "workout" : "workouts"}`,
+                      `${num(payload[0].payload.hours)} hours in total`,
+                    ]}
                   />
                 ) : null
               }
@@ -536,7 +542,7 @@ export function ComparisonTable() {
                       {big && <rect x={r.change_pct < 0 ? 50 - w : 50} y="1" width={w} height="6" rx="2" fill={r.change_pct < 0 ? S3 : S2} />}
                     </svg>
                     <span className={`font-mono text-xs tabular-nums ${big ? "text-ink-1" : "text-ink-3"}`}>
-                      {big ? `${r.change_pct > 0 ? "+" : ""}${r.change_pct.toFixed(1)}%` : "same"}
+                      {big ? `${r.change_pct > 0 ? "+" : "\u2212"}${Math.abs(r.change_pct).toFixed(1)}%` : Math.abs(r.change_pct) < 0.05 ? "no change" : "under 1%"}
                     </span>
                   </div>
                 </td>

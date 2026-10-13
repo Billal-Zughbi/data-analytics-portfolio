@@ -44,6 +44,15 @@ def _date(s: str) -> str:
     return pd.Timestamp(s).strftime("%b %-d, %Y")
 
 
+def _signed(x: float) -> str:
+    """A number with a typographic minus sign, for correlations shown as text."""
+    return f"{x}".replace("-", "\u2212")
+
+
+def _times(ratio: float) -> str:
+    return "about twice" if round(ratio, 1) == 2.0 else f"about {ratio:.1f} times"
+
+
 def _export_note(key: str, cmp: dict) -> str:
     """Why a card's rebuilt value differs when no rule in the old report explains it."""
     c = cmp.get(key)
@@ -55,7 +64,7 @@ def _export_note(key: str, cmp: dict) -> str:
                 "twice. The rebuild keeps one device per hour.")
     if key == "active_energy_kcal" and c:
         return (f"The two exports agree on average across the {c['days']:,} days they share ({c['original']:,.0f} against "
-                f"{c['rebuilt']:,.0f} kcal a day), but not day by day, and these months sum higher in the March 2025 one.")
+                f"{c['rebuilt']:,.0f} kcal a day), but not day by day, and for these months the March 2025 export has more active energy.")
     if key == "distance_cycling_mi":
         return ("The October 2026 export holds more cycling on a few of these days than the March 2025 export did. "
                 "The daily rule is the same sum in both.")
@@ -94,7 +103,7 @@ def card_notes(row: dict, model: dict, raw: pd.DataFrame, rebuilt: pd.DataFrame,
         corrected = corrected / 60 if corrected is not None else None
         unit = "hours"
         notes.append(
-            f"Labelled hours, but the column holds minutes: {row['rebuilt']:.0f} minutes is {row['rebuilt'] / 60:.1f} hours. "
+            f"Labeled hours, but the column holds minutes: {row['rebuilt']:.0f} minutes is {row['rebuilt'] / 60:.1f} hours. "
             "The model had a StandHours measure that divides by 60, but the card did not use it."
         )
         sh = rebuilt.set_index("date")["stand_hours"].dropna()
@@ -105,7 +114,7 @@ def card_notes(row: dict, model: dict, raw: pd.DataFrame, rebuilt: pd.DataFrame,
                 f"{sh.mean():.1f} a day for these dates."
             )
     if metric.key == "heart_rate_bpm":
-        notes.append("Labelled active heart rate, but it is the average of every heart-rate reading in the day, resting included.")
+        notes.append("Labeled active heart rate, but it is the average of every heart-rate reading in the day, resting included.")
     if metric.key == "headphone_min_dba":
         notes.append(
             "Power Query kept each day's quietest headphone reading (List.Min). The rebuilt value uses each day's "
@@ -188,15 +197,17 @@ def findings(cards, dist_original, dist_rebuilt, fit, years, removed_original, c
                 "Recomputing each card from the report's own tables matches every number it showed. Following the model's "
                 "relationships explains the odd ones: the Mobility page's date slicer sat on the cycling table, whose links to "
                 f"walking speed and step length were inactive, so those cards showed all-time averages. Walking speed read "
-                f"{walking['shown']} mph; for the page's May to July 2024 dates it was {walking['corrected']:.2f}. The stand card "
+                f"{walking['shown']} mph; for the page's own dates ({_date(walking['window']['start'])} to "
+                f"{_date(str((pd.Timestamp(walking['window']['end_exclusive']) - pd.Timedelta(days=1)).date()))}) it was "
+                f"{walking['corrected']:.2f}. The stand card "
                 f"read {stand['shown']} \"hours\", which is {stand['corrected']:.1f} hours of standing."
             ),
-            "metric": "Each card's aggregation, filters and relationships read from the report layout and data model, then recomputed in pandas.",
+            "metric": "Each card was recomputed in pandas from the aggregation, filters and relationships stored in the report layout and data model.",
             "caveat": "The displayed values were transcribed from the March 2025 report screenshots; the tolerance is the precision each card showed.",
         },
         {
             "id": "distance",
-            "title": f"The original report counted walking distance about {dist_original['ratio_to_expected']:.1f} times",
+            "title": f"The original report counted walking distance {_times(dist_original['ratio_to_expected'])}",
             "summary": (
                 f"Steps were filtered to the watch, but distance kept every device, so a walk logged by both the watch and the "
                 f"phone counted twice. At a median step length of {dist_rebuilt['median_step_length_in']} inches, 1,000 steps cover "
@@ -209,7 +220,7 @@ def findings(cards, dist_original, dist_rebuilt, fit, years, removed_original, c
         },
         {
             "id": "dedup",
-            "title": f"Counting each hour once removes about {round((1 - steps_dedup['avg_with_dedup'] / steps_dedup['avg_without_dedup']) * 100)}% of raw steps",
+            "title": f"Keeping one device per hour removes about {round((1 - steps_dedup['avg_with_dedup'] / steps_dedup['avg_without_dedup']) * 100)}% of raw steps",
             "summary": (
                 f"Adding up every step record in the export gives {steps_dedup['avg_without_dedup']:,.0f} steps a day. Keeping one "
                 f"device per hour (the watch when it was worn, the phone otherwise) gives {steps_dedup['avg_with_dedup']:,.0f}. "
@@ -220,10 +231,10 @@ def findings(cards, dist_original, dist_rebuilt, fit, years, removed_original, c
         },
         {
             "id": "fitness",
-            "title": f"More exercise went with a lower resting heart rate (r = {fit['r_exercise_resting_hr']})",
+            "title": f"More exercise went with a lower resting heart rate (r = {_signed(fit['r_exercise_resting_hr'])})",
             "summary": (
                 f"Across {fit['months']} months with at least 15 days of data, months with more exercise had a lower resting heart "
-                f"rate and higher heart rate variability (r = {fit['r_exercise_hrv']}). Through 2020 the average was "
+                f"rate and higher heart rate variability (r = {_signed(fit['r_exercise_hrv'])}). Through 2020 the average was "
                 f"{fit['periods']['through_2020']['exercise_min']:.0f} exercise minutes a day and a resting heart rate of "
                 f"{fit['periods']['through_2020']['resting_hr']:.0f} bpm; from 2023 it was "
                 f"{fit['periods']['from_2023']['exercise_min']:.0f} minutes and {fit['periods']['from_2023']['resting_hr']:.0f} bpm, "
@@ -243,7 +254,7 @@ def findings(cards, dist_original, dist_rebuilt, fit, years, removed_original, c
                 f"arithmetically, which understates decibels: on the same {env['days'] if env else 0} days the energy average is "
                 f"{(env['rebuilt'] - env['original']) if env else 0:.1f} dB higher."
             ),
-            "metric": "Daily rules read from each table's Power Query (List.Sum, List.Min, List.Average) and compared with the rebuild's rules.",
+            "metric": "Each table's daily rule was read from its Power Query step (List.Sum, List.Min, List.Average) and compared with the rebuild's rule.",
             "caveat": "Each rebuilt rule is documented in metrics.py and covered by a test on a hand-written fixture.",
         },
     ]
@@ -256,7 +267,7 @@ def quality_checks(cards, removed, profile, model_info, payload) -> list[dict]:
         {"name": "original_cards_reproduced", "result": "pass" if all(c["matches"] for c in cards) else "fail",
          "detail": f"{sum(c['matches'] for c in cards)} of {len(cards)} card values match what the original report displayed."},
         {"name": "records_read", "result": "pass",
-         "detail": f"{profile['records_total']:,} records from {profile['date_range']['start']} to {profile['date_range']['end']}; {profile['unparseable_records']} could not be parsed."},
+         "detail": f"{profile['records_total']:,} records from {_date(profile['date_range']['start'])} to {_date(profile['date_range']['end'])}; {profile['unparseable_records']} could not be parsed."},
         {"name": "exact_duplicates_removed", "result": "pass" if checks["exact_duplicates"] == 0 else "info",
          "detail": f"{checks['exact_duplicates']} records repeated type, device, interval and value exactly and were dropped."},
         {"name": "device_overlap_removed", "result": "info",
@@ -270,7 +281,7 @@ def quality_checks(cards, removed, profile, model_info, payload) -> list[dict]:
          "detail": f"{len(model_info['inactive'])} date relationships in the original model were inactive, so some cards ignored the date slicer."},
         {"name": "no_device_names_or_times", "result": "pass", "detail": "Published files hold dates and daily values only."},
         {"name": "series_aligned", "result": "pass",
-         "detail": f"Daily series share one calendar of {payload['days']:,} days from {payload['start']} to {payload['end']}."},
+         "detail": f"Daily series share one calendar of {payload['days']:,} days from {_date(payload['start'])} to {_date(payload['end'])}."},
     ]
 
 

@@ -45,7 +45,7 @@ function StepsSparkline() {
 export function previewFor(slug: string): CardPreview {
   switch (slug) {
     case "apple-health-analytics":
-      return { label: `Average daily steps per month · ${firstDay.slice(0, 4)} to ${lastDay.slice(0, 4)}`, badge: "real data", node: <StepsSparkline /> };
+      return { label: `Average daily steps per month · ${firstDay.slice(0, 4)} to ${lastDay.slice(0, 4)}`, badge: "personal data", node: <StepsSparkline /> };
     default:
       throw new Error(`No card preview for ${slug}`);
   }

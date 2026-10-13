@@ -161,6 +161,14 @@ export function Segmented<T extends string>({
 export const pct = (x: number | null | undefined, d = 1) => (x === null || x === undefined ? "–" : `${(x * 100).toFixed(d)}%`);
 export const num = (x: number | null | undefined, d = 0) =>
   x === null || x === undefined ? "–" : x.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+/** Axis tick: plain 0, full numbers below 10,000 (1,050 rather than 1.1k), "12k" above. */
+export const axisNum = (v: number) =>
+  v === 0 ? "0" : Math.abs(v) >= 10_000 ? `${+(v / 1000).toFixed(1)}k` : v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+/** "2024-05" → "May 2024". */
+export const monthLabel = (ym: string) =>
+  new Date(`${ym.slice(0, 7)}-01T00:00:00Z`).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+/** Negative numbers with a typographic minus sign. */
+export const signed = (x: number) => String(x).replace("-", "\u2212");
 export const axisProps = {
   tickLine: false,
   tick: { fill: "var(--ink-3)", fontSize: 11 },

@@ -24,12 +24,12 @@ export function Experience() {
               <dt className="sr-only">{h.label}</dt>
               <dd>
                 <span className="block text-3xl font-semibold tracking-tight">{h.value}</span>
-                <span className="mt-1 block text-sm text-ink-3">{h.label}</span>
+                <span aria-hidden className="mt-1 block text-sm text-ink-3">{h.label}</span>
               </dd>
             </div>
           ))}
         </dl>
-        <p className="mt-3 font-mono text-[0.6875rem] text-ink-3">Professional results at Arconic, from my resume.</p>
+        <p className="mt-3 font-mono text-[0.6875rem] text-ink-3">Results from my time at Arconic, as listed on my resume.</p>
       </Reveal>
 
       <ol className="relative space-y-10 border-l border-line pl-8">

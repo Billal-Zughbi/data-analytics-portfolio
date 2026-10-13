@@ -28,7 +28,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "apple-health-analytics",
-    title: "Apple Health Analytics",
+    title: "Closing My Rings: Twelve Years of Apple Health Data",
     summary:
       "Twelve years of my Apple Health data rebuilt from the raw XML export: my original Power BI report recreated for the web, every number on it checked, and a closer look at steps, workouts and heart rate.",
     question:
@@ -44,7 +44,7 @@ export const projects: Project[] = [
       "Data-quality checks",
       "Interactive web report",
     ],
-    dataNote: "Real data, published as daily values. Device names, workout routes and times of day stay private.",
+    dataNote: "My own data, published as daily values only. Device names, workout routes and times of day stay private.",
     repoPath: "projects/apple-health-analytics",
     status: "published",
   },

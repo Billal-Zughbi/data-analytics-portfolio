@@ -8,7 +8,7 @@
   {
    "name": "records_read",
    "result": "pass",
-   "detail": "4,387,607 records from 2014-09-10 to 2026-10-11; 0 could not be parsed."
+   "detail": "4,387,607 records from Sep 10, 2014 to Oct 11, 2026; 0 could not be parsed."
   },
   {
    "name": "exact_duplicates_removed",
@@ -48,7 +48,7 @@
   {
    "name": "series_aligned",
    "result": "pass",
-   "detail": "Daily series share one calendar of 4,415 days from 2014-09-10 to 2026-10-11."
+   "detail": "Daily series share one calendar of 4,415 days from Sep 10, 2014 to Oct 11, 2026."
   }
  ],
  "excluded_rebuilt": [

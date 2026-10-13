@@ -40,7 +40,7 @@ export function SiteFooter() {
         </nav>
 
         <div>
-          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">Case studies</p>
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">{projects.length === 1 ? "Project" : "Projects"}</p>
           <ul className="mt-4 space-y-2 text-sm">
             {projects.map((p) => (
               <li key={p.slug}>
