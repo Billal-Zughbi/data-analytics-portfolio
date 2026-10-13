@@ -5,8 +5,8 @@ import { usePrefersReducedMotion } from "./motion";
 const SPARK_COLORS = ["var(--ring-move)", "var(--ring-exercise)", "var(--ring-stand)"];
 
 /**
- * The Apple Fitness icon, shown exactly as supplied (the file is unchanged; CSS only rounds off the
- * white corners around it). On a day with all three rings closed it spins once and throws a few
+ * The Apple Fitness icon as supplied, enlarged 4x (Lanczos plus a light sharpen) so it stays crisp on
+ * high-density screens; CSS only rounds off the white corners around it. On a day with all three rings closed it spins once and throws a few
  * sparks, replaying whenever `replayKey` changes. The day's numbers are always printed beside it.
  */
 export function FitnessIcon({ closed, play, replayKey }: { closed: boolean; play: boolean; replayKey: string | number }) {
@@ -14,14 +14,14 @@ export function FitnessIcon({ closed, play, replayKey }: { closed: boolean; play
   const celebrate = closed && play && !reduced;
   return (
     <div className="relative mx-auto h-[148px] w-[148px]">
-      {/* eslint-disable-next-line @next/next/no-img-element -- static export, image is served unchanged */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
       <img
         key={celebrate ? `spin-${replayKey}` : "still"}
         src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/apple-fitness.png`}
         alt="Apple Fitness icon"
         width={148}
         height={148}
-        className={`block h-[148px] w-[148px] [clip-path:inset(2px_round_26%)] ${celebrate ? "ring-celebrate" : ""}`}
+        className={`block h-[148px] w-[148px] [clip-path:inset(3px_round_26%)] ${celebrate ? "ring-celebrate" : ""}`}
       />
       {celebrate &&
         Array.from({ length: 14 }, (_, i) => {
