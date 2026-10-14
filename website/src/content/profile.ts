@@ -25,6 +25,8 @@ export const profile = {
   name: "Billal Zughbi",
   title: "Analytics Engineer",
   location: "Baltimore, MD",
+  /** Where the About photo was taken, shown under the name. */
+  photoPlace: "Skyline Trail, Mount Rainier",
   email: "bzughbi1@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/billal-zughbi/",
@@ -40,8 +42,7 @@ export const profile = {
   headline: "From Raw Data to Business Decisions: Power BI, SQL, Python, and the Data Models Behind Them.",
   intro:
     "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Below you'll find my work history and a project I built on my own Apple Health data, with all the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
-  aboutTitle:
-    "From dreams of becoming an MD to the reality of debugging SQL code and fan-out joins: how I found my career in Analytics Engineering.",
+  aboutTitle: "From Pre-Med to Computer Science: My Journey into Analytics Engineering.",
   // Personal story written with Annie for the site. Keep resume facts out of this section.
   about: [
     "For most of my life the plan was medicine, and I showed up at TCNJ on the pre-med track with a pretty clear picture of where the next decade was going. Then I signed up for an intro course in Java and problem solving, and a few weeks in I noticed I was staying up later on the programming homework than on anything for my science classes, simply because I wanted to see the thing finally run.",

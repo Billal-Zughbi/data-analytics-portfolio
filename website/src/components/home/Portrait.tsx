@@ -17,7 +17,7 @@ export function Portrait() {
       {/* eslint-disable-next-line @next/next/no-img-element -- static export, image is pre-sized */}
       <img
         src={`${BASE}/images/billal-zughbi.jpg`}
-        alt={`Portrait of ${profile.name}`}
+        alt={`${profile.name} on the ${profile.photoPlace}`}
         width={960}
         height={1200}
         loading="lazy"
@@ -26,7 +26,7 @@ export function Portrait() {
       />
       <figcaption className="px-2 pb-1 pt-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
         <span className="block text-ink-1">{profile.name}</span>
-        <span className="mt-1 block text-ink-3">{profile.location}</span>
+        <span className="mt-1 block text-ink-3">{profile.photoPlace}</span>
       </figcaption>
     </figure>
   );
