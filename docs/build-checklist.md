@@ -81,3 +81,4 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Whole-site scan against Wikipedia's "Signs of AI writing", ranked with rewrites | ✓ | Six readers, two skeptical reviewers per flag; 19 lines ranked |
 | Rewrites Annie picked (hero headline and intro, About, How I work, case study notes) | ✓ | `content/profile.ts`, `components/home/Workflow.tsx`, case study page, `publish.py` caveat |
 | About photo caption names where it was taken | ✓ | `components/home/Portrait.tsx` |
+| Vercel Web Analytics for page views (no cookies; counts only on the Vercel deployment) | ✓ | `@vercel/analytics` 2.0.1, `<Analytics />` in `website/src/app/layout.tsx`; Web Analytics must be enabled in the Vercel project |

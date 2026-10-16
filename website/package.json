@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",
+    "@vercel/analytics": "^2.0.1",
     "geist": "^1.7.2",
     "next": "16.4.0",
     "react": "19.3.0",
