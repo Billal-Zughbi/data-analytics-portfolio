@@ -629,23 +629,6 @@ html[data-xf-active] li.xf-hit {
   animation: xf-bar-in 0.5s var(--ease-out);
 }
 
-/* Join puzzle (components/home/JoinPuzzle.tsx) */
-.puzzle-line {
-  border-radius: 3px;
-  transition: background-color var(--dur-2) var(--ease-out);
-}
-.puzzle-line.is-bad {
-  text-decoration: underline wavy var(--warn);
-  text-underline-offset: 4px;
-}
-.puzzle-line.is-good {
-  background: rgb(63 207 142 / 0.12);
-  box-shadow: 0 0 0 3px rgb(63 207 142 / 0.12);
-}
-.puzzle-row {
-  animation: page-in 0.4s var(--ease-out) both;
-}
-
 /* About: story markers on the step chart (components/home/LifeTimeline.tsx).
    --ev-on is 1 while a marker or its list item is hovered or focused. */
 .life-marker {

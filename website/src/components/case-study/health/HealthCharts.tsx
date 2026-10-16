@@ -297,7 +297,7 @@ export function DistanceCheck() {
         rows: rows.map((m) => [monthLabel(m.month), num(m.original ?? null, 3), num(m.rebuilt ?? null, 3)]),
         align: ["left", "right", "right"],
       }}
-      note={`The original report filtered steps to the watch but kept every device's distance, so walks the phone and watch both recorded counted twice: ${o.recorded_mi_per_1000} miles per 1,000 steps, ${o.ratio_to_expected}× what the stride allows. Keeping one device per hour brings it to ${r.recorded_mi_per_1000} (${r.ratio_to_expected}×).`}
+      note={`With distance counted twice, the original report recorded ${o.recorded_mi_per_1000} miles per 1,000 steps, ${o.ratio_to_expected}× what the stride allows. Keeping one device per hour brings it to ${r.recorded_mi_per_1000} (${r.ratio_to_expected}×).`}
       height={280}
     >
       <ResponsiveContainer width="100%" height="100%">

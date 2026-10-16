@@ -49,7 +49,7 @@ export function LifeTimeline() {
           <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-3">
             Average daily steps per month · {monthName(firstDay)} to {monthName(lastDay)}
           </p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">My story, on my own step chart.</h3>
+          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">I marked the story above on a chart of my own steps.</h3>
         </div>
         <p className="max-w-md text-sm leading-relaxed text-ink-2">
           The line is my Apple Health data. The numbered points are moments from the story above.

@@ -40,7 +40,7 @@ export const lifeEvents: LifeEvent[] = [
   {
     month: summary.source.first_day.slice(0, 7),
     when: monthName(summary.source.first_day),
-    text: "My phone started counting my steps. This is where the data begins.",
+    text: "My phone started counting my steps, which is where this chart starts.",
   },
   {
     month: summary.source.watch_start.slice(0, 7),

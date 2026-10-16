@@ -39,16 +39,16 @@ export const profile = {
    */
   resumeUrl: "/Billal-Zughbi-Resume.pdf" as string | null,
 
-  headline: "From Raw Data to Business Decisions: Power BI, SQL, Python, and the Data Models Behind Them.",
+  headline: "I build Power BI reports and the SQL and Python data models behind them.",
   intro:
-    "Hello there, and thanks for stopping by! I'm an Analytics Engineer at Arconic, where I spend my days building the SQL data models, ETL pipelines and Power BI dashboards that make everyone's life a little easier. Below you'll find my work history and a project I built on my own Apple Health data, with all the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
-  aboutTitle: "From Pre-Med to Computer Science: My Journey into Analytics Engineering.",
+    "Hi, I'm Billal. I work as an Analytics Engineer at Arconic, where most of my day goes into SQL data models and ETL pipelines, and the Power BI dashboards that sit on top of them. Below you'll find my work history and a project I built on my own Apple Health data, with all the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
+  aboutTitle: "From Pre-Med to Computer Science: How I Found Myself as an Analytics Engineer.",
   // Personal story written with Annie for the site. Keep resume facts out of this section.
   about: [
     "For most of my life the plan was medicine, and I showed up at TCNJ on the pre-med track with a pretty clear picture of where the next decade was going. Then I signed up for an intro course in Java and problem solving, and a few weeks in I noticed I was staying up later on the programming homework than on anything for my science classes, simply because I wanted to see the thing finally run.",
     "Switching to computer science felt like a leap at the time, and like most of my classmates I assumed it would lead straight to software engineering. TCNJ didn't really have a path into data analytics, so I had no idea how much I'd enjoy it until an internship put me in front of databases that had been around since before I could walk and asked me to make sense of them. Figuring out why two reports disagreed, or why a total came out exactly double what it should have been, turned into my favorite kind of puzzle, and by the end of that summer I'd stopped thinking about software engineering altogether.",
     "Most of what I know now I taught myself, since hardly anyone around me wrote SQL, and when a query broke I'd keep rereading the documentation and running it again until it finally worked. I've come to like learning that way, and it's a big reason I still spend weekends building projects like the one on this site.",
-    "Someday I'd like to lead a team of analysts and engineers and be the person I sometimes wished I'd had to ask. Until then I'll keep picking up whatever the work calls for next, lately a lot of Python and AI tooling. If any of this sounds like someone you'd want on your team, I'd love to hear from you.",
+    "Someday I'd like to lead a team of analysts and engineers and be someone they can bring their questions to. For now I pick up whatever the work needs next, which lately has meant a lot of Python and AI tooling. If any of this sounds like someone you'd want on your team, I'd love to hear from you.",
   ],
   education: {
     school: "The College of New Jersey",

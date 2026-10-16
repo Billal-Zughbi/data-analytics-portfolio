@@ -28,6 +28,13 @@ test("summary has the fields the case study renders", () => {
   assert.ok(summary.quality.checks.every((c) => c.result !== "fail"), "no failed quality checks");
 });
 
+test("the case study's comparison sentence still matches the data", () => {
+  // Section 04 says most metrics land within a fraction of a percent and names the distance change.
+  const close = summary.comparison.filter((c) => Math.abs(c.change_pct) < 1).length;
+  assert.ok(close > summary.comparison.length / 2, `${close} of ${summary.comparison.length} metrics within 1%`);
+  assert.ok(summary.comparison.some((c) => c.metric === "distance_walk_run_mi"), "distance row present");
+});
+
 test("daily series share one calendar", () => {
   const span = (Date.parse(daily.end) - Date.parse(daily.start)) / 86_400_000 + 1;
   assert.equal(daily.days, span);

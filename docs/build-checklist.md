@@ -65,7 +65,7 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Official tool logos, unedited | ✓ | `website/public/logos/`, sources and hashes in `docs/logo-sources.md` |
 | Page filter: click one or more tools to light up every place they appear | ✓ | `website/src/content/tools.ts`, `components/tools/` |
 | Reading rings that fill as the page is read | ✓ | `components/home/ReadingRings.tsx` |
-| Double-counting puzzle (step 3 of How I work) | ✓ | `components/home/JoinPuzzle.tsx` |
+| Double-counting puzzle (step 3 of How I work) | Removed | Taken off the home page at Annie's request (16 October 2026) |
 | Life timeline on the monthly step chart | ✓ | `content/timeline.ts`, `components/home/LifeTimeline.tsx` |
 | Mount Rainier contour lines (USGS elevation) | ✓ | `scripts/rainier_contours.py`, `public/images/rainier-contours.svg` |
 | Hero made of real days, with year labels and date tooltip | ✓ | `components/hero/` |
@@ -73,3 +73,11 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Map-style caption naming the Mount Rainier contour lines, with a 1 km scale bar; the lines stay still (no pointer glow) | ✓ | `components/Topo.tsx` |
 | Lint, typecheck, build, site tests, Python tests | ✓ | Run before the push |
 | Responsive checks (390 / 768 / 1440 px), reduced motion, no console errors | ✓ | Playwright |
+
+## Stage 5: AI-writing review (14 to 16 October 2026)
+
+| Item | Status | Evidence / notes |
+|---|---|---|
+| Whole-site scan against Wikipedia's "Signs of AI writing", ranked with rewrites | ✓ | Six readers, two skeptical reviewers per flag; 19 lines ranked |
+| Rewrites Annie picked (hero headline and intro, About, How I work, case study notes) | ✓ | `content/profile.ts`, `components/home/Workflow.tsx`, case study page, `publish.py` caveat |
+| About photo caption names where it was taken | ✓ | `components/home/Portrait.tsx` |

@@ -48,7 +48,7 @@ const TOC = [
 
 const RULES: Record<string, { label: string; why: string }> = {
   total: { label: "Daily total", why: "Added up per day, keeping one device per hour so overlapping records count once." },
-  average: { label: "Daily mean", why: "A rate or a reading. Adding readings together has no meaning." },
+  average: { label: "Daily mean", why: "A rate or a reading can't be added up into a daily total, so the day's values are averaged." },
   estimate: { label: "Last estimate", why: "A sparse estimate the device revises; the day's latest value is used." },
   level_db: { label: "Energy average", why: "Decibels are logarithmic, so levels are averaged as sound energy." },
 };
@@ -95,6 +95,11 @@ export default function AppleHealthCaseStudy() {
   const src = summary.source;
   const q = summary.quality;
   const excludedMetrics = new Set(q.excluded.map((e) => e.metric)).size;
+  const distance = summary.comparison.find((c) => c.metric === "distance_walk_run_mi")!;
+  const distancePct = Math.abs(distance.change_pct);
+  const distanceMove = `${distance.change_pct < 0 ? "dropping" : "rising"} by ${
+    Math.abs(distancePct - 25) < 1.5 ? "a quarter" : `${Math.round(distancePct)}%`
+  }`;
   const stats: [string, string][] = [
     [n(h.records), "records in the export"],
     [`${(h.steps_total / 1e6).toFixed(1)}M`, "steps counted"],
@@ -207,7 +212,8 @@ export default function AppleHealthCaseStudy() {
             <p>
               The old report kept some decisions implicit: which device counts when two of them log the same walk, and how a day
               of readings becomes one number. The rebuild writes each of those down. On the days both versions cover, most metrics
-              agree to the decimal; the ones that moved did so for a reason I can point to.
+              land within a fraction of a percent of each other, and the bigger changes, like walking and running distance{" "}
+              {distanceMove}, trace back to one of those two decisions.
             </p>
             <ComparisonTable />
             <div className="grid gap-4 md:grid-cols-2">
@@ -253,7 +259,7 @@ export default function AppleHealthCaseStudy() {
                 ["Normalize", "metrics.py · transform.py", "Maps each record type to a metric and converts units (km/h to mph, percentages, seconds to minutes). A unit with no known conversion is rejected rather than guessed."],
                 ["De-duplicate devices", "transform.py", "For additive metrics, keeps one device per metric-hour: the watch when it was worn, then the phone, then anything else. Within a class the newest device wins, which handles the switch from one watch to the next."],
                 ["Aggregate daily", "transform.py", "Applies each metric's rule: total, mean, last estimate, decibel energy average or distinct stood hours. Exercise and stand are zero-filled only on days the watch was worn."],
-                ["Clean", "analysis.py", "Checks every daily value against a plausible range. Values outside it are excluded and listed, never edited."],
+                ["Clean", "analysis.py", "Checks every daily value against a plausible range. Anything outside it is excluded and listed with its original value under Data quality."],
                 ["Reproduce the original", "pbix_source.py · report_sim.py", "Reads the old model's Power Query, relationships and report layout, then recomputes each card by following Power BI's filter paths."],
                 ["Publish", "publish.py", "Writes the JSON for this site, a star schema for Power BI and a quality report. CI rebuilds them and fails if any committed output changes."],
               ].map(([title, file, body], i) => (
@@ -374,7 +380,7 @@ export default function AppleHealthCaseStudy() {
             <ul className="space-y-3">
               {[
                 "Only daily values are public. The export itself, the .pbix file, device names, times of day and GPS routes from workouts are never committed.",
-                "This is personal tracking, not clinical measurement. Heart rate, HRV and VO2 max are watch estimates, and nothing here supports a medical conclusion.",
+                "Heart rate, HRV and VO2 max are my watch's estimates, recorded for personal tracking. They aren't clinical measurements, so I wouldn't base a medical conclusion on them.",
                 "De-duplication works per hour. Health's own merge works on finer intervals, so a daily total here can differ slightly from the Health app.",
                 "Days are assigned by local wall-clock time from each record's start; the old report used the date each record was written. The March 2025 and October 2026 exports also don't match day by day for a few metrics, so a total over a short date range can differ even where the long-run averages agree.",
                 "Before April 2018 only the phone counted steps, and only while it was in a pocket, so those years read lower than they were.",

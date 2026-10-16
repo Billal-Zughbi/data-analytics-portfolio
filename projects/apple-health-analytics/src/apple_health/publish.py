@@ -243,7 +243,10 @@ def findings(cards, dist_original, dist_rebuilt, fit, years, removed_original, c
             ),
             "metric": "Pearson correlation of monthly means. The drop shows on the same watch too: "
             f"{fit['same_watch']['before']['resting_hr']} bpm in 2019 against {fit['same_watch']['after']['resting_hr']} bpm in January to August 2023.",
-            "caveat": "A correlation across months, not proof that one caused the other. Sleep, stress and season also move resting heart rate.",
+            "caveat": (
+                "It's a correlation across months, so it can't show that more exercise caused the drop. "
+                "Sleep and stress affect resting heart rate too, and so does the time of year."
+            ),
         },
         {
             "id": "rates",
