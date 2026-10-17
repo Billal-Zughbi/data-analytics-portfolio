@@ -5,8 +5,6 @@
  * src/data/generated/<slug>/.
  */
 
-import { profile } from "./profile";
-
 export type ProjectStatus = "published";
 
 export type Project = {
@@ -23,7 +21,6 @@ export type Project = {
   /** Short labels for what the case study demonstrates. */
   demonstrates: string[];
   dataNote: string;
-  repoPath: string;
   status: ProjectStatus;
 };
 
@@ -49,15 +46,9 @@ export const projects: Project[] = [
       "Interactive web report",
     ],
     dataNote: "My own data, published as daily values only. Device names, workout routes and times of day stay private.",
-    repoPath: "projects/apple-health-analytics",
     status: "published",
   },
 ];
-
-export const repoUrl = (path = "") =>
-  `${profile.links.repository}${path ? `/tree/main/${path}` : ""}`;
-
-export const repoFileUrl = (path: string) => `${profile.links.repository}/blob/main/${path}`;
 
 export const getProject = (slug: string) => {
   const project = projects.find((p) => p.slug === slug);

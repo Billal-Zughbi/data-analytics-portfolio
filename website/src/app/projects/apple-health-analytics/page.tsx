@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Topo } from "@/components/Topo";
 import Link from "next/link";
-import { getProject, repoFileUrl, repoUrl } from "@/content/projects";
+import { getProject } from "@/content/projects";
 import { summary } from "@/data/apple-health";
 import { StarSchema } from "@/components/case-study/StarSchema";
 import { DayExplorer } from "@/components/case-study/health/DayExplorer";
@@ -18,10 +18,9 @@ import {
   YearlyChart,
 } from "@/components/case-study/health/HealthCharts";
 import { Reveal } from "@/components/Reveal";
-import { ArrowRight, CheckIcon, CodeIcon, ExternalIcon, FlagIcon } from "@/components/icons";
+import { ArrowRight, CheckIcon, FlagIcon } from "@/components/icons";
 
 const project = getProject("apple-health-analytics");
-const base = project.repoPath;
 
 export const metadata: Metadata = {
   title: project.title,
@@ -43,7 +42,6 @@ const TOC = [
   { id: "model", label: "Model and rules" },
   { id: "quality", label: "Data quality" },
   { id: "limits", label: "Privacy and limits" },
-  { id: "reproduce", label: "Code" },
 ];
 
 const RULES: Record<string, { label: string; why: string }> = {
@@ -274,13 +272,6 @@ export default function AppleHealthCaseStudy() {
                 </li>
               ))}
             </ol>
-            <p className="text-sm">
-              My original March 2025 scripts are kept unchanged in{" "}
-              <a className="text-accent underline-offset-4 hover:underline" href={repoUrl(`${base}/legacy`)}>
-                legacy/
-              </a>{" "}
-              for comparison.
-            </p>
           </Block>
 
           <Block id="model" index="09" title="Data model and daily rules">
@@ -394,43 +385,11 @@ export default function AppleHealthCaseStudy() {
             </ul>
           </Block>
 
-          <Block id="reproduce" index="12" title="Code and how to run it">
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                ["Project folder", repoUrl(base)],
-                ["Pipeline source", repoUrl(`${base}/src/apple_health`)],
-                ["Tests", repoUrl(`${base}/tests`)],
-                ["Power BI model, DAX and theme", repoUrl(`${base}/powerbi`)],
-                ["Daily tables", repoUrl(`${base}/data`)],
-                ["Project audit", repoFileUrl("docs/apple-health-project-audit.md")],
-              ].map(([label, href]) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="group flex items-center justify-between gap-3 rounded-[var(--radius-md)] border border-line bg-surface-1 px-4 py-3 text-sm text-ink-1 transition-colors hover:border-accent/60"
-                >
-                  <span className="flex items-center gap-3">
-                    <CodeIcon className="h-4 w-4 text-ink-3" />
-                    {label}
-                  </span>
-                  <ExternalIcon className="h-3.5 w-3.5 text-ink-3 group-hover:text-accent" />
-                </a>
-              ))}
-            </div>
-            <pre className="overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface-2 p-4 font-mono text-[0.8125rem] leading-relaxed text-ink-2">
-{`cd ${base}
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
-python -m pytest                              # rules, card reproduction, privacy checks
-PYTHONPATH=src python -m apple_health build   # committed daily tables → site JSON + Power BI tables
-
-# With your own export (kept out of git):
-PYTHONPATH=src python -m apple_health ingest-xml --xml path/to/export.xml`}
-            </pre>
+          <p className="border-t border-line pt-10">
             <Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
               Back to the home page <ArrowRight className="h-4 w-4" />
             </Link>
-          </Block>
+          </p>
         </div>
       </div>
     </article>

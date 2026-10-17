@@ -30,8 +30,6 @@ export const profile = {
   email: "bzughbi1@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/billal-zughbi/",
-    github: "https://github.com/Billal-Zughbi",
-    repository: "https://github.com/Billal-Zughbi/data-analytics-portfolio",
   },
   /**
    * Résumé download: a path under /public. The PDF must not contain a phone number.
@@ -41,7 +39,7 @@ export const profile = {
 
   headline: "I build Power BI reports and the SQL and Python data models behind them.",
   intro:
-    "Hi, I'm Billal. I work as an Analytics Engineer at Arconic, where most of my day goes into SQL data models and ETL pipelines, and the Power BI dashboards that sit on top of them. Below you'll find my work history and a project I built on my own Apple Health data, with all the code behind it. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
+    "Hi, I'm Billal. I work as an Analytics Engineer at Arconic, where most of my day goes into SQL data models and ETL pipelines, and the Power BI dashboards that sit on top of them. Below you'll find my work history and a project I built on my own Apple Health data. Feel free to reach out with any questions, or to connect with me on LinkedIn!",
   aboutTitle: "From Pre-Med to Computer Science: How I Found Myself as an Analytics Engineer.",
   // Personal story written with Annie for the site. Keep resume facts out of this section.
   about: [

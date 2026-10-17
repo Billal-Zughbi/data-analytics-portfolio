@@ -27,7 +27,7 @@ export default function HomePage() {
         index="01"
         eyebrow="Featured project"
         title="A project built on my own data."
-        intro="The write-up covers the question, the data, the code and the checks I ran, with everything in the GitHub repository."
+        intro="The write-up covers the question, the data, how I built the pipeline and the checks I ran."
       >
         <div className="space-y-6">
           {projects.map((p) => (
@@ -107,7 +107,7 @@ export default function HomePage() {
         index="06"
         eyebrow="Contact"
         title="Get in touch."
-        intro="Email is the best way to reach me. I'm also on LinkedIn and GitHub."
+        intro="Email is the best way to reach me. I'm also on LinkedIn."
         className="border-t border-line"
       >
         <Reveal>
@@ -123,12 +123,6 @@ export default function HomePage() {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line-strong px-6 font-medium transition-colors hover:border-accent"
             >
               LinkedIn <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
-            </a>
-            <a
-              href={profile.links.github}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line-strong px-6 font-medium transition-colors hover:border-accent"
-            >
-              GitHub <ExternalIcon className="h-3.5 w-3.5 text-ink-3" />
             </a>
           </div>
         </Reveal>

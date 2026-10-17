@@ -82,3 +82,4 @@ Status as of 12 October 2026. ✓ done and verified · ◐ partly done · ○ no
 | Rewrites Annie picked (hero headline and intro, About, How I work, case study notes) | ✓ | `content/profile.ts`, `components/home/Workflow.tsx`, case study page, `publish.py` caveat |
 | About photo caption names where it was taken | ✓ | `components/home/Portrait.tsx` |
 | Vercel Web Analytics for page views (no cookies; counts only on the Vercel deployment) | ✓ | `@vercel/analytics` 2.0.1, `<Analytics />` in `website/src/app/layout.tsx`; Web Analytics must be enabled in the Vercel project |
+| GitHub links taken off the site (hero, contact, footer, console message) and the case study's code section removed, at Annie's request (17 October 2026) | ✓ | The repository can be made private without leaving broken links; GitHub stays in the tools list |

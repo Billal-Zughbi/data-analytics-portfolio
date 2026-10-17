@@ -18,11 +18,7 @@ export function SiteFooter() {
             {profile.title}. {profile.location}.
           </p>
           <p className="mt-6 font-mono text-[0.6875rem] leading-relaxed text-ink-3">
-            Built with Next.js, React Three Fiber and Recharts.{" "}
-            <a className="underline decoration-line-strong underline-offset-4 hover:text-ink-1" href={profile.links.repository}>
-              Source on GitHub
-            </a>
-            . The contour lines in the background are Mount Rainier, drawn from USGS elevation data.
+            Built with Next.js, React Three Fiber and Recharts. The contour lines in the background are Mount Rainier, drawn from USGS elevation data.
           </p>
         </div>
 
@@ -54,9 +50,6 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a href={profile.links.linkedin} className="text-ink-2 hover:text-ink-1">LinkedIn</a>
-            </li>
-            <li>
-              <a href={profile.links.github} className="text-ink-2 hover:text-ink-1">GitHub</a>
             </li>
             <li>
               <a href={`mailto:${profile.email}`} className="text-ink-2 hover:text-ink-1">Email</a>
